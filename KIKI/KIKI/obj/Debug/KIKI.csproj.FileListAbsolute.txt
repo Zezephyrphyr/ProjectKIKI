@@ -1,1 +1,2 @@
 D:\GIT\KIKI\KIKI\KIKI\bin\Debug\KIKI.exe.config
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\KIKI.exe.config
