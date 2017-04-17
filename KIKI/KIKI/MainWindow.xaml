@@ -102,10 +102,12 @@
             </Button.Background>
         </Button>
         <ListView x:Name="listView" HorizontalAlignment="Left" Margin="0,31.2,-6.4,0.4" Grid.Row="1" Width="480" Background="{x:Null}" Grid.ColumnSpan="2">
-            
+
         </ListView>
-        <Button x:Name="button1" Margin="0.2,-8,-29.4,116.8" VerticalAlignment="Bottom" Background="{x:Null}" Height="44" Grid.Column="1" BorderBrush="{x:Null}">
-            <Image Source="account.png" Height="34" Width="45" RenderTransformOrigin="0.433,0.357"/>
+        <Button x:Name="button1" Click="OnClick1" ClickMode="Press" Margin="0,0,-0.4,125.8" VerticalAlignment="Bottom" Background="White" Height="27" BorderBrush="White" Grid.Column="1" HorizontalAlignment="Right" Width="53" Opacity="0.38">
+            <Image Source="pack://application:,,,/KIKI;component/Resources/account.png" Height="34" Width="45" RenderTransformOrigin="0.624,0.5">
+
+            </Image>
         </Button>
     </Grid>
 </Window>
