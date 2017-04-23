@@ -36,3 +36,6 @@ C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Google.Apis.Platform
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Google.Apis.PlatformServices.xml
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Newtonsoft.Json.xml
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Zlib.Portable.xml
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Hardcodet.Wpf.TaskbarNotification.xml

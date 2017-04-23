@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
@@ -11,10 +7,8 @@ using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Diagnostics;
-using System.Windows.Controls;
 
 namespace KIKI
 {
@@ -30,22 +24,19 @@ namespace KIKI
         static string ApplicationName = "Google Calendar API .NET Quickstart";
         static List<string> buffer = new List<string>();
         static UserCredential credential;
+
+        public static async void revoke() { 
+        await credential.RevokeTokenAsync(CancellationToken.None);
+        }
+
         public static void Initialize()
         {
             InitializeGoogle();
             InitializeCalendar();
-            InitializeUI();
         }
-
-        public static void InitializeUI() {
-
-        }
-
 
         public static void InitializeGoogle()
             {
-               
-
                 using (var stream =
                   new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
                 {
@@ -57,13 +48,10 @@ namespace KIKI
                       GoogleClientSecrets.Load(stream).Secrets,
                       Scopes,
                       "user",
-                      CancellationToken.None,
-                      new FileDataStore(credPath, true)).Result;
+                      CancellationToken.None
+                      ).Result;
                     Console.WriteLine("Credential file saved to: " + credPath);
-                }
-
-                
-
+                }  
             }
 
         public static void InitializeCalendar()
@@ -92,13 +80,11 @@ namespace KIKI
                 foreach (var eventItem in events.Items)
                 {
                     string attendee = "";
-
                     string when = eventItem.Start.DateTime.ToString();
                     if (eventItem.Attendees != null)
                     {
                         EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
                         string[] attendeeString = new string[eventItem.Attendees.Count];
-
                         eventItem.Attendees.CopyTo(attendeeData, 0);
                         for (int i = 0; i < eventItem.Attendees.Count; i++)
                         {
@@ -108,13 +94,11 @@ namespace KIKI
                         {
                             attendee = "Unknown";
                         }
-
                     }
                     else
                     {
                         attendee = "Unknown";
                     }
-
 
                     if (String.IsNullOrEmpty(when))
                     {
@@ -134,10 +118,15 @@ namespace KIKI
             Console.Read();
         }
 
-
         public static List<string> getBuffer()
         {
             return buffer;
+        }
+
+        public static void Clean()
+        {
+            buffer = new List<string>();
+            credential = null;
         }
     }
 }
