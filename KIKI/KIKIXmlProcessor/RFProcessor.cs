@@ -13,7 +13,7 @@ namespace KIKIXmlProcessor
     {
         private String tempPath = "temp.xml";
         private String RSFile = "records.xml";
-       // private LinkedList<>
+        private LinkedList<FileNode> fileList;
         Byte sync = 0;
 
         public Boolean GetRFXML(String start, String end)
@@ -52,13 +52,18 @@ namespace KIKIXmlProcessor
                 // Load the reader with the data file and ignore all white space nodes.         
                 reader = new XmlTextReader(RSFile);
                 sync = 1;
+                int filter = 0; //the bit used to filter out entries
                 reader.WhitespaceHandling = WhitespaceHandling.None;
+                FileNode tempNode = new FileNode();
                 // Parse the file and display each of the nodes.
                 while (reader.Read())
                 {
                     switch (reader.NodeType)
                     {
                         case XmlNodeType.Element:
+                            if (reader.Name == "item")
+                            {
+                            }
                             Console.WriteLine("1");
                             Console.WriteLine("<{0}>", reader.Name);
                             break;
@@ -66,6 +71,13 @@ namespace KIKIXmlProcessor
                             Console.WriteLine("2");
                             Console.WriteLine(reader.Value);
                             break;
+                        case XmlNodeType.EndElement:
+                            Console.WriteLine("10");
+                            Console.WriteLine("</{0}>", reader.Name);
+                            break;
+                        default:
+                            break;
+                        /*
                         case XmlNodeType.CDATA:
                             Console.WriteLine("3");
                             Console.WriteLine("<![CDATA[{0}]]>", reader.Value);
@@ -92,11 +104,8 @@ namespace KIKIXmlProcessor
                         case XmlNodeType.EntityReference:
                             Console.WriteLine("9");
                             Console.WriteLine(reader.Name);
-                            break;
-                        case XmlNodeType.EndElement:
-                            Console.WriteLine("10");
-                            Console.WriteLine("</{0}>", reader.Name);
-                            break;
+                            break;*/
+
                     }
                 }
             }
@@ -136,6 +145,7 @@ namespace KIKIXmlProcessor
 
         public static void Main(string[] args)
         {
+            
             RFProcessor x = new RFProcessor();
             x.GetRFXML("hello","world"); //date and time not implemented 
             while (!File.Exists(x.tempPath)) ;
@@ -143,6 +153,8 @@ namespace KIKIXmlProcessor
             x.RemoveXMLdeclaration();
             while (x.sync == 1) ;
             x.ReadRecords();
+            
+         
         }
     }
 }
