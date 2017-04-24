@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileNode.cs" />
-    <Compile Include="RFProcessor.cs" />
+    <Compile Include="MeetingNode.cs" />
     <Compile Include="XMLProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

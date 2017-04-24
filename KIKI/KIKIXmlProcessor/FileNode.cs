@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KIKIXmlProcessor
 {
-    class FileNode
+    public class FileNode
     {
-        private string fileName = "";
+        private String fileName = "";
+        private Int32 fileID = 0;
         private DateTime modifiedTime;
         private DateTime createdTime;
         private DateTime executeTime;
@@ -17,10 +14,12 @@ namespace KIKIXmlProcessor
         private String filePath = "";
 
         public FileNode() { }
-        public FileNode(String fN, String mTime, String cTime, String eTime, String ext, String fPath) {
+        public FileNode(String fN, Int32 ID, String mTime, String cTime, String eTime, String ext, String fPath)
+        {
             fileName = fN;
             filePath = fPath;
             extension = ext;
+            fileID = ID;
             modifiedTime = this.StringToTime(mTime);
             createdTime = this.StringToTime(cTime);
             executeTime = this.StringToTime(eTime);
@@ -29,6 +28,11 @@ namespace KIKIXmlProcessor
         public void SetFileName(String fN)
         {
             fileName = fN;
+        }
+
+        public void SetFileID(Int32 ID)
+        {
+            fileID = ID;
         }
 
         public void SetFilePath(String fPath)
@@ -55,6 +59,7 @@ namespace KIKIXmlProcessor
         {
             extension = ext;
         }
+
         public void SetMissing(int ms)
         {
             if (ms == 1)
@@ -67,6 +72,45 @@ namespace KIKIXmlProcessor
             }
         }
 
+        public String GetFileName()
+        {
+            return fileName;
+        }
+
+        public Int32 GetFileID()
+        {
+            return fileID;
+        }
+
+        public DateTime GetModifiedTime()
+        {
+            return modifiedTime;
+        }
+
+        public DateTime GetCreatedTime()
+        {
+            return createdTime;
+        }
+
+        public DateTime GetExecutedTime()
+        {
+            return executeTime;
+        }
+
+        public Boolean GetMissing()
+        {
+            return missing;
+        }
+
+        public String GetExtension()
+        {
+            return extension;
+        }
+
+        public String GetFilePath()
+        {
+            return filePath;
+        }
 
         public DateTime StringToTime(String s)
         {
@@ -86,3 +130,4 @@ namespace KIKIXmlProcessor
     }
 
 }
+
