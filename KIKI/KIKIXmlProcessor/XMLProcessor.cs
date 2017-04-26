@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace KIKIXmlProcessor
 {
@@ -207,6 +208,52 @@ namespace KIKIXmlProcessor
                 return false;
             }
             return true;
+        }
+
+        public Boolean FirstUse()
+        {
+            if (!((File.Exists(mfile)) || (File.Exists(ffile)))){
+                return true;
+            }
+            return false;
+        }
+
+        public void WriteMeetings(LinkedList<MeetingNode> mts)
+        {
+            if (File.Exists(mfile))
+            {
+                UpdateMeetings(mts);
+            }
+            
+        }
+
+        public void UpdateMeetings(LinkedList<MeetingNode> mts)
+        {
+            for (LinkedListNode<MeetingNode> node = mts.First; node!= mts.Last; node = node.Next)
+            {
+                MeetingNode temp = node.Value;
+                XElement mt = new XElement("Meeting_Title",temp.GetMeetingTitle()); //meeting title element
+                if (node.Value.GetStartTime().ToString()!="")
+                {
+                    XElement st = new XElement("StartTime", temp.GetStartTime().ToString());
+                }
+                XElement et = new XElement("EndTime", temp.GetEndTime().ToString());
+                XElement d = new XElement("Duration", temp.GetDuration().ToString());
+                XElement pID = new XElement("ParentID", temp.GetParentID().ToString());
+                XElement atds = new XElement("Attendents", temp.GetAttendents());
+                LinkedList<int> files = temp.GetFileList();
+                String fileID = "";
+                for (LinkedListNode<int> file = files.First; file != files.Last; file = file.Next)
+                {
+                    fileID = file.Value.ToString();
+                    fileID = fileID + ";";
+                }
+                if (fileID != "") {
+                    fileID = fileID.Remove(fileID.Length - 1);
+                }
+                XElement f = new XElement("Files", fileID);
+                XElement mID = new XElement("MeetingID", temp.GetMeetingID(), mt, et, d, pID, atds, f);
+            }
         }
 
         //for test main method
