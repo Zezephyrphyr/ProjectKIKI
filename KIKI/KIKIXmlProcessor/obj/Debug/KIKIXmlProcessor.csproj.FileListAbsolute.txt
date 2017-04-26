@@ -1,0 +1,6 @@
+D:\GIT\KIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe.config
+D:\GIT\KIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe
+D:\GIT\KIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
+D:\GIT\KIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
+D:\GIT\KIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
+D:\GIT\KIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
