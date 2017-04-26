@@ -51,6 +51,7 @@ namespace KIKI
                 items.Add(new todayEvent() { Date = eventData[i], Time = eventData[i], Name = eventData[i + 1], Attendee = eventData[i + 2] });
                 mlistView.ItemsSource = items;
                 mlistView4.ItemsSource = items;
+                RecentFileList.ItemsSource = items;
                 var template = mlistView4.ItemTemplate;
 
             }
@@ -71,12 +72,14 @@ namespace KIKI
                 mlistView.ItemsSource = items2;
                 mlistView4.ItemsSource = null;
                 login = false;
+                loginButton.Content = "Log In";
             }
             else
             {
                 App.Initialize();
                 initializeInfo();
-                login = true; 
+                login = true;
+                loginButton.Content = "Log Out";
 
             }   
         }

@@ -96,6 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="XMLProcessor.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,12 +105,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FileNode.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MeetingNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -144,16 +147,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image1.png" />
+    <Resource Include="Resources\Image1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\account.png" />
+    <Resource Include="Resources\account.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\accountlogined.png" />
+    <Resource Include="Resources\accountlogined.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kiki.ico" />
+    <Resource Include="Resources\kiki.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
