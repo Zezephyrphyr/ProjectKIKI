@@ -17,7 +17,7 @@ namespace KIKIXmlProcessor
         private Int32 ParentID;
         private string Attendents; //Names are seperated by ";"
         //private FileNode Files;
-        private LinkedList<Int32> FileList;
+        private LinkedList<Int32> FileList = new LinkedList<Int32>();
 
 
         public MeetingNode() { }
@@ -86,6 +86,17 @@ namespace KIKIXmlProcessor
             Duration = this.computeDuration(this.StringToTime(sTime), this.StringToTime(eTime));
         }
 
+        public void SetDuration (String duration)
+        {
+            Duration = TimeSpan.Parse(duration);
+        }
+
+        //Need adjustment
+        public void SetFiles (String file)
+        {
+
+        }
+
         public String GetMeetingTitle()
         {
             return MeetingTitle;
@@ -101,17 +112,24 @@ namespace KIKIXmlProcessor
             return StartTime;
         }
 
-        public String GetStartTimeS(DateTime StartTime)
+        public String GetStartTimeS()
         {
-            String year = Convert.ToString(StartTime.Year);
-            String month = Convert.ToString(StartTime.Month);
-            String date = Convert.ToString(StartTime.Date);
-            String hour = Convert.ToString(StartTime.Hour);
-            String minute = Convert.ToString(StartTime.Minute);
-            String second = Convert.ToString(StartTime.Second);
+            if (StartTime != null)
+            {
+                String year = Convert.ToString(StartTime.Year);
+                String month = Convert.ToString(StartTime.Month);
+                String date = Convert.ToString(StartTime.Date);
+                String hour = Convert.ToString(StartTime.Hour);
+                String minute = Convert.ToString(StartTime.Minute);
+                String second = Convert.ToString(StartTime.Second);
 
-            String StartTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
-            return StartTimeS;
+                String StartTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+                return StartTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public DateTime GetEndTime()
@@ -119,17 +137,24 @@ namespace KIKIXmlProcessor
             return EndTime;
         }
 
-        public String GetEndTimeS(DateTime EndTime)
+        public String GetEndTimeS()
         {
-            String year = Convert.ToString(EndTime.Year);
-            String month = Convert.ToString(EndTime.Month);
-            String date = Convert.ToString(EndTime.Date);
-            String hour = Convert.ToString(EndTime.Hour);
-            String minute = Convert.ToString(EndTime.Minute);
-            String second = Convert.ToString(EndTime.Second);
+            if (EndTime != null)
+            {
+                String year = Convert.ToString(EndTime.Year);
+                String month = Convert.ToString(EndTime.Month);
+                String date = Convert.ToString(EndTime.Date);
+                String hour = Convert.ToString(EndTime.Hour);
+                String minute = Convert.ToString(EndTime.Minute);
+                String second = Convert.ToString(EndTime.Second);
 
-            String EndTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
-            return EndTimeS;
+                String EndTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+                return EndTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public TimeSpan GetDuration()
@@ -150,6 +175,34 @@ namespace KIKIXmlProcessor
         public LinkedList<Int32> GetFileList()
         {
             return FileList;
+        }
+
+        public String GetFileListS()
+        {
+            String fileID = "";
+            for (LinkedListNode<Int32> file = FileList.First; file != FileList.Last; file = file.Next)
+            {
+                fileID = file.Value.ToString();
+                fileID = fileID + ";";
+            }
+            if (fileID != "")
+            {
+                fileID = fileID.Remove(fileID.Length - 1);
+            }
+            return fileID;
+        }
+
+        public Boolean AddToFilelist(Int32 i)
+        {
+            if (FileList.Find(i) == null)
+            {
+                FileList.AddLast(i);
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
         }
 
         public DateTime StringToTime(String s)

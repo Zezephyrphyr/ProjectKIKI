@@ -4,9 +4,21 @@ D:\GIT\KIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
 D:\GIT\KIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
 D:\GIT\KIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
 D:\GIT\KIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
-C:\Users\eddie\Documents\395 PJ\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe.config
-C:\Users\eddie\Documents\395 PJ\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe
-C:\Users\eddie\Documents\395 PJ\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
-C:\Users\eddie\Documents\395 PJ\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
-C:\Users\eddie\Documents\395 PJ\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
-C:\Users\eddie\Documents\395 PJ\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
+D:\GitHub\GitRepo\ProjectKIKI-master\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe.config
+D:\GitHub\GitRepo\ProjectKIKI-master\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe
+D:\GitHub\GitRepo\ProjectKIKI-master\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
+D:\GitHub\GitRepo\ProjectKIKI-master\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
+D:\GitHub\GitRepo\ProjectKIKI-master\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
+D:\GitHub\GitRepo\ProjectKIKI-master\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
+D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe.config
+D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe
+D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
+D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
+D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
+D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe.config
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb

@@ -19,11 +19,14 @@ namespace KIKI
     /// //////////////////////////////////////
     public partial class App : Application
     {
+
         // If modifying these scopes, delete your previously saved credentials
         // at ~/.credentials/calendar-dotnet-quickstart.json
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "Google Calendar API .NET Quickstart";
-        static List<string> buffer = new List<string>();
+        static List<string> bufferGoogle = new List<string>();
+        static List<string> bufferMeeting = new List<string>();
+        static List<string> bufferFile = new List<string>();
         static UserCredential credential;
         static LinkedList<FileNode> fileList;
         static LinkedList<MeetingNode> meetingList;
@@ -36,6 +39,7 @@ namespace KIKI
         {
             InitializeGoogle();
             InitializeCalendar();
+            InitializeMeetingTab();
         }
 
         public static void InitializeGoogle()
@@ -108,9 +112,9 @@ namespace KIKI
                         when = eventItem.Start.Date;
                     }
 
-                    buffer.Add(when);
-                    buffer.Add(eventItem.Summary);
-                    buffer.Add(attendee);
+                    bufferGoogle.Add(when);
+                    bufferGoogle.Add(eventItem.Summary);
+                    bufferGoogle.Add(attendee);
 
                 }
             }
@@ -119,6 +123,20 @@ namespace KIKI
                 Debug.WriteLine("No upcoming events found.");
             }
             Console.Read();
+        }
+
+        public static void InitializeMeetingTab()
+        {
+            LinkedList<MeetingNode> MeetingList = returnMeeting();
+            foreach (MeetingNode item in MeetingList)
+            {
+                
+                bufferMeeting.Add(item.GetStartTime().ToString());
+                bufferMeeting.Add(item.GetMeetingTitle());
+                bufferMeeting.Add(item.GetAttendents());   
+                bufferMeeting.Add(item.GetFileListS()+"");
+
+            }
         }
 
         public static void fetchFromGoogle(DateTime minTime)
@@ -184,10 +202,6 @@ namespace KIKI
                         file.SetFilePath(eventItem.Attachments[i].FileUrl);
                         fileList.AddLast(file);
                     }
-
-                    buffer.Add(when);
-                    buffer.Add(eventItem.Summary);
-                    buffer.Add(attendee);
                 }
             }
         }
@@ -202,15 +216,60 @@ namespace KIKI
             return fileList;
         }
 
-        public static List<string> getBuffer()
+        public static List<string> getGoogleBuffer()
         {
-            return buffer;
+            return bufferGoogle;
+        }
+
+        public static List<string> getMeetingBuffer()
+        {
+            return bufferMeeting;
         }
 
         public static void Clean()
         {
-            buffer = new List<string>();
+            bufferGoogle = new List<string>();
             credential = null;
+        }
+
+        public static LinkedList<MeetingNode> returnMeeting()
+        {
+            LinkedList<MeetingNode> k = new LinkedList<MeetingNode>();
+
+            String mTitle = "EECS395";
+            String mID = "05_1";
+            String sTime = "2017/4/1 17:30:05";
+            String eTime = "2017/4/1 19:10:05";
+            String PID = "05";
+            String Attendents = "Steven, Eddie, Xiaoying";
+            Int32 FileID = 1;
+
+            String mTitleh = "EECS395h";
+            String mIDh = "05_1h";
+            String sTimeh = "2017/4/1 15:30:05";
+            String eTimeh = "2017/4/1 14:10:05";
+            String PIDh = "051";
+            String Attendentsh = "Stevenh, Eddie, Xiaoying";
+            Int32 FileIDh = 1;
+
+            String mTitle2 = "EECS3952";
+            String mID2 = "05_2";
+            String sTime2 = "2017/4/2 17:30:05";
+            String eTime2 = "2017/4/2 19:10:05";
+            String PID2 = "052";
+            String Attendents2 = "Steven, Eddie, Xiaoying2";
+            Int32 FileID2 = 2;
+
+            MeetingNode meeting = new MeetingNode(mTitle, mID, sTime, eTime, PID, Attendents, FileID);
+            meeting.AddFiles(2);
+            meeting.AddFiles(3);
+            k.AddLast(meeting);
+            meeting = new MeetingNode(mTitle2, mID2, sTime2, eTime2, PID2, Attendents2, FileID2);
+            k.AddLast(meeting);
+            meeting = new MeetingNode(mTitleh, mIDh, sTimeh, eTimeh, PIDh, Attendentsh, FileIDh);
+            k.AddLast(meeting);
+            Debug.Print("55555555555555555555555555555555555555555555555");
+            return k;
         }
     }
 }

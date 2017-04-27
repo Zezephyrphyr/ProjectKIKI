@@ -16,7 +16,7 @@ namespace KIKIXmlProcessor
         private Boolean missing = true;
         private String extension = "";
         private String filePath = "";
-        private LinkedList<String> MeetingList;
+        private LinkedList<String> MeetingList = new LinkedList<String>();
 
         public FileNode() { }
         public FileNode(String fN, String FID, String mTime, String cTime, String eTime, String ext, String fPath, String MeetingID)
@@ -50,6 +50,11 @@ namespace KIKIXmlProcessor
         public void SetFileID(Int32 FID)
         {
             fileID = FID;
+        }
+
+        public void SetFileID(String FID)
+        {
+            fileID = Convert.ToInt32(FID);
         }
 
         public void SetFilePath(String fPath)
@@ -89,6 +94,12 @@ namespace KIKIXmlProcessor
             }
         }
 
+        //Need adjustment
+        public void SetMeetings (String meeting)
+        {
+
+        }
+
         public void AddMeetings(String MeetingID)
         {
             MeetingList.AddLast(MeetingID);
@@ -109,7 +120,7 @@ namespace KIKIXmlProcessor
             return modifiedTime;
         }
 
-        public String GetModifiedTimeS(DateTime modifiedTime)
+        public String GetModifiedTimeS()
         {
             String year = Convert.ToString(modifiedTime.Year);
             String month = Convert.ToString(modifiedTime.Month);
@@ -127,7 +138,7 @@ namespace KIKIXmlProcessor
             return createdTime;
         }
 
-        public String GetCreatedTimeS(DateTime createdTime)
+        public String GetCreatedTimeS()
         {
             String year = Convert.ToString(createdTime.Year);
             String month = Convert.ToString(createdTime.Month);
@@ -140,12 +151,12 @@ namespace KIKIXmlProcessor
             return CreatedTimeS;
         }
 
-        public DateTime GetExecutedTime()
+        public DateTime GetExecuteTime()
         {
             return executeTime;
         }
 
-        public String GetExecutedTimeS(DateTime executeTime)
+        public String GetExecuteTimeS()
         {
             String year = Convert.ToString(executeTime.Year);
             String month = Convert.ToString(executeTime.Month);
@@ -176,6 +187,34 @@ namespace KIKIXmlProcessor
         public LinkedList<String> GetMeetingList()
         {
             return MeetingList;
+        }
+
+        public String GetMeetingListS()
+        {
+            String MeetingID = "";
+            for (LinkedListNode<String> meeting = MeetingList.First; meeting != MeetingList.Last; meeting = meeting.Next)
+            {
+                MeetingID = meeting.Value;
+                MeetingID = MeetingID + ";";
+            }
+            if (MeetingID != "")
+            {
+                MeetingID = MeetingID.Remove(MeetingID.Length - 1);
+            }
+            return MeetingID;
+        }
+
+        public Boolean AddToMeetinglist(String s)
+        {
+            if (MeetingList.Find(s) == null)
+            {
+                MeetingList.AddLast(s);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public DateTime StringToTime(String s)

@@ -14,6 +14,7 @@ using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System.Collections.ObjectModel;
+using KIKIXmlProcessor;
 
 namespace KIKI
 {
@@ -38,31 +39,49 @@ namespace KIKI
                     this.Show();
                     this.WindowState = System.Windows.WindowState.Normal;
                 };
-            initializeInfo();
+            initializeGoogleInfo();
+            
+            initializeMeetingInfo();
     }
        
-        private void initializeInfo()
+        private void initializeGoogleInfo()
         {
-            List<string> eventData = App.getBuffer();
+           
+            List<string> eventData = App.getGoogleBuffer();
             ObservableCollection<todayEvent> items = new ObservableCollection<todayEvent>();
-
+            
             for (int i = 0; i < eventData.Count; i = i + 3)
             {
                 items.Add(new todayEvent() { Date = eventData[i], Time = eventData[i], Name = eventData[i + 1], Attendee = eventData[i + 2] });
                 mlistView.ItemsSource = items;
-                mlistView4.ItemsSource = items;
                 RecentFileList.ItemsSource = items;
-                var template = mlistView4.ItemTemplate;
 
             }
+
+        }
+        private void initializeMeetingInfo()
+        { 
+            List<string> meetingData = App.getMeetingBuffer();
+            ObservableCollection<previousMeeting> items = new ObservableCollection<previousMeeting>();
+            Debug.Print(""+ meetingData.Count);
+            for (int i = 0; i < meetingData.Count; i = i + 4)
+            {
+                items.Add(new previousMeeting() { Time = meetingData[i],  Name = meetingData[i+1], Attendee = meetingData[i + 2], Docs = meetingData[i + 3]});
+                
+                mlistView4.ItemsSource = items;
+          
+            }
+
         }
 
-        private void listView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+
+        public void searchClick(object sender, RoutedEventArgs e)
         {
-
+            Window1 newWindow = new Window1();
+            newWindow.Show();
         }
 
-        public void OnClick1(object sender, RoutedEventArgs e)
+        public void loginClick(object sender, RoutedEventArgs e)
         {
             if (login == true)
             {
@@ -77,16 +96,45 @@ namespace KIKI
             else
             {
                 App.Initialize();
-                initializeInfo();
+                initializeGoogleInfo();
                 login = true;
                 loginButton.Content = "Log Out";
 
             }   
         }
 
+        public void fileClick(object sender, EventArgs e)
+        {
+            
+            if (SystemParameters.SwapButtons) // Or use SystemInformation.MouseButtonsSwapped
+            {
+                // openfile
+            }
+            else
+            {
+                string str = sender.ToString();
+                str = str.Substring(str.LastIndexOf(' ') + 1);
+                clickShowFiles newWindow = new clickShowFiles(str);
+                Debug.Print("" + str);
+                newWindow.Show();
+            }
+         
+        }
+
+        private void MeetingClick(object sender, RoutedEventArgs e)
+        {
+            clickMeetingShowFile newWindow = new clickMeetingShowFile();
+            newWindow.Show();
+        }
+
+        private void listView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+          
+        }
+
         private void listView_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-
+      
         }
 
         private void textBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -105,6 +153,7 @@ namespace KIKI
                 this.Hide();
             base.OnStateChanged(e);
         }
+       
     }
 
     public class todayEvent
@@ -114,5 +163,43 @@ namespace KIKI
         public string Attendee { get; set; }
         public string Date { get; set; }
     }
+
+    public class previousMeeting
+    {
+        public string Time { get; set; }
+        public string Name { get; set; }
+        public string Attendee { get; set;}
+        public string Docs { get; set; }
+    }
+
+    public class recentFile
+    {
+        public string Time { get; set; }
+        public string Title { get; set; }
+        public string Attendee { get; set; }
+    }
+    
+    public class searchFile
+    {
+        public string Time { get; set; }
+        public string Title { get; set; }
+        public string Attendee { get; set; }
+    }
+
+    public class searchMeeting
+    {
+        public string Time { get; set; }
+        public string Name { get; set; }
+        public string Attendee { get; set; }
+        public string Docs { get; set; }
+    }
+
+    public class clickMeeting {
+        public string Name { get; set; }
+        public string createdTime { get; set; }
+        public string lastModified { get; set; }
+    }
+
+
 
 }
