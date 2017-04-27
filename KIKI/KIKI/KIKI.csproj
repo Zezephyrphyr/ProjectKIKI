@@ -62,6 +62,10 @@
       <HintPath>..\packages\Google.Apis.1.21.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -92,6 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="XMLProcessor.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,12 +105,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FileNode.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MeetingNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -120,8 +127,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="client_secret.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -139,19 +147,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image1.png" />
+    <Resource Include="Resources\Image1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\account.png" />
+    <Resource Include="Resources\account.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\accountlogined.png" />
+    <Resource Include="Resources\accountlogined.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KIKIXmlProcessor\KIKIXmlProcessor.csproj">
-      <Project>{a3284382-ad17-417c-9e6c-ad4859ceb9d0}</Project>
-      <Name>KIKIXmlProcessor</Name>
-    </ProjectReference>
+    <Resource Include="Resources\kiki.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
