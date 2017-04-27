@@ -14,15 +14,56 @@ namespace KIKIXmlProcessor
     {
         private String mfile = "meetings.xml";
         private String ffile = "files.xml";
+        private String sfile = "Settings.xml";
         private String workingPath = "";
         private String tempPath = "temp.xml";
         private String RSFile = "records.xml";
         private LinkedList<FileNode> fileList = new LinkedList<FileNode>();
+        private LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
+        private String lastUpdate = "";
+        
         Byte sync = 0;
 
         public XMLProcessor()
         {
         }
+
+
+        // ---------------------------Read Basic Settings -------------------------------------
+
+        public void GetInfoFromSettings()
+        {
+            XElement settingsFile = XElement.Load(sfile);
+            workingPath = settingsFile.Element("Working_Path").Value;
+            lastUpdate = settingsFile.Element("Last_Update").Value;
+            UpdateFilePath();
+        }
+
+        public void UpdateFilePath()
+        {
+            mfile = workingPath + "meetings.xml";
+            ffile = workingPath + "files.xml";
+            tempPath = workingPath + "temp.xml";
+            RSFile = workingPath + "records.xml";
+        }
+
+        public DateTime GetLastUpdateTime()
+        {
+            String[] s1 = lastUpdate.Split(' ');
+            String[] s2 = s1[0].Split('/');
+            String[] s3 = s1[1].Split(':');
+            int year = Convert.ToInt32(s2[0]);
+            int month = Convert.ToInt32(s2[1]);
+            int day = Convert.ToInt32(s2[2]);
+            int hour = Convert.ToInt32(s3[0]);
+            int minute = Convert.ToInt32(s3[1]);
+            int second = Convert.ToInt32(s3[2]);
+
+            DateTime x = new DateTime(year, month, day, hour, minute, second);
+            return x;
+        }
+        //-----------------------------------------------------------------------------------------
+
 
         // ------------Read Recent File Records From the System----------------------------------
         // Post condition: A linked list of roughly sorted file data
@@ -246,6 +287,29 @@ namespace KIKIXmlProcessor
                 return true;
             }
             return false;
+        }
+
+        public void UpdateSettingsTime(DateTime time)
+        {
+            String year = Convert.ToString(time.Year);
+            String month = Convert.ToString(time.Month);
+            String date = Convert.ToString(time.Date);
+            String hour = Convert.ToString(time.Hour);
+            String minute = Convert.ToString(time.Minute);
+            String second = Convert.ToString(time.Second);
+
+            String timeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+            
+            XElement settingsFile = XElement.Load(sfile);
+            settingsFile.Element("Last_Update").ReplaceNodes(timeS);
+            settingsFile.Save(sfile);
+        }
+
+        public void UpdateSettingsPath(String workingPath)
+        {
+            XElement settingsFile = XElement.Load("Settings.xml");
+            settingsFile.Element("Working_Path").ReplaceNodes(workingPath);
+            settingsFile.Save(sfile);
         }
 
         //A method store the linked list of meetings into the database
@@ -709,6 +773,21 @@ namespace KIKIXmlProcessor
                 Console.WriteLine(meeting.Element("Duration").Value);
             }
 
+            XElement s1 = new XElement("Settings", new XElement("Working_Path",""), new XElement("Last_Update", "Uninitialized"));
+            XDocument xDoc2 = new XDocument(
+            new XDeclaration("1.0", "UTF-16", null), s1);
+            StringWriter sw2 = new StringWriter();
+            XmlWriter xWrite2 = XmlWriter.Create(sw2);
+            xDoc2.Save(xWrite2);
+            xWrite2.Close();
+
+            // Save to Disk
+            xDoc2.Save("Settings.xml");
+            Console.WriteLine("SettingsSaved");
+
+            XElement settingsFile = XElement.Load("Settings.xml");
+            Console.WriteLine(settingsFile.Element("Working_Path").Value);
+            Console.WriteLine(settingsFile.Element("Last_Update").Value);
             /*
                 XElement xelement = XElement.Load("Employees.xml");
                 var name = from nm in xelement.Elements("Employee")
