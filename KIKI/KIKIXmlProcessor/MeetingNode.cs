@@ -17,7 +17,7 @@ namespace KIKIXmlProcessor
         private Int32 ParentID;
         private string Attendents; //Names are seperated by ";"
         //private FileNode Files;
-        private LinkedList<Int32> FileList;
+        private LinkedList<Int32> FileList = new LinkedList<Int32>();
 
 
         public MeetingNode() { }

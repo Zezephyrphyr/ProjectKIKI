@@ -16,7 +16,7 @@ namespace KIKIXmlProcessor
         private Boolean missing = true;
         private String extension = "";
         private String filePath = "";
-        private LinkedList<String> MeetingList;
+        private LinkedList<String> MeetingList = new LinkedList<String>();
 
         public FileNode() { }
         public FileNode(String fN, String FID, String mTime, String cTime, String eTime, String ext, String fPath, String MeetingID)
