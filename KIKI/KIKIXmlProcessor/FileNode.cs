@@ -52,6 +52,11 @@ namespace KIKIXmlProcessor
             fileID = FID;
         }
 
+        public void SetFileID(String FID)
+        {
+            fileID = Convert.ToInt32(FID);
+        }
+
         public void SetFilePath(String fPath)
         {
             filePath = fPath;
@@ -87,6 +92,12 @@ namespace KIKIXmlProcessor
             {
                 missing = false;
             }
+        }
+
+        //Need adjustment
+        public void SetMeetings (String meeting)
+        {
+
         }
 
         public void AddMeetings(String MeetingID)
@@ -140,12 +151,12 @@ namespace KIKIXmlProcessor
             return CreatedTimeS;
         }
 
-        public DateTime GetExecutedTime()
+        public DateTime GetExecuteTime()
         {
             return executeTime;
         }
 
-        public String GetExecutedTimeS()
+        public String GetExecuteTimeS()
         {
             String year = Convert.ToString(executeTime.Year);
             String month = Convert.ToString(executeTime.Month);

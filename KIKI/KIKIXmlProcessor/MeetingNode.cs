@@ -86,6 +86,17 @@ namespace KIKIXmlProcessor
             Duration = this.computeDuration(this.StringToTime(sTime), this.StringToTime(eTime));
         }
 
+        public void SetDuration (String duration)
+        {
+            Duration = TimeSpan.Parse(duration);
+        }
+
+        //Need adjustment
+        public void SetFiles (String file)
+        {
+
+        }
+
         public String GetMeetingTitle()
         {
             return MeetingTitle;
