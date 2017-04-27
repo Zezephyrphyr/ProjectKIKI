@@ -505,7 +505,7 @@ namespace KIKIXmlProcessor
                     currentNode.SetFileName(file.Element("File_Name").Value);
                     currentNode.SetFilePath(file.Element("File_Path").Value);
                     currentNode.SetExtension(file.Element("Extension").Value);
-                    currentNode.SetMeetings(file.Element("Meetins").Value);
+                    currentNode.SetMeetings(file.Element("Meetings").Value);
                     list.AddLast(currentNode);
                 }
             }
@@ -625,7 +625,7 @@ namespace KIKIXmlProcessor
                     currentNode.SetFileName(file.Element("File_Name").Value);
                     currentNode.SetFilePath(file.Element("File_Path").Value);
                     currentNode.SetExtension(file.Element("Extension").Value);
-                    currentNode.SetMeetings(file.Element("Meetins").Value);
+                    currentNode.SetMeetings(file.Element("Meetings").Value);
                     list.AddLast(currentNode);
                 }
             }
