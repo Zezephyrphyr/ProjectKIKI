@@ -82,9 +82,9 @@ namespace KIKIXmlProcessor
             extension = ext;
         }
 
-        public void SetMissing(int ms)
+        public void SetMissing(String ms)
         {
-            if (ms == 1)
+            if (ms == "Yes")
             {
                 missing = true;
             }
@@ -94,15 +94,20 @@ namespace KIKIXmlProcessor
             }
         }
 
-        //Need adjustment
-        public void SetMeetings (String meeting)
+        //May need adjustment
+        public void SetMeetings(String meetingString)
         {
-
+            MeetingList.AddLast(meetingString);
         }
 
         public void AddMeetings(String MeetingID)
         {
             MeetingList.AddLast(MeetingID);
+        }
+
+        public void AddMeetings(Int32 MeetingID)
+        {
+            MeetingList.AddLast(Convert.ToString(MeetingID));
         }
 
         public String GetFileName()
@@ -122,14 +127,7 @@ namespace KIKIXmlProcessor
 
         public String GetModifiedTimeS()
         {
-            String year = Convert.ToString(modifiedTime.Year);
-            String month = Convert.ToString(modifiedTime.Month);
-            String date = Convert.ToString(modifiedTime.Date);
-            String hour = Convert.ToString(modifiedTime.Hour);
-            String minute = Convert.ToString(modifiedTime.Minute);
-            String second = Convert.ToString(modifiedTime.Second);
-
-            String ModifiedTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+            String ModifiedTimeS = this.TimeToString(modifiedTime);
             return ModifiedTimeS;
         }
 
@@ -140,14 +138,7 @@ namespace KIKIXmlProcessor
 
         public String GetCreatedTimeS()
         {
-            String year = Convert.ToString(createdTime.Year);
-            String month = Convert.ToString(createdTime.Month);
-            String date = Convert.ToString(createdTime.Date);
-            String hour = Convert.ToString(createdTime.Hour);
-            String minute = Convert.ToString(createdTime.Minute);
-            String second = Convert.ToString(createdTime.Second);
-
-            String CreatedTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+            String CreatedTimeS = this.TimeToString(createdTime);
             return CreatedTimeS;
         }
 
@@ -158,14 +149,7 @@ namespace KIKIXmlProcessor
 
         public String GetExecuteTimeS()
         {
-            String year = Convert.ToString(executeTime.Year);
-            String month = Convert.ToString(executeTime.Month);
-            String date = Convert.ToString(executeTime.Date);
-            String hour = Convert.ToString(executeTime.Hour);
-            String minute = Convert.ToString(executeTime.Minute);
-            String second = Convert.ToString(executeTime.Second);
-
-            String ExecutedTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+            String ExecutedTimeS = this.TimeToString(executeTime);
             return ExecutedTimeS;
         }
 
@@ -219,18 +203,39 @@ namespace KIKIXmlProcessor
 
         public DateTime StringToTime(String s)
         {
-            String[] s1 = s.Split(' ');
-            String[] s2 = s1[0].Split('/');
-            String[] s3 = s1[1].Split(':');
-            int year = Convert.ToInt32(s2[0]);
-            int month = Convert.ToInt32(s2[1]);
-            int day = Convert.ToInt32(s2[2]);
-            int hour = Convert.ToInt32(s3[0]);
-            int minute = Convert.ToInt32(s3[1]);
-            int second = Convert.ToInt32(s3[2]);
+            if (s == "N / A")
+            {
+                DateTime empty = DateTime.MinValue;
+                return empty;
+            }
+            else
+            {
+                String[] s1 = s.Split(' ');
+                String[] s2 = s1[0].Split('/');
+                String[] s3 = s1[1].Split(':');
+                int year = Convert.ToInt32(s2[0]);
+                int month = Convert.ToInt32(s2[1]);
+                int day = Convert.ToInt32(s2[2]);
+                int hour = Convert.ToInt32(s3[0]);
+                int minute = Convert.ToInt32(s3[1]);
+                int second = Convert.ToInt32(s3[2]);
 
-            DateTime x = new DateTime(year, month, day, hour, minute, second);
-            return x;
+                DateTime x = new DateTime(year, month, day, hour, minute, second);
+                return x;
+            }
+        }
+
+        public String TimeToString(DateTime dt)
+        {
+            String year = Convert.ToString(dt.Year);
+            String month = Convert.ToString(dt.Month);
+            String date = Convert.ToString(dt.Date);
+            String hour = Convert.ToString(dt.Hour);
+            String minute = Convert.ToString(dt.Minute);
+            String second = Convert.ToString(dt.Second);
+
+            String dtString = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+            return dtString;
         }
     }
 
