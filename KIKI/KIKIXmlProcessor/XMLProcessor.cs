@@ -30,6 +30,8 @@ namespace KIKIXmlProcessor
                 WriteSettings();
                 DateTime time = DateTime.Now - new TimeSpan(30, 0, 0, 0);
                 lastUpdate = time;
+                WriteNewFilesFile();
+                WriteNewMeetingsFile(new LinkedList<MeetingNode>());
             }
             else
             {
