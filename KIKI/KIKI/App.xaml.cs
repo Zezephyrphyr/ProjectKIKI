@@ -19,14 +19,17 @@ namespace KIKI
     /// //////////////////////////////////////
     public partial class App : Application
     {
+
         // If modifying these scopes, delete your previously saved credentials
         // at ~/.credentials/calendar-dotnet-quickstart.json
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "Google Calendar API .NET Quickstart";
-        static List<string> buffer = new List<string>();
+        static List<string> bufferGoogle = new List<string>();
+        static List<string> bufferMeeting = new List<string>();
+        static List<string> bufferFile = new List<string>();
         static UserCredential credential;
-        static LinkedList<FileNode> fileList;
-        static LinkedList<MeetingNode> meetingList;
+        static LinkedList<FileNode> fileList = new LinkedList<FileNode>();
+        static LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
 
         public static async void revoke() { 
         await credential.RevokeTokenAsync(CancellationToken.None);
@@ -36,6 +39,10 @@ namespace KIKI
         {
             InitializeGoogle();
             InitializeCalendar();
+            InitializeCore();
+            InitializeMeetingTab();
+            InitializeFileTab();
+            
         }
 
         public static void InitializeGoogle()
@@ -108,9 +115,9 @@ namespace KIKI
                         when = eventItem.Start.Date;
                     }
 
-                    buffer.Add(when);
-                    buffer.Add(eventItem.Summary);
-                    buffer.Add(attendee);
+                    bufferGoogle.Add(when);
+                    bufferGoogle.Add(eventItem.Summary);
+                    bufferGoogle.Add(attendee);
 
                 }
             }
@@ -119,6 +126,42 @@ namespace KIKI
                 Debug.WriteLine("No upcoming events found.");
             }
             Console.Read();
+        }
+
+        public static void InitializeMeetingTab()
+        {
+            LinkedList<MeetingNode> MeetingList = returnMeeting();
+            foreach (MeetingNode item in MeetingList)
+            {
+                
+                bufferMeeting.Add(item.GetStartTime().ToString());
+                bufferMeeting.Add(item.GetMeetingTitle());
+                bufferMeeting.Add(item.GetAttendents());   
+                bufferMeeting.Add(item.GetFileListS()+"");
+
+            }
+        }
+
+        public static void InitializeFileTab()
+        {
+            LinkedList<FileNode> FileList = returnFile();
+            foreach (FileNode item in FileList)
+            {
+
+                bufferFile.Add(item.GetFileName());
+                bufferFile.Add(item.GetFilePath());
+                bufferFile.Add(item.GetMeetingListS());
+                Debug.Print(item.GetMeetingListS());
+            }
+        }
+
+        public static void InitializeCore()
+        {
+            XMLProcessor p = new XMLProcessor();
+            p.Read();
+            fetchFromGoogle(p.GetLastUpdateTime());
+            p.ProcessFileWithMeetingList(meetingList, fileList);
+            p.Write();
         }
 
         public static void fetchFromGoogle(DateTime minTime)
@@ -139,7 +182,7 @@ namespace KIKI
             request.TimeMin = minTime;
             request.TimeMax = DateTime.Now;
             request.ShowDeleted = false;
-            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+           
 
             // List events.
             Events events = request.Execute();
@@ -169,25 +212,23 @@ namespace KIKI
                     }
                     meeting.SetAttendents(attendee);
                     meeting.SetMeetingID(eventItem.Id);
-                    meeting.SetParentID(Convert.ToInt32(eventItem.ICalUID));
+                    meeting.SetParentID(eventItem.ICalUID.ToString());
                     meeting.SetStartTime(when);
                     meeting.SetEndTime(eventItem.End.DateTime.ToString());
                     meeting.SetMeetingTitle(eventItem.Summary);
                     meetingList.AddLast(meeting);
-
-                    for(int i = 0; i < eventItem.Attachments.Count; i++)
-                    {
-                        file.SetModifiedTime(eventItem.Start.DateTime.ToString());
-                        file.SetFileID(Convert.ToInt32(eventItem.Attachments[i].FileId));
-                        file.SetExtension("GoogleDrive");
-                        file.SetFileName(eventItem.Attachments[i].Title);
-                        file.SetFilePath(eventItem.Attachments[i].FileUrl);
-                        fileList.AddLast(file);
+                    if (eventItem.Attachments != null) {
+                        for (int i = 0; i < eventItem.Attachments.Count; i++)
+                        {
+                            file.SetModifiedTime(eventItem.Start.DateTime.ToString());
+                            file.SetFileID(Convert.ToInt32(eventItem.Attachments[i].FileId));
+                            file.SetExtension("GoogleDrive");
+                            file.SetFileName(eventItem.Attachments[i].Title);
+                            file.SetFilePath(eventItem.Attachments[i].FileUrl);
+                            file.AddMeetings(eventItem.Id);
+                            fileList.AddLast(file);
+                        }
                     }
-
-                    buffer.Add(when);
-                    buffer.Add(eventItem.Summary);
-                    buffer.Add(attendee);
                 }
             }
         }
@@ -202,16 +243,50 @@ namespace KIKI
             return fileList;
         }
 
-        public static List<string> getBuffer()
+        public static List<string> getGoogleBuffer()
         {
-            return buffer;
+            return bufferGoogle;
+        }
+
+        public static List<string> getMeetingBuffer()
+        {
+            return bufferMeeting;
+        }
+
+        public static List<string> getFileBuffer()
+        {
+            return bufferFile;
         }
 
         public static void Clean()
         {
-            buffer = new List<string>();
+            bufferGoogle = new List<string>();
             credential = null;
         }
+
+        public static void UpdateGoogleList()
+        {
+            bufferGoogle = new List<string>();
+        }
+        public static LinkedList<MeetingNode> returnMeeting()
+        {
+            LinkedList<MeetingNode> k = new LinkedList<MeetingNode>();
+            XMLProcessor processor = new XMLProcessor();
+            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
+            k = searcher.FindMeetingsByMeetingTitleKeywords("");
+            return k;
+        }
+
+        public static LinkedList<FileNode> returnFile()
+        {
+            LinkedList<FileNode> k = new LinkedList<FileNode>();
+            XMLProcessor processor = new XMLProcessor();
+            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
+            k = searcher.FindFilesByFileNameKeywords("");
+            return k;
+
+        }
+
+        }
     }
-}
     
