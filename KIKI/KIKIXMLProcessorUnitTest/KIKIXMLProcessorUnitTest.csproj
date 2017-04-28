@@ -52,6 +52,7 @@
     <Compile Include="MeetingNodeUnitTest.cs" />
     <Compile Include="XMLProcessorUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLSearcherUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -931,6 +931,7 @@ namespace KIKIXmlProcessor
             {
                 Console.WriteLine(node.GetFileName());
             }
+            Uri.IsWellFormedOriginalString()
         }
     }
 }

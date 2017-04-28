@@ -15,4 +15,3 @@ D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXml
 D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
 D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
 D:\GitHub\GitRepo\ProjectKIKI-master-new\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
-D:\GIT\KIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
