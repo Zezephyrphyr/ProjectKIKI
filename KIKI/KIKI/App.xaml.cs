@@ -42,7 +42,8 @@ namespace KIKI
             InitializeCore();
             InitializeMeetingTab();
             InitializeFileTab();
-            
+      
+
         }
 
         public static void InitializeGoogle()
@@ -83,7 +84,6 @@ namespace KIKI
 
             // List events.
             Events events = request.Execute();
-            Debug.WriteLine("Upcoming events:");
             if (events.Items != null && events.Items.Count > 0)
             {
 
@@ -191,6 +191,7 @@ namespace KIKI
 
                 foreach (var eventItem in events.Items)
                 {
+                    meeting = new MeetingNode();
                     string attendee = "";
                     string when = eventItem.Start.DateTime.ToString();
                     if (eventItem.Attendees != null)
