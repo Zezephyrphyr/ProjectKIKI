@@ -21,3 +21,9 @@ D:\KIKIBackup\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
 D:\KIKIBackup\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
 D:\KIKIBackup\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
 D:\KIKIBackup\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
+D:\GIT\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe.config
+D:\GIT\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe
+D:\GIT\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
+D:\GIT\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
+D:\GIT\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
+D:\GIT\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb

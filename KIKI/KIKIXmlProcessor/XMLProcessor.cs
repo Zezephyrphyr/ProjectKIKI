@@ -28,6 +28,8 @@ namespace KIKIXmlProcessor
             if (!File.Exists(sfile))
             {
                 WriteSettings();
+                DateTime time = DateTime.Now - new TimeSpan(30, 0, 0, 0);
+                lastUpdate = time;
             }
             else
             {
@@ -45,6 +47,11 @@ namespace KIKIXmlProcessor
             if (settingsFile.Element("Last_Update").Value != "Uninitialized")
             {
                 lastUpdate = StringToTime(settingsFile.Element("Last_Update").Value);
+            }
+            else
+            {
+                DateTime time = DateTime.Now - new TimeSpan(30,0,0,0);
+                lastUpdate = time;
             }
             lastID = Convert.ToInt32(settingsFile.Element("Last_File_ID").Value);
             if (settingsFile.Element("Minimum_Duration").Value != "")
