@@ -53,7 +53,7 @@ namespace KIKIXmlProcessor
                 executeTime = this.StringToTime(eTime);
             }
 
-            this.AddMeetings(MeetingID);
+            //this.AddMeetings(MeetingID);
         }
 
         public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath, String MeetingID)
@@ -90,7 +90,7 @@ namespace KIKIXmlProcessor
                 executeTime = eTime;
             }
 
-            this.AddMeetings(MeetingID);
+            //this.AddMeetings(MeetingID);
         }
 
         public void SetFileName(String fN)
@@ -135,7 +135,7 @@ namespace KIKIXmlProcessor
 
         public void SetMissing(String ms)
         {
-            if (ms == "Yes")
+            if (ms == "Yes" || ms == "True")
             {
                 missing = true;
             }
@@ -252,17 +252,24 @@ namespace KIKIXmlProcessor
 
         public String GetMeetingListS()
         {
-            String s = "";
-            foreach (String n in MeetingList)
+            if (MeetingList.Count == 0)
             {
-                s = s + n.ToString();
-                s = s + ";";
+                return "";
             }
-            if (s != "")
+            else
             {
-                s = s.Remove(s.Length - 1);
+                String s = "";
+                foreach (String n in MeetingList)
+                {
+                    s = s + n.ToString();
+                    s = s + ";";
+                }
+                if (s != "")
+                {
+                    s = s.Remove(s.Length - 1);
+                }
+                return s;
             }
-            return s;
         }
 
         public Boolean AddToMeetinglist(String s)

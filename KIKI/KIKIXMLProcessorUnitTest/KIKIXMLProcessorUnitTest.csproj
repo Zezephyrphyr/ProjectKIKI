@@ -48,7 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileNodeTest.cs" />
+    <Compile Include="FileNodeUnitTest.cs" />
     <Compile Include="MeetingNodeUnitTest.cs" />
     <Compile Include="XMLProcessorUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

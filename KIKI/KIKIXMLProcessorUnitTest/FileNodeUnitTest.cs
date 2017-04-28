@@ -13,7 +13,7 @@ namespace KIKIXMLProcessorUnitTest
         String modifiedTime = "2017/04/01 03:00:00";
         String createdTime = "2017/04/01 01:00:00";
         String executeTime = "2017/04/01 05:00:00";
-        Boolean missing = true;
+        //Boolean missing = true;
         String extension = ".txt";
         String filePath = "D:/EECS395";
         String MeetingID = "01";
@@ -115,15 +115,15 @@ namespace KIKIXMLProcessorUnitTest
 
             //test get non-empty string
             String actualExtension1 = file.GetExtension();
-            Assert.AreEqual(".txt", actualExtension1, "Actual file extension does not equal to D:/EECS395");
+            Assert.AreEqual(".txt", actualExtension1, "Actual file extension does not equal to .txt");
 
             //test set empty string
-            file.SetFilePath("");
+            file.SetExtension("");
             String actualExtension2 = file.GetExtension();
             Assert.AreEqual("", actualExtension2, "Set empty string extension was not successful");
 
             //test set non-empty string
-            file.SetFilePath(".pdf");
+            file.SetExtension(".pdf");
             String actualExtension3 = file.GetExtension();
             Assert.AreEqual(".pdf", actualExtension3, "Set non-empty string extension was not successful");
         }
@@ -243,7 +243,7 @@ namespace KIKIXMLProcessorUnitTest
 
             //test get method when input is not min value or "N / A"
             String actualexecuteTime1 = file.GetExecuteTimeS();
-            Assert.AreEqual("2017/04/01 01:00:00", actualexecuteTime1, "Actual execute time is not 2017/04/01 01:00:00");
+            Assert.AreEqual("2017/04/01 05:00:00", actualexecuteTime1, "Actual execute time is not 2017/04/01 05:00:00");
 
             //test set method when input is empty string
             file.SetExecuteTime("");
@@ -295,13 +295,92 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void GetandAddMeetingListTest()
         {
+            FileNode file0 = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, "");
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
 
+            //test get empty list
+            String actualmeetingList0 = file0.GetMeetingListS();
+            Assert.AreEqual("", actualmeetingList0, "The actual meeting list is not empty");
+
+            ////test get not empty list
+            //String actualmeetingList1 = file.GetMeetingListS();
+            //Assert.AreEqual("01", actualmeetingList1, "The actual meeting list does not have string 01");
+
+            //test add string value
+            file0.AddMeetings("01");
+            String actualmeetingList2 = file0.GetMeetingListS();
+            Assert.AreEqual("01", actualmeetingList2, "The string value 01 was not added into the list successfully");
+
+            //test add int value
+            file.AddMeetings(2);
+            String actualmeetingList3 = file.GetMeetingListS();
+            Assert.AreEqual("2", actualmeetingList3, "The int value 2 was not added into the list successfully");
+
+            //test add multiple values
+            file.AddMeetings("3");
+            file.AddMeetings("4");
+            LinkedList<String> actualmeetingList4 = file.GetMeetingList();
+            LinkedList<String> expectedmeetingList4 = new LinkedList<String>();
+            expectedmeetingList4.AddLast("2");
+            expectedmeetingList4.AddLast("3");
+            expectedmeetingList4.AddLast("4");
+            for (int n = 0; n < actualmeetingList4.Count; n++)
+            {
+                if (n == 0)
+                {
+                    Assert.AreEqual(expectedmeetingList4.First.Value, actualmeetingList4.First.Value, "1st element in two lists are not equal");
+                }
+                if (n == 1)
+                {
+                    Assert.AreEqual(expectedmeetingList4.First.Next.Value, actualmeetingList4.First.Next.Value, "2nd element in two lists are not equal");
+                }
+                if (n == 2)
+                {
+                    Assert.AreEqual(expectedmeetingList4.First.Next.Next.Value, actualmeetingList4.First.Next.Next.Value, "3rd element in two lists are not equal");
+                }
+            }
         }
 
         [TestMethod]
-        public void SetMeetingListTest()
+        public void SetMeetingsTest()
         {
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
 
+            //test set single element
+            file.SetMeetings("2");
+            LinkedList<String> actualmeetingList0 = file.GetMeetingList();
+            String actualmeetingString0 = file.GetMeetingListS();
+            LinkedList<String> expectedmeetingList0 = new LinkedList<String>();
+            expectedmeetingList0.AddLast("2");
+            Assert.AreEqual("2", actualmeetingString0, "Actual meeting list is not 2");
+            Assert.AreEqual(expectedmeetingList0.Count, actualmeetingList0.Count, "the length of two lists are not equal to 1");
+            Assert.AreEqual(expectedmeetingList0.First.Value, actualmeetingList0.First.Value, "the only element in two lists are not equal");
+
+            //test set multiple elements
+            file.SetMeetings("3;4;5");
+            LinkedList<String> actualmeetingList1 = file.GetMeetingList();
+            String actualmeetingString1 = file.GetMeetingListS();
+            LinkedList<String> expectedmeetingList1 = new LinkedList<String>();
+            expectedmeetingList1.AddLast("3");
+            expectedmeetingList1.AddLast("4");
+            expectedmeetingList1.AddLast("5");
+            Assert.AreEqual("3;4;5", actualmeetingString1, "Actual meeting list is not 3;4;5");
+            Assert.AreEqual(expectedmeetingList1.Count, actualmeetingList1.Count, "the length of two lists are not equal to 3");
+            for (int n = 0; n < actualmeetingList1.Count; n++)
+            {
+                if (n == 0)
+                {
+                    Assert.AreEqual(expectedmeetingList1.First.Value, actualmeetingList1.First.Value, "1st element in two lists are not equal");
+                }
+                if (n == 1)
+                {
+                    Assert.AreEqual(expectedmeetingList1.First.Next.Value, actualmeetingList1.First.Next.Value, "2nd element in two lists are not equal");
+                }
+                if (n == 2)
+                {
+                    Assert.AreEqual(expectedmeetingList1.First.Next.Next.Value, actualmeetingList1.First.Next.Next.Value, "3rd element in two lists are not equal");
+                }
+            }
         }
     }
 }
