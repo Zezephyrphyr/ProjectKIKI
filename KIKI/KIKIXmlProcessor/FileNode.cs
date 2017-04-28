@@ -53,7 +53,6 @@ namespace KIKIXmlProcessor
                 executeTime = this.StringToTime(eTime);
             }
 
-            //this.AddMeetings(MeetingID);
         }
 
         public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath, String MeetingID)
@@ -89,8 +88,6 @@ namespace KIKIXmlProcessor
             {
                 executeTime = eTime;
             }
-
-            //this.AddMeetings(MeetingID);
         }
 
         public void SetFileName(String fN)
@@ -145,7 +142,6 @@ namespace KIKIXmlProcessor
             }
         }
 
-        //May need adjustment
         public void SetMeetings(String MeetingID)
         {
             String[] meet = MeetingID.Split(';');
@@ -256,7 +252,8 @@ namespace KIKIXmlProcessor
             {
                 return "";
             }
-            else {
+            else
+            {
                 String s = "";
                 foreach (String n in MeetingList)
                 {
@@ -315,6 +312,10 @@ namespace KIKIXmlProcessor
 
         public String TimeToString(DateTime dt)
         {
+            if (dt == DateTime.MinValue)
+            {
+                return "";
+            }
             String year = dt.Year.ToString("0000");
             String month = dt.Month.ToString("00");
             String day = dt.Day.ToString("00");

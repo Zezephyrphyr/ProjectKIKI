@@ -13,7 +13,6 @@ namespace KIKIXMLProcessorUnitTest
         String modifiedTime = "2017/04/01 03:00:00";
         String createdTime = "2017/04/01 01:00:00";
         String executeTime = "2017/04/01 05:00:00";
-        //Boolean missing = true;
         String extension = ".txt";
         String filePath = "D:/EECS395";
         String MeetingID = "01";
@@ -412,8 +411,8 @@ namespace KIKIXMLProcessorUnitTest
 
             //Test MinValue
             String actualStringDT0 = file.TimeToString(DT0);
-            String expectedStringDT0 = "0001/01/01 12:00:00";
-            Assert.AreEqual(expectedStringDT0, actualStringDT0, "Actual String-type DateTime does not equal to MinValue");
+            String expectedStringDT0 = "";
+            Assert.AreEqual(expectedStringDT0, actualStringDT0, "Actual String-type DateTime does not equal to empty string when input is MinValue");
 
             //Test not MinValue
             String actualStringDT1 = file.TimeToString(DT1);
