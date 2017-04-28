@@ -40,6 +40,7 @@ namespace KIKI
             InitializeGoogle();
             InitializeCalendar();
             InitializeMeetingTab();
+            InitializeFileTab();
         }
 
         public static void InitializeGoogle()
@@ -139,6 +140,19 @@ namespace KIKI
             }
         }
 
+        public static void InitializeFileTab()
+        {
+            LinkedList<FileNode> FileList = returnFile();
+            foreach (FileNode item in FileList)
+            {
+
+                bufferFile.Add(item.GetFileName());
+                bufferFile.Add(item.GetFilePath());
+                bufferFile.Add(item.GetMeetingListS());
+                Debug.Print(item.GetMeetingListS());
+            }
+        }
+
         public static void fetchFromGoogle(DateTime minTime)
         {
 
@@ -226,6 +240,11 @@ namespace KIKI
             return bufferMeeting;
         }
 
+        public static List<string> getFileBuffer()
+        {
+            return bufferFile;
+        }
+
         public static void Clean()
         {
             bufferGoogle = new List<string>();
@@ -260,17 +279,51 @@ namespace KIKI
             String Attendents2 = "Steven, Eddie, Xiaoying2";
             Int32 FileID2 = 2;
 
-            MeetingNode meeting = new MeetingNode(mTitle, mID, sTime, eTime, PID, Attendents, FileID);
+            MeetingNode meeting = new MeetingNode(mTitle, mID, sTime, eTime, PID, Attendents);
             meeting.AddFiles(2);
             meeting.AddFiles(3);
             k.AddLast(meeting);
-            meeting = new MeetingNode(mTitle2, mID2, sTime2, eTime2, PID2, Attendents2, FileID2);
+            meeting = new MeetingNode(mTitle2, mID2, sTime2, eTime2, PID2, Attendents2);
             k.AddLast(meeting);
-            meeting = new MeetingNode(mTitleh, mIDh, sTimeh, eTimeh, PIDh, Attendentsh, FileIDh);
+            meeting = new MeetingNode(mTitleh, mIDh, sTimeh, eTimeh, PIDh, Attendentsh);
             k.AddLast(meeting);
-            Debug.Print("55555555555555555555555555555555555555555555555");
             return k;
         }
+
+        public static LinkedList<FileNode> returnFile()
+        {
+            LinkedList<FileNode> k = new LinkedList<FileNode>();
+            String fileName = "test.txt";
+            String fileID = "1";
+            String modifiedTime = "2017/04/01 03:00:00";
+            String createdTime = "2017/04/01 01:00:00";
+            String executeTime = "2017/04/01 05:00:00";
+            Boolean missing = true;
+            String extension = ".txt";
+            String filePath = "";
+            String MeetingID = "1";
+
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            file.AddMeetings("2");
+            file.AddMeetings("3");
+            k.AddLast(file);
+
+            String fileName2 = "test2.txt";
+            String fileID2 = "12";
+            String modifiedTime2 = "2017/04/02 03:00:00";
+            String createdTime2 = "2017/04/02 01:00:00";
+            String executeTime2 = "2017/04/02 05:00:00";
+            String extension2 = ".txt";
+            String filePath2 = "";
+            String MeetingID2 = "1";
+
+            file = new FileNode(fileName2, fileID2, modifiedTime2, createdTime2, executeTime2, extension2, filePath2, MeetingID2);
+            k.AddLast(file);
+
+
+            return k;
+        }
+
+        }
     }
-}
     

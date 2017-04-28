@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Meeting>
+  <Item ID="1">
+    <Meeting_Title>TestMeeting1</Meeting_Title>
+    <Start_Time>2017/04/17 14:35:40</Start_Time>
+    <End_Time>2017/04/17 14:35:40</End_Time>
+    <Duration>00:05:20</Duration>
+    <Parent_ID></Parent_ID>
+    <Attendents>Eddie,Anna,</Attendents>
+    <Files>2</Files>
+  </Item>
+  <Item ID="2">
+    <Meeting_Title>TestMeeting2</Meeting_Title>
+    <Start_Time>2017/04/17 14:35:40</Start_Time>
+    <End_Time>2017/04/17 14:35:40</End_Time>
+    <Duration>00:05:20</Duration>
+    <Parent_ID>1</Parent_ID>
+    <Attendents>Eddie,Anna,Lee</Attendents>
+    <Files>1</Files>
+  </Item>
+</Meeting>

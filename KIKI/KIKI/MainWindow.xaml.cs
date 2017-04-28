@@ -42,6 +42,7 @@ namespace KIKI
             initializeGoogleInfo();
             
             initializeMeetingInfo();
+            initializeFileInfo();
     }
        
         private void initializeGoogleInfo()
@@ -54,7 +55,6 @@ namespace KIKI
             {
                 items.Add(new todayEvent() { Date = eventData[i], Time = eventData[i], Name = eventData[i + 1], Attendee = eventData[i + 2] });
                 mlistView.ItemsSource = items;
-                RecentFileList.ItemsSource = items;
 
             }
 
@@ -72,6 +72,37 @@ namespace KIKI
           
             }
 
+        }
+        private void initializeFileInfo()
+        {
+            XMLProcessor processor = new XMLProcessor();
+            List<string> FileData = App.getFileBuffer();
+            LinkedList<MeetingNode> MeetingData = new LinkedList<MeetingNode>();
+            ObservableCollection<recentFile> items = new ObservableCollection<recentFile>();
+            for (int i = 0; i < FileData.Count; i = i + 3)
+            {
+                items.Add(new recentFile() { Name = FileData[i], URL = FileData[i+1], Meetings = FileData[i+2]});
+                RecentFile.ItemsSource = items;
+
+                
+                MeetingData = processor.FindMeetingsByMeetingIDs(FileData[i + 2]);
+                Debug.Print(MeetingData+"");
+                if (MeetingData.Count != 0)
+                {
+                    foreach (MeetingNode item in MeetingData)
+                    {
+                        items.Add(new recentFile() { Time = item.GetStartTimeS(), Title = item.GetMeetingTitle(), Attendee = item.GetAttendents() });
+                        RecentFile.ItemsSource = items;
+
+                    }
+                }else
+                {
+                    items.Add(new recentFile() { Time = "No Records", Title = "  ", Attendee = "    " });
+                    RecentFile.ItemsSource = items;
+                }
+                
+
+            }
         }
 
 
@@ -120,11 +151,14 @@ namespace KIKI
             }
          
         }
-
+        
         private void MeetingClick(object sender, RoutedEventArgs e)
         {
-            clickMeetingShowFile newWindow = new clickMeetingShowFile();
-            newWindow.Show();
+            System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
+
+           // Debug.Print("" + button.DataContext);
+            //clickShowFiles newWindow = new clickShowFiles();
+            //newWindow.Show();
         }
 
         private void listView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -143,6 +177,12 @@ namespace KIKI
         }
 
         private void tabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Hyperlink_RequestNavigate(object sender,
+                                     System.Windows.Navigation.RequestNavigateEventArgs e)
         {
 
         }
@@ -174,9 +214,12 @@ namespace KIKI
 
     public class recentFile
     {
+        public string Name { get; set; }
+        public string URL { get; set; }
         public string Time { get; set; }
         public string Title { get; set; }
         public string Attendee { get; set; }
+        public string Meetings { get; set; }
     }
     
     public class searchFile

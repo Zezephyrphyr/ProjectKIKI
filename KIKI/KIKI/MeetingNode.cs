@@ -14,35 +14,34 @@ namespace KIKIXmlProcessor
         private DateTime StartTime;
         private DateTime EndTime;
         private TimeSpan Duration;
-        private Int32 ParentID;
+        private String ParentID;
         private string Attendents; //Names are seperated by ";"
-        //private FileNode Files;
-        private LinkedList<Int32> FileList;
+        public LinkedList<Int32> FileList = new LinkedList<Int32>();
 
 
         public MeetingNode() { }
-        public MeetingNode(String MT, String MID, String sTime, String eTime, String PID, String Attend, Int32 FileID)
+        public MeetingNode(String MT, String MID, String sTime, String eTime, String PID, String Attend)
         {
             MeetingTitle = MT;
             MeetingID = MID;
             Attendents = Attend;
-            ParentID = Convert.ToInt32(PID);
+            ParentID = PID;
             StartTime = this.StringToTime(sTime);
             EndTime = this.StringToTime(eTime);
             //Files = new FileNode("", FileID, "", "", "", "", "");
-            this.AddFiles(FileID);
+            //this.AddFiles(FileID);
             Duration = this.computeDuration(StartTime, EndTime);
         }
 
-        public MeetingNode(String MT, String MID, DateTime sTimeD, DateTime eTimeD, String PID, String Attend, Int32 FileID)
+        public MeetingNode(String MT, String MID, DateTime sTimeD, DateTime eTimeD, String PID, String Attend)
         {
             MeetingTitle = MT;
             MeetingID = MID;
             Attendents = Attend;
-            ParentID = Convert.ToInt32(PID);
+            ParentID = PID;
             StartTime = sTimeD;
             EndTime = eTimeD;
-            this.AddFiles(FileID);
+            //this.AddFiles(FileID);
             Duration = this.computeDuration(StartTime, EndTime);
         }
 
@@ -51,9 +50,19 @@ namespace KIKIXmlProcessor
             MeetingTitle = MT;
         }
 
+        public void SetMeetingTitle(Int32 MT)
+        {
+            MeetingTitle = Convert.ToString(MT);
+        }
+
         public void SetMeetingID(String MID)
         {
             MeetingID = MID;
+        }
+
+        public void SetMeetingID(Int32 MID)
+        {
+            MeetingID = Convert.ToString(MID);
         }
 
         public void SetStartTime(String sTime)
@@ -66,9 +75,14 @@ namespace KIKIXmlProcessor
             EndTime = this.StringToTime(eTime);
         }
 
-        public void SetParentID(Int32 PID)
+        public void SetParentID(String PID)
         {
             ParentID = PID;
+        }
+
+        public void SetParentID(Int32 PID)
+        {
+            ParentID = Convert.ToString(PID);
         }
 
         public void SetAttendents(String Attend)
@@ -86,6 +100,22 @@ namespace KIKIXmlProcessor
             Duration = this.computeDuration(this.StringToTime(sTime), this.StringToTime(eTime));
         }
 
+        public void SetDuration(String duration)
+        {
+            Duration = TimeSpan.Parse(duration);
+        }
+
+        //May need adjustment
+        public void SetFiles(String fileString)
+        {
+            String[] num = fileString.Split(';');
+            FileList.Clear();
+            for (int i = 0; i < num.Length; i++)
+            {
+                FileList.AddLast(Convert.ToInt32(num[i]));
+            }
+        }
+
         public String GetMeetingTitle()
         {
             return MeetingTitle;
@@ -101,17 +131,17 @@ namespace KIKIXmlProcessor
             return StartTime;
         }
 
-        public String GetStartTimeS(DateTime StartTime)
+        public String GetStartTimeS()
         {
-            String year = Convert.ToString(StartTime.Year);
-            String month = Convert.ToString(StartTime.Month);
-            String date = Convert.ToString(StartTime.Date);
-            String hour = Convert.ToString(StartTime.Hour);
-            String minute = Convert.ToString(StartTime.Minute);
-            String second = Convert.ToString(StartTime.Second);
-
-            String StartTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
-            return StartTimeS;
+            if (StartTime.Year != 1)
+            {
+                String StartTimeS = this.TimeToString(StartTime);
+                return StartTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public DateTime GetEndTime()
@@ -119,25 +149,26 @@ namespace KIKIXmlProcessor
             return EndTime;
         }
 
-        public String GetEndTimeS(DateTime EndTime)
+        public String GetEndTimeS()
         {
-            String year = Convert.ToString(EndTime.Year);
-            String month = Convert.ToString(EndTime.Month);
-            String date = Convert.ToString(EndTime.Date);
-            String hour = Convert.ToString(EndTime.Hour);
-            String minute = Convert.ToString(EndTime.Minute);
-            String second = Convert.ToString(EndTime.Second);
-
-            String EndTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
-            return EndTimeS;
+            if (EndTime.Year != 1)
+            {
+                String EndTimeS = this.TimeToString(EndTime);
+                return EndTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public TimeSpan GetDuration()
         {
+            Duration = this.computeDuration(StartTime, EndTime);
             return Duration;
         }
 
-        public Int32 GetParentID()
+        public String GetParentID()
         {
             return ParentID;
         }
@@ -150,6 +181,35 @@ namespace KIKIXmlProcessor
         public LinkedList<Int32> GetFileList()
         {
             return FileList;
+        }
+
+        public String GetFileListS()
+        {
+            String s = "";
+            foreach (int n in FileList)
+            {
+                s = s + n.ToString();
+                s = s + ";";
+                //Console.Write(s);
+            }
+            if (s != "")
+            {
+                s = s.Remove(s.Length - 1);
+            }
+            return s;
+        }
+
+        public Boolean AddToFilelist(Int32 i)
+        {
+            if (FileList.Find(i) == null)
+            {
+                FileList.AddLast(i);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public DateTime StringToTime(String s)
@@ -168,9 +228,22 @@ namespace KIKIXmlProcessor
             return x;
         }
 
-        public TimeSpan computeDuration(DateTime StartTime, DateTime EndTime)
+        public String TimeToString(DateTime dt)
         {
-            TimeSpan duration = EndTime - StartTime;
+            String year = dt.Year.ToString("0000");
+            String month = dt.Month.ToString("00");
+            String day = dt.Day.ToString("00");
+            String hour = dt.Hour.ToString("00");
+            String minute = dt.Minute.ToString("00");
+            String second = dt.Second.ToString("00");
+
+            String dtString = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+            return dtString;
+        }
+
+        public TimeSpan computeDuration(DateTime sTime, DateTime eTime)
+        {
+            TimeSpan duration = eTime - sTime;
             return duration;
         }
     }

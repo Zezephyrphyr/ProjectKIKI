@@ -223,7 +223,7 @@
                                                     <SolidColorBrush Color="White" Opacity="0.2"/>
                                                 </Button.Background>
                                             </Button>
-                                            
+
                                         </WrapPanel>
                                     </ListView>
                                 </WrapPanel>
@@ -247,34 +247,39 @@
                         <ListView.BorderBrush>
                             <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
                         </ListView.BorderBrush>
-                           
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <WrapPanel Height="92" Width="475" RenderTransformOrigin="0.5,0.5" Focusable="True">
-                                    <WrapPanel.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform X="-7"/>
-                                        </TransformGroup>
-                                    </WrapPanel.RenderTransform>
 
-                                    <Image Source="Resources/account.png" Width="75"></Image>
+                        <WrapPanel Height="auto" Width="475" RenderTransformOrigin="0.5,0.5" Focusable="True">
+                            <WrapPanel.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-7"/>
+                                </TransformGroup>
+                            </WrapPanel.RenderTransform>
 
-                                    <ListView x:Name="RecentFile" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2" FontSize="20" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="{x:Null}" IsHitTestVisible="True" Focusable="True">
-                                        <TextBlock Text="test.doc" Height="25" Width="Auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" Foreground="#FFF4EE16" FontWeight="Bold" >
-                                            <TextBlock.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform Y="5"/>
-                                                </TransformGroup>
-                                            </TextBlock.RenderTransform>
-                                        </TextBlock>
+                            <ListView x:Name="RecentFile" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2" FontSize="20" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="{x:Null}" IsHitTestVisible="True" Focusable="True">
+                                   
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                       
                                         <WrapPanel Width="auto" ScrollViewer.CanContentScroll="True" Focusable="True">
-                                            <TextBlock Text="15:00 pm" Height="25" Width="65" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" >
+                                            <TextBlock Height="25" Width="auto" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" >
+                                                <TextBlock.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform Y="5"/>
+                                                    </TransformGroup>
+                                                </TextBlock.RenderTransform>
+                                            
+                                            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding URL}">
+                                                <TextBlock Text="{Binding Name}" FontSize="12" FontFamily="Microsoft YaHei UI Light" Foreground="#FFF4EE16" FontWeight="Bold"/>
+                                            </Hyperlink>
+
+                                        </TextBlock>
+                                            <TextBlock Text="{Binding Time}" Height="25" Width="Auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" >
                                                 <TextBlock.RenderTransform>
                                                     <TransformGroup>
                                                         <ScaleTransform/>
@@ -284,9 +289,9 @@
                                                     </TransformGroup>
                                                 </TextBlock.RenderTransform>
                                             </TextBlock>
-                                            <Button Content="Project B Meeting" Click ="MeetingClick" Height="25" Width="155" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="12" FontFamily="Microsoft YaHei UI Light"/>
+                                            <Button  Name ="haha" Content="{Binding Title}" Click ="MeetingClick" Height="25" Width="155" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="12" FontFamily="Microsoft YaHei UI Light"/>
 
-                                            <TextBlock Text="Emma, Tony" Height="25" Width="Auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                            <TextBlock Text="{Binding Attendee}" Height="25" Width="Auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
                                                 <TextBlock.RenderTransform>
                                                     <TransformGroup>
                                                         <ScaleTransform/>
@@ -297,44 +302,13 @@
                                                 </TextBlock.RenderTransform>
                                             </TextBlock>
                                         </WrapPanel>
-                                        <WrapPanel RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0" Focusable="True" >
-                                            <TextBlock Text="10:00 am" Height="25" Width="65" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" >
-                                                <TextBlock.RenderTransform>
-                                                    <TransformGroup>
-                                                        <ScaleTransform/>
-                                                        <SkewTransform/>
-                                                        <RotateTransform/>
-                                                        <TranslateTransform Y="5"/>
-                                                    </TransformGroup>
-                                                </TextBlock.RenderTransform>
-                                            </TextBlock>
-                                            <TextBlock Text="Project A StartUp" Height="25" Width="155" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
-                                                <TextBlock.RenderTransform>
-                                                    <TransformGroup>
-                                                        <ScaleTransform/>
-                                                        <SkewTransform/>
-                                                        <RotateTransform/>
-                                                        <TranslateTransform Y="5"/>
-                                                    </TransformGroup>
-                                                </TextBlock.RenderTransform>
-                                            </TextBlock>
-                                            <TextBlock Text="Sam, Eddie" Height="25" Width="Auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
-                                                <TextBlock.RenderTransform>
-                                                    <TransformGroup>
-                                                        <ScaleTransform/>
-                                                        <SkewTransform/>
-                                                        <RotateTransform/>
-                                                        <TranslateTransform Y="5"/>
-                                                    </TransformGroup>
-                                                </TextBlock.RenderTransform>
-                                            </TextBlock>
 
-                                        </WrapPanel>
-                                    </ListView>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
 
-                                </WrapPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                        </WrapPanel>
+
                     </ListView>
                 </Grid>
             </TabItem>

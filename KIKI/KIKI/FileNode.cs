@@ -16,7 +16,7 @@ namespace KIKIXmlProcessor
         private Boolean missing = true;
         private String extension = "";
         private String filePath = "";
-        private LinkedList<String> MeetingList;
+        public LinkedList<String> MeetingList = new LinkedList<String>();
 
         public FileNode() { }
         public FileNode(String fN, String FID, String mTime, String cTime, String eTime, String ext, String fPath, String MeetingID)
@@ -31,7 +31,7 @@ namespace KIKIXmlProcessor
             this.AddMeetings(MeetingID);
         }
 
-        public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath)
+        public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath, String MeetingID)
         {
             fileName = fN;
             filePath = fPath;
@@ -40,6 +40,7 @@ namespace KIKIXmlProcessor
             modifiedTime = mTime;
             createdTime = cTime;
             executeTime = eTime;
+            this.AddMeetings(MeetingID);
         }
 
         public void SetFileName(String fN)
@@ -50,6 +51,11 @@ namespace KIKIXmlProcessor
         public void SetFileID(Int32 FID)
         {
             fileID = FID;
+        }
+
+        public void SetFileID(String FID)
+        {
+            fileID = Convert.ToInt32(FID);
         }
 
         public void SetFilePath(String fPath)
@@ -77,9 +83,9 @@ namespace KIKIXmlProcessor
             extension = ext;
         }
 
-        public void SetMissing(int ms)
+        public void SetMissing(String ms)
         {
-            if (ms == 1)
+            if (ms == "Yes")
             {
                 missing = true;
             }
@@ -89,9 +95,25 @@ namespace KIKIXmlProcessor
             }
         }
 
+        //May need adjustment
+        public void SetMeetings(String MeetingID)
+        {
+            String[] meet = MeetingID.Split(';');
+            MeetingList.Clear();
+            for (int i = 0; i < meet.Length; i++)
+            {
+                MeetingList.AddLast(meet[i]);
+            }
+        }
+
         public void AddMeetings(String MeetingID)
         {
             MeetingList.AddLast(MeetingID);
+        }
+
+        public void AddMeetings(Int32 MeetingID)
+        {
+            MeetingList.AddLast(Convert.ToString(MeetingID));
         }
 
         public String GetFileName()
@@ -109,17 +131,17 @@ namespace KIKIXmlProcessor
             return modifiedTime;
         }
 
-        public String GetModifiedTimeS(DateTime modifiedTime)
+        public String GetModifiedTimeS()
         {
-            String year = Convert.ToString(modifiedTime.Year);
-            String month = Convert.ToString(modifiedTime.Month);
-            String date = Convert.ToString(modifiedTime.Date);
-            String hour = Convert.ToString(modifiedTime.Hour);
-            String minute = Convert.ToString(modifiedTime.Minute);
-            String second = Convert.ToString(modifiedTime.Second);
-
-            String ModifiedTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
-            return ModifiedTimeS;
+            if (modifiedTime.Year != 1)
+            {
+                String ModifiedTimeS = this.TimeToString(modifiedTime);
+                return ModifiedTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public DateTime GetCreatedTime()
@@ -127,35 +149,35 @@ namespace KIKIXmlProcessor
             return createdTime;
         }
 
-        public String GetCreatedTimeS(DateTime createdTime)
+        public String GetCreatedTimeS()
         {
-            String year = Convert.ToString(createdTime.Year);
-            String month = Convert.ToString(createdTime.Month);
-            String date = Convert.ToString(createdTime.Date);
-            String hour = Convert.ToString(createdTime.Hour);
-            String minute = Convert.ToString(createdTime.Minute);
-            String second = Convert.ToString(createdTime.Second);
-
-            String CreatedTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
-            return CreatedTimeS;
+            if (createdTime.Year != 1)
+            {
+                String CreatedTimeS = this.TimeToString(createdTime);
+                return CreatedTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
-        public DateTime GetExecutedTime()
+        public DateTime GetExecuteTime()
         {
             return executeTime;
         }
 
-        public String GetExecutedTimeS(DateTime executeTime)
+        public String GetExecuteTimeS()
         {
-            String year = Convert.ToString(executeTime.Year);
-            String month = Convert.ToString(executeTime.Month);
-            String date = Convert.ToString(executeTime.Date);
-            String hour = Convert.ToString(executeTime.Hour);
-            String minute = Convert.ToString(executeTime.Minute);
-            String second = Convert.ToString(executeTime.Second);
-
-            String ExecutedTimeS = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
-            return ExecutedTimeS;
+            if (executeTime.Year != 1)
+            {
+                String ExecutedTimeS = this.TimeToString(executeTime);
+                return ExecutedTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public Boolean GetMissing()
@@ -178,20 +200,69 @@ namespace KIKIXmlProcessor
             return MeetingList;
         }
 
+        public String GetMeetingListS()
+        {
+            String s = "";
+            foreach (String n in MeetingList)
+            {
+                s = s + n.ToString();
+                s = s + ";";
+            }
+            if (s != "")
+            {
+                s = s.Remove(s.Length - 1);
+            }
+            return s;
+        }
+
+        public Boolean AddToMeetinglist(String s)
+        {
+            if (MeetingList.Find(s) == null)
+            {
+                MeetingList.AddLast(s);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public DateTime StringToTime(String s)
         {
-            String[] s1 = s.Split(' ');
-            String[] s2 = s1[0].Split('/');
-            String[] s3 = s1[1].Split(':');
-            int year = Convert.ToInt32(s2[0]);
-            int month = Convert.ToInt32(s2[1]);
-            int day = Convert.ToInt32(s2[2]);
-            int hour = Convert.ToInt32(s3[0]);
-            int minute = Convert.ToInt32(s3[1]);
-            int second = Convert.ToInt32(s3[2]);
+            if (s == "N / A")
+            {
+                DateTime empty = DateTime.MinValue;
+                return empty;
+            }
+            else
+            {
+                String[] s1 = s.Split(' ');
+                String[] s2 = s1[0].Split('/');
+                String[] s3 = s1[1].Split(':');
+                int year = Convert.ToInt32(s2[0]);
+                int month = Convert.ToInt32(s2[1]);
+                int day = Convert.ToInt32(s2[2]);
+                int hour = Convert.ToInt32(s3[0]);
+                int minute = Convert.ToInt32(s3[1]);
+                int second = Convert.ToInt32(s3[2]);
 
-            DateTime x = new DateTime(year, month, day, hour, minute, second);
-            return x;
+                DateTime x = new DateTime(year, month, day, hour, minute, second);
+                return x;
+            }
+        }
+
+        public String TimeToString(DateTime dt)
+        {
+            String year = dt.Year.ToString("0000");
+            String month = dt.Month.ToString("00");
+            String day = dt.Day.ToString("00");
+            String hour = dt.Hour.ToString("00");
+            String minute = dt.Minute.ToString("00");
+            String second = dt.Second.ToString("00");
+
+            String dtString = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
+            return dtString;
         }
     }
 
