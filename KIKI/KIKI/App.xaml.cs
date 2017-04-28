@@ -160,6 +160,10 @@ namespace KIKI
             XMLProcessor p = new XMLProcessor();
             p.Read();
             fetchFromGoogle(p.GetLastUpdateTime());
+            foreach (FileNode n in fileList)
+            {
+                Debug.Print("File name is " + n.GetFileName());
+            }
             p.ProcessFileWithMeetingList(meetingList, fileList);
             p.Write();
         }
@@ -222,10 +226,12 @@ namespace KIKI
                         meetingList.AddLast(meeting);
                     }
                     if (eventItem.Attachments != null) {
+
                         for (int i = 0; i < eventItem.Attachments.Count; i++)
                         {
+                            file = new FileNode();
                             file.SetModifiedTime(eventItem.Start.DateTime.ToString());
-                            file.SetFileID(Convert.ToInt32(eventItem.Attachments[i].FileId));
+                            file.SetFileID(" ");
                             file.SetExtension("GoogleDrive");
                             file.SetFileName(eventItem.Attachments[i].Title);
                             file.SetFilePath(eventItem.Attachments[i].FileUrl);

@@ -3213,7 +3213,7 @@
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI</filename>
 <modified_time>2017/4/28 5:46:59</modified_time>
 <created_time>2017/4/28 5:46:57</created_time>
-<execute_time>2017/4/28 6:06:30</execute_time>
+<execute_time>2017/4/28 6:07:44</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -3233,7 +3233,7 @@
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI.sln</filename>
 <modified_time>2017/4/26 21:21:40</modified_time>
 <created_time>2017/4/28 5:46:57</created_time>
-<execute_time>2017/4/28 6:06:30</execute_time>
+<execute_time>2017/4/28 6:07:44</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension>sln</extension>
@@ -3271,9 +3271,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug</filename>
-<modified_time>2017/4/28 5:58:30</modified_time>
+<modified_time>2017/4/28 6:16:36</modified_time>
 <created_time>2017/4/28 5:46:57</created_time>
-<execute_time>2017/4/28 5:58:31</execute_time>
+<execute_time>2017/4/28 6:16:50</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -3281,9 +3281,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\files.xml</filename>
-<modified_time>2017/4/28 5:03:45</modified_time>
-<created_time>2017/4/28 4:57:49</created_time>
-<execute_time>2017/4/28 5:05:13</execute_time>
+<modified_time>2017/4/28 6:16:36</modified_time>
+<created_time>2017/4/28 6:05:59</created_time>
+<execute_time>2017/4/28 6:16:43</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension>xml</extension>
@@ -3291,9 +3291,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\meetings.xml</filename>
-<modified_time>2017/4/28 5:58:04</modified_time>
-<created_time>2017/4/28 5:46:57</created_time>
-<execute_time>2017/4/28 5:58:31</execute_time>
+<modified_time>2017/4/28 6:16:36</modified_time>
+<created_time>2017/4/28 6:05:59</created_time>
+<execute_time>2017/4/28 6:16:50</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension>xml</extension>
@@ -3304,7 +3304,7 @@
 <modified_time>2017/4/28 5:38:40</modified_time>
 <created_time>2017/4/28 5:37:49</created_time>
 <execute_time>2017/4/28 5:39:38</execute_time>
-<missing_file>No</missing_file>
+<missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension>xml</extension>
 <file_only>records.xml</file_only>
