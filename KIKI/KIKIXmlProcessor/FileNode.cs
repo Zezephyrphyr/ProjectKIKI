@@ -16,7 +16,7 @@ namespace KIKIXmlProcessor
         private Boolean missing = true;
         private String extension = "";
         private String filePath = "";
-        private LinkedList<String> MeetingList = new LinkedList<String>();
+        public LinkedList<String> MeetingList = new LinkedList<String>();
 
         public FileNode() { }
         public FileNode(String fN, String FID, String mTime, String cTime, String eTime, String ext, String fPath, String MeetingID)
@@ -31,7 +31,7 @@ namespace KIKIXmlProcessor
             this.AddMeetings(MeetingID);
         }
 
-        public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath)
+        public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath, String MeetingID)
         {
             fileName = fN;
             filePath = fPath;
@@ -40,6 +40,7 @@ namespace KIKIXmlProcessor
             modifiedTime = mTime;
             createdTime = cTime;
             executeTime = eTime;
+            this.AddMeetings(MeetingID);
         }
 
         public void SetFileName(String fN)
@@ -95,9 +96,14 @@ namespace KIKIXmlProcessor
         }
 
         //May need adjustment
-        public void SetMeetings(String meetingString)
+        public void SetMeetings(String MeetingID)
         {
-            MeetingList.AddLast(meetingString);
+            String[] meet = MeetingID.Split(';');
+            MeetingList.Clear();
+            for (int i = 0; i < meet.Length; i++)
+            {
+                MeetingList.AddLast(meet[i]);
+            }
         }
 
         public void AddMeetings(String MeetingID)
@@ -127,8 +133,15 @@ namespace KIKIXmlProcessor
 
         public String GetModifiedTimeS()
         {
-            String ModifiedTimeS = this.TimeToString(modifiedTime);
-            return ModifiedTimeS;
+            if (modifiedTime.Year != 1)
+            {
+                String ModifiedTimeS = this.TimeToString(modifiedTime);
+                return ModifiedTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public DateTime GetCreatedTime()
@@ -138,8 +151,15 @@ namespace KIKIXmlProcessor
 
         public String GetCreatedTimeS()
         {
-            String CreatedTimeS = this.TimeToString(createdTime);
-            return CreatedTimeS;
+            if (createdTime.Year != 1)
+            {
+                String CreatedTimeS = this.TimeToString(createdTime);
+                return CreatedTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public DateTime GetExecuteTime()
@@ -149,8 +169,15 @@ namespace KIKIXmlProcessor
 
         public String GetExecuteTimeS()
         {
-            String ExecutedTimeS = this.TimeToString(executeTime);
-            return ExecutedTimeS;
+            if (executeTime.Year != 1)
+            {
+                String ExecutedTimeS = this.TimeToString(executeTime);
+                return ExecutedTimeS;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public Boolean GetMissing()
@@ -175,17 +202,17 @@ namespace KIKIXmlProcessor
 
         public String GetMeetingListS()
         {
-            String MeetingID = "";
-            for (LinkedListNode<String> meeting = MeetingList.First; meeting != MeetingList.Last; meeting = meeting.Next)
+            String s = "";
+            foreach (String n in MeetingList)
             {
-                MeetingID = meeting.Value;
-                MeetingID = MeetingID + ";";
+                s = s + n.ToString();
+                s = s + ";";
             }
-            if (MeetingID != "")
+            if (s != "")
             {
-                MeetingID = MeetingID.Remove(MeetingID.Length - 1);
+                s = s.Remove(s.Length - 1);
             }
-            return MeetingID;
+            return s;
         }
 
         public Boolean AddToMeetinglist(String s)
@@ -227,14 +254,14 @@ namespace KIKIXmlProcessor
 
         public String TimeToString(DateTime dt)
         {
-            String year = Convert.ToString(dt.Year);
-            String month = Convert.ToString(dt.Month);
-            String date = Convert.ToString(dt.Date);
-            String hour = Convert.ToString(dt.Hour);
-            String minute = Convert.ToString(dt.Minute);
-            String second = Convert.ToString(dt.Second);
+            String year = dt.Year.ToString("0000");
+            String month = dt.Month.ToString("00");
+            String day = dt.Day.ToString("00");
+            String hour = dt.Hour.ToString("00");
+            String minute = dt.Minute.ToString("00");
+            String second = dt.Second.ToString("00");
 
-            String dtString = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+            String dtString = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
             return dtString;
         }
     }
