@@ -78,6 +78,7 @@ namespace KIKI
         { 
             List<string> meetingData = App.getMeetingBuffer();
             ObservableCollection<previousMeeting> items = new ObservableCollection<previousMeeting>();
+            Debug.Print(""+ meetingData.Count);
             for (int i = 0; i < meetingData.Count; i = i + 4)
             {
                 items.Add(new previousMeeting() { Time = meetingData[i],  Name = meetingData[i+1], Attendee = meetingData[i + 2], Docs = meetingData[i + 3]});
@@ -168,6 +169,7 @@ namespace KIKI
                 string str = sender.ToString();
                 str = str.Substring(str.LastIndexOf(' ') + 1);
                 clickShowFiles newWindow = new clickShowFiles(str);
+                Debug.Print("" + str);
                 newWindow.Show();
             }
          
@@ -176,6 +178,8 @@ namespace KIKI
         private void MeetingClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
+
+           // Debug.Print("" + button.DataContext);
             clickShowFiles newWindow = new clickShowFiles(button.Tag.ToString());
             newWindow.Show();
         }

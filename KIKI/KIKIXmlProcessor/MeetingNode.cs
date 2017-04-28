@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -132,16 +131,10 @@ namespace KIKIXmlProcessor
         //May need adjustment
         public void SetFiles(String fileString)
         {
-            if (fileString == "")
-            {
-                FileList = new LinkedList<int>();
-                return;
-            }
             String[] num = fileString.Split(';');
             FileList.Clear();
             for (int i = 0; i < num.Length; i++)
             {
-                Debug.Print(num[i]);
                 FileList.AddLast(Convert.ToInt32(num[i]));
             }
         }

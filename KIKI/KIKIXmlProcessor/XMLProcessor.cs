@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -30,7 +28,6 @@ namespace KIKIXmlProcessor
             if (!File.Exists(sfile))
             {
                 WriteSettings();
-                Thread.Sleep(100);
                 DateTime time = DateTime.Now - new TimeSpan(30, 0, 0, 0);
                 lastUpdate = time;
             }
@@ -466,20 +463,6 @@ namespace KIKIXmlProcessor
         {
             int llid = lastID;
             LinkedList<FileNode> nList = fList;
-            if (!File.Exists(ffile))
-            {
-                WriteNewFilesFile();
-                FileInfo i2 = new FileInfo(ffile);
-                while (IsFileLocked(i2)) { };
-                Debug.Print("Files Done");
-            }
-            if (!File.Exists(mfile))
-            {
-                WriteNewMeetingsFile(new LinkedList<MeetingNode>());
-                FileInfo i3 = new FileInfo(mfile);
-                while (IsFileLocked(i3)) { };
-                Debug.Print("Meetings Done");
-            }
             XElement filesFile = XElement.Load(ffile);
             IEnumerable<XElement> fileNodes = filesFile.Elements();
             //deal with nodes already exist
@@ -550,11 +533,6 @@ namespace KIKIXmlProcessor
 
         public void ProcessFileWithMeetingList(LinkedList<MeetingNode> mList, LinkedList<FileNode> attachmentList)
         {
-            Debug.Print("Meeting Count is:" + mList.Count.ToString());
-            foreach (MeetingNode m in mList)
-            {
-                Debug.Print("Meeting Title is :" +m.GetMeetingTitle());
-            }
             AttachmentList = attachmentList;
             lastUpdate = DateTime.Now;
             foreach (MeetingNode meeting in mList)
