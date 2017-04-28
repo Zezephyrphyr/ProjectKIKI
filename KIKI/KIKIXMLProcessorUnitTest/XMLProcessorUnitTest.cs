@@ -10,7 +10,7 @@ namespace KIKIXMLProcessorUnitTest
     public class XMLProcessorUnitTest
     {
         XMLProcessor test = new XMLProcessor();
-        
+
 
         [TestMethod]
         public void FirstUseAndWriteMeetingsTest()
@@ -60,28 +60,30 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void WriteandReadFilesTest()
         {
-            FileNode n1 = new FileNode();
-            n1.SetFileID(1);
-            n1.SetFileName("TestFile1");
-            n1.AddMeetings(2);
-            FileNode n2 = new FileNode();
-            n2.SetFileID(2);
-            n2.SetFileName("TestFile2");
-            n2.AddMeetings(1);
             LinkedList<FileNode> fn = new LinkedList<FileNode>();
+            FileNode n1 = new FileNode();
+            n1.SetFileID("1");
+            n1.SetFileName("FileTest1");
+            n1.SetModifiedTime("2017/04/03 03:03:03");
+            FileNode n2 = new FileNode();
+            n2.SetFileID("2");
+            n2.SetFileName("FileTest2");
+            FileNode n3 = new FileNode();
+            n3.SetFileID("1");
+            n3.SetFileName("FileTest3");
+            n3.SetModifiedTime("2017/04/03 07:07:07");
             fn.AddLast(n1);
             fn.AddLast(n2);
-            test.WriteFiles(fn);
-            FileNode n3 = new FileNode();
-            n2.SetFileID(1);
-            n3.SetFileID(3);
-            n3.SetFileName("TestFile3");
             fn.AddLast(n3);
-            fn.AddLast(n2);
-            test.WriteFiles(fn);
-            Assert.IsTrue(true);
+            XMLProcessor nP = new XMLProcessor();
+            nP.WriteFiles(fn);
         }
 
+        [TestMethod]
+        public void IsValidMeetingTest()
+        {
 
+
+        }
     }
 }

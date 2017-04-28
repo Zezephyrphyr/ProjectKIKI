@@ -25,9 +25,34 @@ namespace KIKIXmlProcessor
             filePath = fPath;
             extension = ext;
             fileID = Convert.ToInt32(FID);
-            modifiedTime = this.StringToTime(mTime);
-            createdTime = this.StringToTime(cTime);
-            executeTime = this.StringToTime(eTime);
+
+            if (mTime == null)
+            {
+                modifiedTime = DateTime.MinValue;
+            }
+            if (mTime != null)
+            {
+                modifiedTime = this.StringToTime(mTime);
+            }
+
+            if (cTime == null)
+            {
+                createdTime = DateTime.MinValue;
+            }
+            if (cTime != null)
+            {
+                createdTime = this.StringToTime(cTime);
+            }
+
+            if (eTime == null)
+            {
+                executeTime = DateTime.MinValue;
+            }
+            if (eTime != null)
+            {
+                executeTime = this.StringToTime(eTime);
+            }
+
             this.AddMeetings(MeetingID);
         }
 
@@ -37,9 +62,34 @@ namespace KIKIXmlProcessor
             filePath = fPath;
             extension = ext;
             fileID = Convert.ToInt32(FID);
-            modifiedTime = mTime;
-            createdTime = cTime;
-            executeTime = eTime;
+
+            if (mTime == null)
+            {
+                modifiedTime = DateTime.MinValue;
+            }
+            if (mTime != null)
+            {
+                modifiedTime = mTime;
+            }
+
+            if (cTime == null)
+            {
+                createdTime = DateTime.MinValue;
+            }
+            if (cTime != null)
+            {
+                createdTime = cTime;
+            }
+
+            if (eTime == null)
+            {
+                executeTime = DateTime.MinValue;
+            }
+            if (eTime != null)
+            {
+                executeTime = eTime;
+            }
+
             this.AddMeetings(MeetingID);
         }
 
@@ -231,6 +281,11 @@ namespace KIKIXmlProcessor
         public DateTime StringToTime(String s)
         {
             if (s == "N / A")
+            {
+                DateTime na = DateTime.MinValue;
+                return na;
+            }
+            if (s == "")
             {
                 DateTime empty = DateTime.MinValue;
                 return empty;

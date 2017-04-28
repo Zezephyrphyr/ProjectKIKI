@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace KIKIXmlProcessor
 {
-    class XMLSearcher
+    public class XMLSearcher
     {
         private String mfile = "meetings.xml";
         private String ffile = "files.xml";
@@ -50,7 +50,6 @@ namespace KIKIXmlProcessor
                     currentNode.SetMeetingTitle(meeting.Element("Meeting_Title").Value);
                     currentNode.SetStartTime(meeting.Element("Start_Time").Value);
                     currentNode.SetEndTime(meeting.Element("End_Time").Value);
-                    currentNode.SetDuration(meeting.Element("Duration").Value);
                     currentNode.SetAttendents(meeting.Element("Attendents").Value);
                     currentNode.SetFiles(meeting.Element("Files").Value);
                     list.AddLast(currentNode);
@@ -165,7 +164,6 @@ namespace KIKIXmlProcessor
                     currentNode.SetMeetingTitle(meeting.Element("Meeting_Title").Value);
                     currentNode.SetStartTime(meeting.Element("Start_Time").Value);
                     currentNode.SetEndTime(meeting.Element("End_Time").Value);
-                    currentNode.SetDuration(meeting.Element("Duration").Value);
                     currentNode.SetAttendents(meeting.Element("Attendents").Value);
                     currentNode.SetFiles(meeting.Element("Files").Value);
                     list.AddLast(currentNode);
@@ -218,7 +216,6 @@ namespace KIKIXmlProcessor
                     currentNode.SetMeetingTitle(meeting.Element("Meeting_Title").Value);
                     currentNode.SetStartTime(meeting.Element("Start_Time").Value);
                     currentNode.SetEndTime(meeting.Element("End_Time").Value);
-                    currentNode.SetDuration(meeting.Element("Duration").Value);
                     currentNode.SetAttendents(meeting.Element("Attendents").Value);
                     currentNode.SetFiles(meeting.Element("Files").Value);
                     list.AddLast(currentNode);

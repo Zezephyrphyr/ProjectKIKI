@@ -26,8 +26,25 @@ namespace KIKIXmlProcessor
             MeetingID = MID;
             Attendents = Attend;
             ParentID = PID;
-            StartTime = this.StringToTime(sTime);
-            EndTime = this.StringToTime(eTime);
+
+            if (sTime == null)
+            {
+                StartTime = DateTime.MinValue;
+            }
+            if (sTime != null)
+            {
+                StartTime = this.StringToTime(sTime);
+            }
+
+            if (eTime == null)
+            {
+                EndTime = DateTime.MinValue;
+            }
+            if (eTime != null)
+            {
+                EndTime = this.StringToTime(eTime);
+            }
+
             //Files = new FileNode("", FileID, "", "", "", "", "");
             //this.AddFiles(FileID);
             Duration = this.computeDuration(StartTime, EndTime);
@@ -39,9 +56,25 @@ namespace KIKIXmlProcessor
             MeetingID = MID;
             Attendents = Attend;
             ParentID = PID;
-            StartTime = sTimeD;
-            EndTime = eTimeD;
-            //this.AddFiles(FileID);
+
+            if (sTimeD == null)
+            {
+                StartTime = DateTime.MinValue;
+            }
+            if (sTimeD != null)
+            {
+                StartTime = sTimeD;
+            }
+
+            if (eTimeD == null)
+            {
+                EndTime = DateTime.MinValue;
+            }
+            if (eTimeD != null)
+            {
+                EndTime = eTimeD;
+            }
+
             Duration = this.computeDuration(StartTime, EndTime);
         }
 
@@ -93,16 +126,6 @@ namespace KIKIXmlProcessor
         public void AddFiles(Int32 FileID)
         {
             FileList.AddLast(FileID);
-        }
-
-        public void SetDuration(String sTime, String eTime)
-        {
-            Duration = this.computeDuration(this.StringToTime(sTime), this.StringToTime(eTime));
-        }
-
-        public void SetDuration(String duration)
-        {
-            Duration = TimeSpan.Parse(duration);
         }
 
         //May need adjustment

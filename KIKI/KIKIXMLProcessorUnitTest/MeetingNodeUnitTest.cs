@@ -114,7 +114,7 @@ namespace KIKIXMLProcessorUnitTest
         }
 
         [TestMethod]
-        public void GetandSetDurationTest()
+        public void GetDurationTest()
         {
             MeetingNode meeting0 = new MeetingNode(mTitle, mID, "0001/01/01 00:00:00", "0001/01/01 00:00:00", PID, Attendents);
             MeetingNode meeting = new MeetingNode(mTitle, mID, sTime, eTime, PID, Attendents);
@@ -124,28 +124,16 @@ namespace KIKIXMLProcessorUnitTest
             TimeSpan actualspan0 = meeting0.GetDuration();
             Assert.AreEqual(expectedspan0, actualspan0, "Actual duration does not equal to empty");
 
-            //test get
+            //test get less than 1 day
             TimeSpan expectedspan1 = new TimeSpan(0, 1, 40, 0);
             TimeSpan actualspan1 = meeting.GetDuration();
             Assert.AreEqual(expectedspan1, actualspan1, "Actual duration does not equal to 0 day 1 hour 40 mins 0 second");
 
-            //test set through start and end time
-            meeting.SetDuration("2017/04/02 14:00:00", "2017/04/03 19:30:00");
+            //test get more than 1 day
+            MeetingNode meeting2 = new MeetingNode(mTitle, mID, "2017/04/02 14:00:00", "2017/4/3 19:30:00", PID, Attendents);
             TimeSpan expectedspan2 = new TimeSpan(1, 5, 30, 0);
-            TimeSpan actualspan2 = meeting.GetDuration();
+            TimeSpan actualspan2 = meeting2.GetDuration();
             Assert.AreEqual(expectedspan2, actualspan2, "Actual duration does not equal to 1 day 5 hour 30 mins 0 second");
-
-            //test set through string duration more than 1 day
-            meeting.SetDuration("1.5:30:10");
-            TimeSpan expectedspan3 = new TimeSpan(1, 5, 30, 10);
-            TimeSpan actualspan3 = meeting.GetDuration();
-            Assert.AreEqual(expectedspan3, actualspan3, "Actual duration does not equal to 1 day 5 hour 30 mins 10 second");
-
-            //test set through string duration less than 1 day
-            meeting.SetDuration("0.3:30:10");
-            TimeSpan expectedspan4 = new TimeSpan(0, 3, 30, 10);
-            TimeSpan actualspan4 = meeting.GetDuration();
-            Assert.AreEqual(expectedspan4, actualspan4, "Actual duration does not equal to 0 day 3 hour 30 mins 10 second");
         }
 
         [TestMethod]

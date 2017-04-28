@@ -853,7 +853,8 @@ namespace KIKIXmlProcessor
             x.GetRFXML(); //date and time not implemented 
             while (!File.Exists(x.tempPath)) ;
             Thread.Sleep(1000); //temporary solution for process conflicts
-            x.RemoveXMLdeclaration();
+            
+
             while (x.sync == 1) ;
             x.ReadRecords();
 
@@ -891,23 +892,9 @@ namespace KIKIXmlProcessor
             Console.WriteLine(TS.Minutes);
             Console.WriteLine("Path is " + WP);
 */
-            LinkedList<FileNode> fn = new LinkedList<FileNode>();
-            FileNode n1 = new FileNode();
-            n1.SetFileID("1");
-            n1.SetFileName("FileTest1");
-            n1.SetModifiedTime("2017/04/03 03:03:03");
-            FileNode n2 = new FileNode();
-            n2.SetFileID("2");
-            n2.SetFileName("FileTest2");
-            FileNode n3 = new FileNode();
-            n3.SetFileID("1");
-            n3.SetFileName("FileTest3");
-            n3.SetModifiedTime("2017/04/03 07:07:07");
-            fn.AddLast(n1);
-            fn.AddLast(n2);
-            fn.AddLast(n3);
-            XMLProcessor nP = new XMLProcessor();
-            nP.WriteFiles(fn);
+
+            MeetingNode node = new MeetingNode();
+
         }
     }
 }
