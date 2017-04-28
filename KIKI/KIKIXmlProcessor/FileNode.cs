@@ -256,8 +256,7 @@ namespace KIKIXmlProcessor
             {
                 return "";
             }
-            else
-            {
+            else {
                 String s = "";
                 foreach (String n in MeetingList)
                 {
