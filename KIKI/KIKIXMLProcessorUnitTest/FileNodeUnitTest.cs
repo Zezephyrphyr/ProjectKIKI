@@ -302,10 +302,6 @@ namespace KIKIXMLProcessorUnitTest
             String actualmeetingList0 = file0.GetMeetingListS();
             Assert.AreEqual("", actualmeetingList0, "The actual meeting list is not empty");
 
-            ////test get not empty list
-            //String actualmeetingList1 = file.GetMeetingListS();
-            //Assert.AreEqual("01", actualmeetingList1, "The actual meeting list does not have string 01");
-
             //test add string value
             file0.AddMeetings("01");
             String actualmeetingList2 = file0.GetMeetingListS();
@@ -381,6 +377,48 @@ namespace KIKIXMLProcessorUnitTest
                     Assert.AreEqual(expectedmeetingList1.First.Next.Next.Value, actualmeetingList1.First.Next.Next.Value, "3rd element in two lists are not equal");
                 }
             }
+        }
+
+        [TestMethod]
+        public void StringToTimeTest()
+        {
+            String str1 = "N / A";
+            String str2 = "";
+            String str3 = "2016/05/01 10:00:00";
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+
+            //Test "N / A"
+            DateTime actualDT1 = file.StringToTime(str1);
+            DateTime expectedDT1 = DateTime.MinValue;
+            Assert.AreEqual(expectedDT1, actualDT1, "Actual DateTime does not equal to MinValue when input is N / A");
+
+            //Test ""
+            DateTime actualDT2 = file.StringToTime(str2);
+            DateTime expectedDT2 = DateTime.MinValue;
+            Assert.AreEqual(expectedDT2, actualDT2, "Actual DateTime does not equal to MinValue when input is empty string");
+
+            //Test ""
+            DateTime actualDT3 = file.StringToTime(str3);
+            DateTime expectedDT3 = new DateTime(2016, 05, 01, 10, 00, 00);
+            Assert.AreEqual(expectedDT3, actualDT3, "Actual DateTime does not equal to 2016/05/01 10:00:00");
+        }
+
+        [TestMethod]
+        public void TimeToStringTest()
+        {
+            DateTime DT0 = DateTime.MinValue;
+            DateTime DT1 = new DateTime(2016, 12, 12, 12, 12, 12);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+
+            //Test MinValue
+            String actualStringDT0 = file.TimeToString(DT0);
+            String expectedStringDT0 = "0001/01/01 12:00:00";
+            Assert.AreEqual(expectedStringDT0, actualStringDT0, "Actual String-type DateTime does not equal to MinValue");
+
+            //Test not MinValue
+            String actualStringDT1 = file.TimeToString(DT1);
+            String expectedStringDT1 = "2016/12/12 12:12:12";
+            Assert.AreEqual(expectedStringDT1, actualStringDT1, "Actual String-type DateTime does not equal to 2016/12/12 12:12:12");
         }
     }
 }

@@ -46,7 +46,6 @@
     <Compile Include="MeetingNode.cs" />
     <Compile Include="XMLProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLSearcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
