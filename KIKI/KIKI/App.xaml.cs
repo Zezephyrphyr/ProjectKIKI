@@ -85,50 +85,58 @@ namespace KIKI
             request.SingleEvents = true;
             request.MaxResults = 10;
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
-            
-            // List events.
-            Events events = request.Execute();
-            if (events.Items != null && events.Items.Count > 0)
-            {
 
-                foreach (var eventItem in events.Items)
+            // List events.\
+            try {
+                Events events = request.Execute();
+                if (events.Items != null && events.Items.Count > 0)
                 {
-                    string attendee = "";
-                    string when = eventItem.Start.DateTime.ToString();
-                    if (eventItem.Attendees != null)
+
+                    foreach (var eventItem in events.Items)
                     {
-                        EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
-                        string[] attendeeString = new string[eventItem.Attendees.Count];
-                        eventItem.Attendees.CopyTo(attendeeData, 0);
-                        for (int i = 0; i < eventItem.Attendees.Count; i++)
+                        string attendee = "";
+                        string when = eventItem.Start.DateTime.ToString();
+                        if (eventItem.Attendees != null)
                         {
-                            attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
+                            EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
+                            string[] attendeeString = new string[eventItem.Attendees.Count];
+                            eventItem.Attendees.CopyTo(attendeeData, 0);
+                            for (int i = 0; i < eventItem.Attendees.Count; i++)
+                            {
+                                attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
+                            }
+                            if (eventItem.Attendees.Count < 2)
+                            {
+                                attendee = "Unknown";
+                            }
                         }
-                        if (eventItem.Attendees.Count < 2)
+                        else
                         {
                             attendee = "Unknown";
                         }
-                    }
-                    else
-                    {
-                        attendee = "Unknown";
-                    }
 
-                    if (String.IsNullOrEmpty(when))
-                    {
-                        when = eventItem.Start.Date;
+                        if (String.IsNullOrEmpty(when))
+                        {
+                            when = eventItem.Start.Date;
+                        }
+
+                        bufferGoogle.Add(when);
+                        bufferGoogle.Add(eventItem.Summary);
+                        bufferGoogle.Add(attendee);
+
                     }
-
-                    bufferGoogle.Add(when);
-                    bufferGoogle.Add(eventItem.Summary);
-                    bufferGoogle.Add(attendee);
-
+                }
+                else
+                {
+                    Debug.WriteLine("No upcoming events found.");
                 }
             }
-            else
+            catch(Exception e)
             {
-                Debug.WriteLine("No upcoming events found.");
+                MessageBox.Show("No Internet Connection");
             }
+      
+            
             Console.Read();
         }
 
