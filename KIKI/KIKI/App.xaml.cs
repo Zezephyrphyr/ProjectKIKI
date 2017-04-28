@@ -159,10 +159,11 @@ namespace KIKI
         {
             XMLProcessor p = new XMLProcessor();
             p.Read();
+            Debug.Print("Last update time is " + p.GetLastUpdateTime().ToString());
             fetchFromGoogle(p.GetLastUpdateTime());
-            foreach (FileNode n in fileList)
+            foreach (MeetingNode n in meetingList)
             {
-                Debug.Print("File name is " + n.GetFileName());
+                Debug.Print("Meeting name is " + n.GetMeetingTitle());
             }
             p.ProcessFileWithMeetingList(meetingList, fileList);
             p.Write();
@@ -184,12 +185,15 @@ namespace KIKI
             // Define parameters of request.
             EventsResource.ListRequest request = service.Events.List("primary");
             request.TimeMin = minTime;
+            Debug.Print(minTime.ToString());
             request.TimeMax = DateTime.Now;
+            Debug.Print(DateTime.Now.ToString());
             request.ShowDeleted = false;
            
 
             // List events.
             Events events = request.Execute();
+            Debug.Print(events.Items.Count.ToString());
             if (events.Items != null && events.Items.Count > 0)
             {
 

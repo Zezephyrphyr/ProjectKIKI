@@ -11,6 +11,7 @@ namespace KIKIXmlProcessor
     {
         private String mfile = "meetings.xml";
         private String ffile = "files.xml";
+
         public XMLSearcher(String WorkingPath)
         {
             mfile = WorkingPath + mfile;
@@ -31,8 +32,7 @@ namespace KIKIXmlProcessor
             String[] idList = meetingIDs.Split(';');
             XElement meetings = XElement.Load(mfile);
             IEnumerable<XElement> meetingNodes = meetings.Elements();
-            LinkedList<MeetingNode> list = new LinkedList<MeetingNode>();
-            // Read the entire XML
+            List<MeetingNode> list = new List<MeetingNode>();
             foreach (var meeting in meetingNodes)
             {
                 String currentID = meeting.Attribute("ID").Value;
@@ -53,11 +53,17 @@ namespace KIKIXmlProcessor
                     currentNode.SetEndTime(meeting.Element("End_Time").Value);
                     currentNode.SetAttendents(meeting.Element("Attendents").Value);
                     currentNode.SetFiles(meeting.Element("Files").Value);
-                    list.AddLast(currentNode);
+                    list.Add(currentNode);
                 }
             }
-            //the count of the list indicate whether the list is empty
-            return list;
+
+            list.Sort((x, y) => y.GetStartTime().CompareTo(x.GetStartTime()));
+            LinkedList<MeetingNode> n = new LinkedList<MeetingNode>();
+            foreach (MeetingNode item in list)
+            {
+                n.AddLast(item);
+            }
+            return n;
         }
 
         //Search file by its path and returns the linked list of realted meeting information 
@@ -76,7 +82,6 @@ namespace KIKIXmlProcessor
             }
             return FindMeetingsByMeetingIDs(meetingIDs);
         }
-
 
         public LinkedList<MeetingNode> FindMeetingsByFileID(String fileID)
         {
@@ -102,9 +107,8 @@ namespace KIKIXmlProcessor
             }
             String[] idList = fileIDs.Split(';');
             XElement files = XElement.Load(ffile);
+            List<FileNode> list = new List<FileNode>();
             IEnumerable<XElement> fileNodes = files.Elements();
-            LinkedList<FileNode> list = new LinkedList<FileNode>();
-            // Read the entire XML
             foreach (var file in fileNodes)
             {
                 String currentID = file.Attribute("ID").Value;
@@ -127,11 +131,18 @@ namespace KIKIXmlProcessor
                     currentNode.SetFilePath(file.Element("File_Path").Value);
                     currentNode.SetExtension(file.Element("Extension").Value);
                     currentNode.SetMeetings(file.Element("Meetings").Value);
-                    list.AddLast(currentNode);
+                    list.Add(currentNode);
                 }
             }
+            
             //the count of the list indicate whether the list is empty
-            return list;
+            list.Sort((x, y) => y.GetModifiedTime().CompareTo(x.GetModifiedTime()));
+            LinkedList<FileNode> n = new LinkedList<FileNode>();
+            foreach (FileNode item in list)
+            {
+                n.AddLast(item);
+            }
+            return n;
         }
 
         public LinkedList<FileNode> FindFilesByMeetingID(String meetingID)
@@ -155,7 +166,6 @@ namespace KIKIXmlProcessor
             XElement meetings = XElement.Load(mfile);
             IEnumerable<XElement> meetingNodes = meetings.Elements();
             LinkedList<MeetingNode> list = new LinkedList<MeetingNode>();
-            // Read the entire XML
             foreach (var meeting in meetingNodes)
             {
                 if ((meeting.Element("Parent_ID").Value == meetingPID) || (meeting.Attribute("ID").Value == meetingPID))
@@ -170,7 +180,6 @@ namespace KIKIXmlProcessor
                     list.AddLast(currentNode);
                 }
             }
-            //the count of the list indicate whether the list is empty
             return list;
         }
 
@@ -206,8 +215,7 @@ namespace KIKIXmlProcessor
         {
             XElement meetings = XElement.Load(mfile);
             IEnumerable<XElement> meetingNodes = meetings.Elements();
-            LinkedList<MeetingNode> list = new LinkedList<MeetingNode>();
-            // Read the entire XML
+            List<MeetingNode> list = new List<MeetingNode>();
             foreach (var meeting in meetingNodes)
             {
                 if (meeting.Element("Meeting_Title").Value.Contains(keyword))
@@ -219,19 +227,24 @@ namespace KIKIXmlProcessor
                     currentNode.SetEndTime(meeting.Element("End_Time").Value);
                     currentNode.SetAttendents(meeting.Element("Attendents").Value);
                     currentNode.SetFiles(meeting.Element("Files").Value);
-                    list.AddLast(currentNode);
+                    list.Add(currentNode);
                 }
             }
-            //the count of the list indicate whether the list is empty
-            return list;
+            list.Sort((x, y) => y.GetStartTime().CompareTo(x.GetStartTime()));
+            LinkedList<MeetingNode> n = new LinkedList<MeetingNode>();
+            foreach (MeetingNode item in list)
+            {
+                n.AddLast(item);
+            }
+            return n;
         }
 
         //keyword should not be empty string
         public LinkedList<FileNode> FindFilesByFileNameKeywords(String keyword)
         {
-            XElement fileList = XElement.Load(ffile);
+            XElement fileList = XElement.Load(ffile);  
+            List<FileNode> list = new List<FileNode>();
             IEnumerable<XElement> fileNodes = fileList.Elements();
-            LinkedList<FileNode> list = new LinkedList<FileNode>();
             foreach (var file in fileNodes)
             {
                 if (file.Element("File_Name").Value.Contains(keyword))
@@ -245,10 +258,17 @@ namespace KIKIXmlProcessor
                     currentNode.SetFilePath(file.Element("File_Path").Value);
                     currentNode.SetExtension(file.Element("Extension").Value);
                     currentNode.SetMeetings(file.Element("Meetings").Value);
-                    list.AddLast(currentNode);
+                    currentNode.SetMissing(file.Element("Missing").Value);
+                    list.Add(currentNode);
                 }
             }
-            return list;
+            list.Sort((x, y) => y.GetModifiedTime().CompareTo(x.GetModifiedTime()));
+            LinkedList<FileNode> n = new LinkedList<FileNode>();
+            foreach (FileNode item in list)
+            {
+                n.AddLast(item);
+            }
+            return n;
         }
 
         //-----------------------------------------------------------------------------------------------------------------

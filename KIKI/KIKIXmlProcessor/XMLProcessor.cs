@@ -23,6 +23,7 @@ namespace KIKIXmlProcessor
         private LinkedList<FileNode> fileFinalList = new LinkedList<FileNode>();
         private DateTime lastUpdate = new DateTime();
         private int lastID = 0;
+        private int trackID = 0;
         private TimeSpan minDuration = new TimeSpan(0, 1, 0);
 
         public XMLProcessor()
@@ -51,7 +52,7 @@ namespace KIKIXmlProcessor
             workingPath = settingsFile.Element("Working_Path").Value;
             if (settingsFile.Element("Last_Update").Value != "Uninitialized")
             {
-                lastUpdate = StringToTime(settingsFile.Element("Last_Update").Value);
+                lastUpdate = Tools.StringToTime(settingsFile.Element("Last_Update").Value);
             }
             else
             {
@@ -59,6 +60,7 @@ namespace KIKIXmlProcessor
                 lastUpdate = time;
             }
             lastID = Convert.ToInt32(settingsFile.Element("Last_File_ID").Value);
+            trackID = lastID;
             if (settingsFile.Element("Minimum_Duration").Value != "")
             {
                 String[] s1 = settingsFile.Element("Minimum_Duration").Value.Split(';');
@@ -98,25 +100,6 @@ namespace KIKIXmlProcessor
             RSFile = workingPath + "records.xml";
         }
 
-        public DateTime StringToTime(String s)
-        {
-            if (s == "")
-            {
-                return new DateTime();
-            }
-            String[] s1 = s.Split(' ');
-            String[] s2 = s1[0].Split('/');
-            String[] s3 = s1[1].Split(':');
-            int year = Convert.ToInt32(s2[0]);
-            int month = Convert.ToInt32(s2[1]);
-            int day = Convert.ToInt32(s2[2]);
-            int hour = Convert.ToInt32(s3[0]);
-            int minute = Convert.ToInt32(s3[1]);
-            int second = Convert.ToInt32(s3[2]);
-
-            DateTime x = new DateTime(year, month, day, hour, minute, second);
-            return x;
-        }
 
         public Boolean FirstUse()
         {
@@ -140,10 +123,10 @@ namespace KIKIXmlProcessor
         {
             GetRFXML();
             FileInfo i = new FileInfo(tempPath);
-            while (IsFileLocked(i)) { };
+            while (Tools.IsFileLocked(i)) { };
             RemoveXMLdeclaration();
             FileInfo i2 = new FileInfo(RSFile);
-            while (IsFileLocked(i2)) { };
+            while (Tools.IsFileLocked(i2)) { };
             ReadRecords();
         }
 
@@ -225,7 +208,7 @@ namespace KIKIXmlProcessor
                         case XmlNodeType.EndElement:
                             if ((filter == 0) && (reader.Name == "item"))
                             {
-                                if ((IsValid(fileName, filePath, extension, stored_in)) && (IsValidTimeRange(mTime, cTime, eTime, lastUpdate, DateTime.Now) != -1))
+                                if ((Tools.IsValid(fileName, filePath, extension, stored_in)) && (Tools.IsValidTimeRange(mTime, cTime, eTime, lastUpdate, DateTime.Now) != -1))
                                 {
                                     FileNode tempNode = new FileNode();
                                     tempNode.SetFileName(fileName);
@@ -244,35 +227,6 @@ namespace KIKIXmlProcessor
                             break;
                         default:
                             break;
-                            /*
-                            case XmlNodeType.CDATA:
-                                Console.WriteLine("3");
-                                Console.WriteLine("<![CDATA[{0}]]>", reader.Value);
-                                break;
-                            case XmlNodeType.ProcessingInstruction:
-                                Console.WriteLine("4");
-                                Console.WriteLine("<?{0} {1}?>", reader.Name, reader.Value);
-                                break;
-                            case XmlNodeType.Comment:
-                                Console.WriteLine("5");
-                                Console.WriteLine("<!--{0}-->", reader.Value);
-                                break;
-                            case XmlNodeType.XmlDeclaration:
-                                Console.WriteLine("6");
-                                Console.WriteLine("<?xml version='1.0'?>");
-                                break;
-                            case XmlNodeType.Document:
-                                Console.WriteLine("7");
-                                break;
-                            case XmlNodeType.DocumentType:
-                                Console.WriteLine("8");
-                                Console.WriteLine("<!DOCTYPE {0} [{1}]", reader.Name, reader.Value);
-                                break;
-                            case XmlNodeType.EntityReference:
-                                Console.WriteLine("9");
-                                Console.WriteLine(reader.Name);
-                                break;*/
-
                     }
                 }
             }
@@ -302,6 +256,8 @@ namespace KIKIXmlProcessor
 
             //Write all of the "body" to the same text file
             System.IO.File.WriteAllText(RSFile, body);
+            FileInfo it = new FileInfo(tempPath);
+            while (Tools.IsFileLocked(it)) { }
             File.Delete(tempPath);
             Console.WriteLine("Fomatting Finished...");
         }
@@ -325,95 +281,8 @@ namespace KIKIXmlProcessor
 
         #region Check if the data is valid
         //filter, checking the validity of the information
-        public Boolean IsValid(String fName, String fPath, String ext, String stored_in)
-        {
-            if (fName == "")
-            {
-                return false;
-            }
-            if (ext == "")
-            {
-                return false;
-            }
-            if (stored_in == "Registry")
-            {
-                return false;
-            }
-            return true;
-        }
 
-        //-1: The file is invalid for this time range
-        //1: The file is created in this time range
-        //0: The file is modified in this time range
-        public int IsValidTimeRange(String mTime, String cTime, String eTime, DateTime sTime, DateTime edTime)
-        {
-            DateTime mt = new DateTime();
-            DateTime ct = new DateTime();
-            DateTime et = new DateTime();
-            if ((mTime != "N / A") && (mTime != ""))
-            {
-                mt = StringToTime(mTime);
-            }
-            if ((cTime != "N / A") && (cTime != ""))
-            {
-                ct = StringToTime(cTime);
-            }
-            if ((eTime != "N / A") && (eTime != ""))
-            {
-                et = StringToTime(eTime);
-            }
-            // if all three time not within the range, return invalid
-            if (((DateTime.Compare(edTime, ct) < 0) || (DateTime.Compare(ct, sTime) < 0))
-                && ((DateTime.Compare(edTime, et) < 0) || (DateTime.Compare(et, sTime) < 0))
-                && ((DateTime.Compare(edTime, mt) < 0) || (DateTime.Compare(mt, sTime) < 0)))
-            {
-                return -1;
-            }
-            //if the file is created after the start time and before the end time
-            //Count the file as created in the meeting 
-            if ((DateTime.Compare(sTime, ct) < 0) && (DateTime.Compare(ct, edTime) < 0))
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
 
-        }
-
-        public int IsValidTimeRange(DateTime ct, DateTime et, DateTime mt, DateTime sTime, DateTime edTime)
-        {
-            // if all three time not within the range, return invalid
-            if (((DateTime.Compare(edTime, ct) < 0) || (DateTime.Compare(ct, sTime) < 0))
-                && ((DateTime.Compare(edTime, et) < 0) || (DateTime.Compare(et, sTime) < 0))
-                && ((DateTime.Compare(edTime, mt) < 0) || (DateTime.Compare(mt, sTime) < 0)))
-            {
-                return -1;
-            }
-            //if the file is created after the start time and before the end time
-            //Count the file as created in the meeting 
-            if ((DateTime.Compare(sTime, ct) < 0) && (DateTime.Compare(ct, edTime) < 0))
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        //test if the event is a meeting
-        //Condition: The duration of the meeting should exceed 1 minute
-        public Boolean IsValidMeeting(MeetingNode m)
-        {
-            TimeSpan duration = m.GetDuration();
-            if (duration.CompareTo(minDuration) < 0)
-            {
-                return false;
-            }
-            return true;
-        }
 
 
         #endregion
@@ -426,7 +295,7 @@ namespace KIKIXmlProcessor
         public void ProcessFileWithMeetingNode(MeetingNode mNode)
         {
             //check if the meeting node is valid or not first
-            if (!IsValidMeeting(mNode))
+            if (!Tools.IsValidMeeting(mNode,minDuration))
             {
                 return;
             }
@@ -442,7 +311,7 @@ namespace KIKIXmlProcessor
             DateTime endTime = mNode.GetEndTime();
             foreach (FileNode item in fileList)
             {
-                if (IsValidTimeRange(item.GetCreatedTime(), item.GetExecuteTime(), item.GetModifiedTime(), startTime, endTime) != -1)
+                if (Tools.IsValidTimeRange(item.GetCreatedTime(), item.GetExecuteTime(), item.GetModifiedTime(), startTime, endTime) != -1)
                 {
                     item.AddMeetings(meetingID);
                     filteredFileList.AddLast(item);
@@ -466,20 +335,20 @@ namespace KIKIXmlProcessor
 
         public LinkedList<FileNode> AssignFileIDs(LinkedList<FileNode> fList)
         {
-            int llid = lastID;
+            int llid = trackID;
             LinkedList<FileNode> nList = fList;
             if (!File.Exists(ffile))
             {
                 WriteNewFilesFile();
                 FileInfo i2 = new FileInfo(ffile);
-                while (IsFileLocked(i2)) { };
+                while (Tools.IsFileLocked(i2)) { };
                 Debug.Print("Files Done");
             }
             if (!File.Exists(mfile))
             {
                 WriteNewMeetingsFile(new LinkedList<MeetingNode>());
                 FileInfo i3 = new FileInfo(mfile);
-                while (IsFileLocked(i3)) { };
+                while (Tools.IsFileLocked(i3)) { };
                 Debug.Print("Meetings Done");
             }
             XElement filesFile = XElement.Load(ffile);
@@ -532,6 +401,7 @@ namespace KIKIXmlProcessor
                     }
                 }
             }
+            trackID = llid;
             return nList;
         }
 
@@ -652,13 +522,17 @@ namespace KIKIXmlProcessor
             FileInfo i2 = new FileInfo(ffile);
             FileInfo i3 = new FileInfo(sfile);
 
-            while (IsFileLocked(i)) { };
+            while (Tools.IsFileLocked(i)) { };
             WriteMeetings(meetingList);
-
-            while (IsFileLocked(i2)) { };
+            foreach (FileNode n in fileFinalList)
+            {
+                Console.WriteLine(n.GetFileName());
+                Console.WriteLine(n.GetFileID().ToString());
+            }
+            while (Tools.IsFileLocked(i2)) { };
             WriteFiles(fileFinalList);
 
-            while (IsFileLocked(i3)) { };
+            while (Tools.IsFileLocked(i3)) { };
             UpdateSettingsTime(lastUpdate);
             UpdateLastID(lastID);
             Console.WriteLine("Finished...");
@@ -821,32 +695,7 @@ namespace KIKIXmlProcessor
         //---------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------
 
-        private bool IsFileLocked(FileInfo file)
-        {
-            FileStream stream = null;
-
-            try
-            {
-                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-            }
-            catch (IOException)
-            {
-                //the file is unavailable because it is:
-                //still being written to
-                //or being processed by another thread
-                //or does not exist (has already been processed)
-                return true;
-            }
-            finally
-            {
-                if (stream != null)
-                    stream.Close();
-            }
-
-            //file is not locked
-            return false;
-        }
-
+ 
         //------------------------------Testing Area--------------------------------------------------
         //----------------------------For Developer Only -------------------------------------------------
 
@@ -955,14 +804,54 @@ namespace KIKIXmlProcessor
         //for test main method
         public static void Main(string[] args)
         {
-            
+
+            /*
             XMLProcessor x = new XMLProcessor();
             x.Read();
             foreach (FileNode node in x.fileList)
             {
                 Console.WriteLine(node.GetFileName());
             }
-           // Uri.IsWellFormedOriginalString();
+            */
+            // Uri.IsWellFormedOriginalString();
+
+            LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
+            LinkedList<FileNode> attachmentList = new LinkedList<FileNode>();
+            MeetingNode m1 = new MeetingNode();
+            m1.SetMeetingID("12345");
+            m1.SetMeetingTitle("ABC");
+            m1.SetStartTime("2017/04/03 13:13:15");
+            m1.SetEndTime("2017/04/04 13:13:15");
+            MeetingNode m2 = new MeetingNode();
+            m2.SetMeetingID("23456");
+            m2.SetMeetingTitle("BCD");
+            m2.SetStartTime("2017/04/07 13:13:15");
+            m2.SetEndTime("2017/04/08 13:13:15");
+            MeetingNode m3 = new MeetingNode();
+            m3.SetMeetingID("34567");
+            m3.SetMeetingTitle("CDE");
+            m3.SetStartTime("2017/04/08 13:13:15");
+            m3.SetEndTime("2017/04/09 13:13:15");
+            meetingList.AddLast(m1);
+            meetingList.AddLast(m2);
+            meetingList.AddLast(m3);
+
+            FileNode f1 = new FileNode();
+            f1.SetFileName("f1a");
+            f1.AddMeetings("12345");
+            FileNode f2 = new FileNode();
+            f2.SetFileName("f2a");
+            f2.AddMeetings("34567");
+            FileNode f3 = new FileNode();
+            f3.SetFileName("f3a");
+            f3.AddMeetings("34567");
+            attachmentList.AddLast(f1);
+            attachmentList.AddLast(f2);
+            attachmentList.AddLast(f3);
+
+            XMLProcessor x = new XMLProcessor();
+            x.ProcessFileWithMeetingList(meetingList, attachmentList);
+            x.Write();
         }
     }
 }

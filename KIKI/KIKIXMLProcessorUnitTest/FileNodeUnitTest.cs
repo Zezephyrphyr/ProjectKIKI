@@ -20,8 +20,8 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void GetandSetFileNameTest()
         {
-            FileNode file0 = new FileNode("", fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file0 = new FileNode("", fileID, modifiedTime, createdTime, executeTime, extension, filePath);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test get empty string
             String actualfileName0 = file0.GetFileName();
@@ -45,8 +45,8 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void GetandSetFileIDTest()
         {
-            FileNode file0 = new FileNode(fileName, "0", modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file0 = new FileNode(fileName, "0", modifiedTime, createdTime, executeTime, extension, filePath);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test get 0
             Int32 actualfileID0 = file0.GetFileID();
@@ -80,8 +80,8 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void GetandSetFilePathTest()
         {
-            FileNode file0 = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, "", MeetingID);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file0 = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, "");
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test get empty string
             String actualfilePath0 = file0.GetFilePath();
@@ -105,8 +105,8 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void GetandSetExtensionTest()
         {
-            FileNode file0 = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, "", filePath, MeetingID);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file0 = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, "", filePath);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test get empty string
             String actualExtension0 = file0.GetExtension();
@@ -131,10 +131,10 @@ namespace KIKIXMLProcessorUnitTest
         public void GetandSetModifiedTimeTest()
         {
             DateTime min = DateTime.MinValue;
-            FileNode file_na = new FileNode(fileName, fileID, "N / A", createdTime, executeTime, extension, filePath, MeetingID);
-            FileNode file01 = new FileNode(fileName, fileID, "0001/01/01 00:00:00", createdTime, executeTime, extension, filePath, MeetingID);
-            FileNode file02 = new FileNode(fileName, fileID, min, min, min, extension, filePath, MeetingID);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file_na = new FileNode(fileName, fileID, "N / A", createdTime, executeTime, extension, filePath);
+            FileNode file01 = new FileNode(fileName, fileID, "0001/01/01 00:00:00", createdTime, executeTime, extension, filePath);
+            FileNode file02 = new FileNode(fileName, fileID, min, min, min, extension, filePath);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test when input is "N / A"
             String actualmodifiedTime_na = file_na.GetModifiedTimeS();
@@ -177,10 +177,10 @@ namespace KIKIXMLProcessorUnitTest
         public void GetandSetCreatedTimeTest()
         {
             DateTime min = DateTime.MinValue;
-            FileNode file_na = new FileNode(fileName, fileID, modifiedTime, "N / A", executeTime, extension, filePath, MeetingID);
-            FileNode file01 = new FileNode(fileName, fileID, modifiedTime, "0001/01/01 00:00:00", executeTime, extension, filePath, MeetingID);
-            FileNode file02 = new FileNode(fileName, fileID, min, min, min, extension, filePath, MeetingID);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file_na = new FileNode(fileName, fileID, modifiedTime, "N / A", executeTime, extension, filePath);
+            FileNode file01 = new FileNode(fileName, fileID, modifiedTime, "0001/01/01 00:00:00", executeTime, extension, filePath);
+            FileNode file02 = new FileNode(fileName, fileID, min, min, min, extension, filePath);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test when input is "N / A"
             String actualcreatedTime_na = file_na.GetCreatedTimeS();
@@ -223,10 +223,10 @@ namespace KIKIXMLProcessorUnitTest
         public void GetandSetExecuteTimeTest()
         {
             DateTime min = DateTime.MinValue;
-            FileNode file_na = new FileNode(fileName, fileID, modifiedTime, createdTime, "N / A", extension, filePath, MeetingID);
-            FileNode file01 = new FileNode(fileName, fileID, modifiedTime, createdTime, "0001/01/01 00:00:00", extension, filePath, MeetingID);
-            FileNode file02 = new FileNode(fileName, fileID, min, min, min, extension, filePath, MeetingID);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file_na = new FileNode(fileName, fileID, modifiedTime, createdTime, "N / A", extension, filePath);
+            FileNode file01 = new FileNode(fileName, fileID, modifiedTime, createdTime, "0001/01/01 00:00:00", extension, filePath);
+            FileNode file02 = new FileNode(fileName, fileID, min, min, min, extension, filePath);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test when input is "N / A"
             String actualexecuteTime_na = file_na.GetExecuteTimeS();
@@ -269,7 +269,7 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void GetandSetMissingTest()
         {
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test get initialized true
             Boolean actualMissing1 = file.GetMissing();
@@ -294,8 +294,8 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void GetandAddMeetingListTest()
         {
-            FileNode file0 = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, "");
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file0 = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test get empty list
             String actualmeetingList0 = file0.GetMeetingListS();
@@ -339,7 +339,7 @@ namespace KIKIXMLProcessorUnitTest
         [TestMethod]
         public void SetMeetingsTest()
         {
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //test set single element
             file.SetMeetings("2");
@@ -384,20 +384,20 @@ namespace KIKIXMLProcessorUnitTest
             String str1 = "N / A";
             String str2 = "";
             String str3 = "2016/05/01 10:00:00";
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //Test "N / A"
-            DateTime actualDT1 = file.StringToTime(str1);
+            DateTime actualDT1 = Tools.StringToTime(str1);
             DateTime expectedDT1 = DateTime.MinValue;
             Assert.AreEqual(expectedDT1, actualDT1, "Actual DateTime does not equal to MinValue when input is N / A");
 
             //Test ""
-            DateTime actualDT2 = file.StringToTime(str2);
+            DateTime actualDT2 = Tools.StringToTime(str2);
             DateTime expectedDT2 = DateTime.MinValue;
             Assert.AreEqual(expectedDT2, actualDT2, "Actual DateTime does not equal to MinValue when input is empty string");
 
             //Test ""
-            DateTime actualDT3 = file.StringToTime(str3);
+            DateTime actualDT3 = Tools.StringToTime(str3);
             DateTime expectedDT3 = new DateTime(2016, 05, 01, 10, 00, 00);
             Assert.AreEqual(expectedDT3, actualDT3, "Actual DateTime does not equal to 2016/05/01 10:00:00");
         }
@@ -407,15 +407,15 @@ namespace KIKIXMLProcessorUnitTest
         {
             DateTime DT0 = DateTime.MinValue;
             DateTime DT1 = new DateTime(2016, 12, 12, 12, 12, 12);
-            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath, MeetingID);
+            FileNode file = new FileNode(fileName, fileID, modifiedTime, createdTime, executeTime, extension, filePath);
 
             //Test MinValue
-            String actualStringDT0 = file.TimeToString(DT0);
+            String actualStringDT0 = Tools.TimeToString(DT0);
             String expectedStringDT0 = "";
             Assert.AreEqual(expectedStringDT0, actualStringDT0, "Actual String-type DateTime does not equal to empty string when input is MinValue");
 
             //Test not MinValue
-            String actualStringDT1 = file.TimeToString(DT1);
+            String actualStringDT1 = Tools.TimeToString(DT1);
             String expectedStringDT1 = "2016/12/12 12:12:12";
             Assert.AreEqual(expectedStringDT1, actualStringDT1, "Actual String-type DateTime does not equal to 2016/12/12 12:12:12");
         }

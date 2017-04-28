@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KIKIXmlProcessor;
 
-//NOTICE:
-//Add tests for StringToTime and TimeToString
-//Change the string output in GetandSetStartTime/GetandSetEndTime
-
 
 namespace KIKIXMLProcessorUnitTest
 {
@@ -19,7 +15,6 @@ namespace KIKIXMLProcessorUnitTest
         String eTime = "2017/04/01 19:10:05";
         String PID = "05";
         String Attendents = "Steven, Eddie, Xiaoying";
-        //Int32 FileID = 1;
 
         [TestMethod]
         public void GetandSetMeetingTitleTest()
@@ -30,8 +25,6 @@ namespace KIKIXMLProcessorUnitTest
             //test empty
             String actualmTitle0 = meeting0.GetMeetingTitle();
             Assert.AreEqual("", actualmTitle0, "Actual meeting title not equal to empty");
-
-
 
             //test get
             String actualmTitle1 = meeting.GetMeetingTitle();
@@ -90,7 +83,7 @@ namespace KIKIXMLProcessorUnitTest
             //test set
             meeting.SetStartTime("2017/04/02 12:30:00");
             String actualsTime2 = meeting.GetStartTimeS();
-            Assert.AreEqual("2017/04/02 12:30:00", actualsTime2, "Actual meeting start time does not equal to 017/04/02 12:30:00");
+            Assert.AreEqual("2017/04/02 12:30:00", actualsTime2, "Actual meeting start time does not equal to 2017/04/02 12:30:00");
         }
 
         [TestMethod]
@@ -183,15 +176,32 @@ namespace KIKIXMLProcessorUnitTest
         }
 
         [TestMethod]
+        public void SetFilesTest()
+        {
+            MeetingNode meeting = new MeetingNode(mTitle, mID, sTime, eTime, PID, Attendents);
+
+            //test empty
+            meeting.SetFiles("");
+            String actualFileList0 = meeting.GetFileListS();
+            Assert.AreEqual("", actualFileList0, "The actual file list is not empty");
+
+            //test set single element
+            meeting.SetFiles("1");
+            String actualFileList1 = meeting.GetFileListS();
+            Assert.AreEqual("1", actualFileList1, "The actual file list does not contain 1");
+
+            //test set multiple element
+            meeting.SetFiles("2;3;4");
+            String actualFileList2 = meeting.GetFileListS();
+            Assert.AreEqual(3, meeting.FileList.Count, "The actual file list does not contain 3 elements");
+            Assert.AreEqual("2;3;4", actualFileList2, "The actual file list does not contain 2;3;4");
+        }
+
+        [TestMethod]
         public void GetandAddFileListTest()
         {
             MeetingNode meeting0 = new MeetingNode(mTitle, mID, sTime, eTime, PID, Attendents);
             MeetingNode meeting = new MeetingNode(mTitle, mID, sTime, eTime, PID, Attendents);
-
-            ////test empty GetFileList
-            //LinkedList<Int32> actualFileList_emp = meeting0.GetFileList();
-            //LinkedList<Int32> expectedFileList_emp = new LinkedList<Int32>();
-            //Assert.AreEqual(expectedFileList_emp.Last.Value, actualFileList_emp.Last.Value, "Actual FileList is not empty, Expected: {}, Actual: {}.", expectedFileList_emp.Last, actualFileList_emp.Last);
 
             //test get 0 GetFileList
             meeting0.AddFiles(0);

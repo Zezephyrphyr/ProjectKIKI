@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KIKIXmlProcessor
 {
@@ -19,7 +16,7 @@ namespace KIKIXmlProcessor
         public LinkedList<String> MeetingList = new LinkedList<String>();
 
         public FileNode() { }
-        public FileNode(String fN, String FID, String mTime, String cTime, String eTime, String ext, String fPath, String MeetingID)
+        public FileNode(String fN, String FID, String mTime, String cTime, String eTime, String ext, String fPath)
         {
             fileName = fN;
             filePath = fPath;
@@ -32,7 +29,7 @@ namespace KIKIXmlProcessor
             }
             if (mTime != null)
             {
-                modifiedTime = this.StringToTime(mTime);
+                modifiedTime = Tools.StringToTime(mTime);
             }
 
             if (cTime == null)
@@ -41,7 +38,7 @@ namespace KIKIXmlProcessor
             }
             if (cTime != null)
             {
-                createdTime = this.StringToTime(cTime);
+                createdTime = Tools.StringToTime(cTime);
             }
 
             if (eTime == null)
@@ -50,12 +47,12 @@ namespace KIKIXmlProcessor
             }
             if (eTime != null)
             {
-                executeTime = this.StringToTime(eTime);
+                executeTime = Tools.StringToTime(eTime);
             }
 
         }
 
-        public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath, String MeetingID)
+        public FileNode(String fN, String FID, DateTime mTime, DateTime cTime, DateTime eTime, String ext, String fPath)
         {
             fileName = fN;
             filePath = fPath;
@@ -102,13 +99,11 @@ namespace KIKIXmlProcessor
 
         public void SetFileID(String FID)
         {
-            try { fileID = Convert.ToInt32(FID);
-            }
-            catch
+            try
             {
-
+                fileID = Convert.ToInt32(FID);
             }
-            
+            catch{}
         }
 
         public void SetFilePath(String fPath)
@@ -118,17 +113,17 @@ namespace KIKIXmlProcessor
 
         public void SetModifiedTime(String mTime)
         {
-            modifiedTime = this.StringToTime(mTime);
+            modifiedTime = Tools.StringToTime(mTime);
         }
 
         public void SetCreatedTime(String cTime)
         {
-            createdTime = this.StringToTime(cTime);
+            createdTime = Tools.StringToTime(cTime);
         }
 
         public void SetExecuteTime(String eTime)
         {
-            executeTime = this.StringToTime(eTime);
+            executeTime = Tools.StringToTime(eTime);
         }
 
         public void SetExtension(String ext)
@@ -187,7 +182,7 @@ namespace KIKIXmlProcessor
         {
             if (modifiedTime.Year != 1)
             {
-                String ModifiedTimeS = this.TimeToString(modifiedTime);
+                String ModifiedTimeS = Tools.TimeToString(modifiedTime);
                 return ModifiedTimeS;
             }
             else
@@ -205,7 +200,7 @@ namespace KIKIXmlProcessor
         {
             if (createdTime.Year != 1)
             {
-                String CreatedTimeS = this.TimeToString(createdTime);
+                String CreatedTimeS = Tools.TimeToString(createdTime);
                 return CreatedTimeS;
             }
             else
@@ -223,7 +218,7 @@ namespace KIKIXmlProcessor
         {
             if (executeTime.Year != 1)
             {
-                String ExecutedTimeS = this.TimeToString(executeTime);
+                String ExecutedTimeS = Tools.TimeToString(executeTime);
                 return ExecutedTimeS;
             }
             else
@@ -286,52 +281,5 @@ namespace KIKIXmlProcessor
                 return false;
             }
         }
-
-        public DateTime StringToTime(String s)
-        {
-            if (s == "N / A")
-            {
-                DateTime na = DateTime.MinValue;
-                return na;
-            }
-            if (s == "")
-            {
-                DateTime empty = DateTime.MinValue;
-                return empty;
-            }
-            else
-            {
-                String[] s1 = s.Split(' ');
-                String[] s2 = s1[0].Split('/');
-                String[] s3 = s1[1].Split(':');
-                int year = Convert.ToInt32(s2[0]);
-                int month = Convert.ToInt32(s2[1]);
-                int day = Convert.ToInt32(s2[2]);
-                int hour = Convert.ToInt32(s3[0]);
-                int minute = Convert.ToInt32(s3[1]);
-                int second = Convert.ToInt32(s3[2]);
-
-                DateTime x = new DateTime(year, month, day, hour, minute, second);
-                return x;
-            }
-        }
-
-        public String TimeToString(DateTime dt)
-        {
-            if (dt == DateTime.MinValue)
-            {
-                return "";
-            }
-            String year = dt.Year.ToString("0000");
-            String month = dt.Month.ToString("00");
-            String day = dt.Day.ToString("00");
-            String hour = dt.Hour.ToString("00");
-            String minute = dt.Minute.ToString("00");
-            String second = dt.Second.ToString("00");
-
-            String dtString = year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second;
-            return dtString;
-        }
     }
-
 }
