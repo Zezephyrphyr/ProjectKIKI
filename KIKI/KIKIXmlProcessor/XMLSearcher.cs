@@ -16,7 +16,6 @@ namespace KIKIXmlProcessor
             mfile = WorkingPath + mfile;
             ffile = WorkingPath + ffile;
         }
-
         //-----------------------------------------Search Algorithm ------------------------------------------------
         //------------------Read information from XML and return linked list of desired data ----------------------------
 
@@ -253,15 +252,5 @@ namespace KIKIXmlProcessor
 
         //-----------------------------------------------------------------------------------------------------------------
 
-        //FOR TEST PURPOSE
-        public String GetMfile()
-        {
-            return mfile;
-        }
-
-        public String GetFfile()
-        {
-            return ffile;
-        }
     }
 }
