@@ -27,7 +27,7 @@ namespace KIKIXmlProcessor
 
         public XMLProcessor()
         {
-            if (File.Exists(sfile))
+            if (!File.Exists(sfile))
             {
                 WriteSettings();
             }
@@ -116,15 +116,31 @@ namespace KIKIXmlProcessor
         {
             if (!((File.Exists(mfile)) || (File.Exists(ffile))))
             {
+                if (!File.Exists(ffile))
+                {
+                    WriteNewFilesFile();
+                }
                 return true;
             }
             return false;
         }
         //-----------------------------------------------------------------------------------------
-#endregion 
+        #endregion
 
+        #region Read file list data from recent files view
         // ------------Read Recent File Records From the System----------------------------------
         // Post condition: A linked list of roughly sorted file data
+        public void Read()
+        {
+            GetRFXML();
+            FileInfo i = new FileInfo(tempPath);
+            while (IsFileLocked(i)) { };
+            RemoveXMLdeclaration();
+            FileInfo i2 = new FileInfo("records.xml");
+            while (IsFileLocked(i2)) { };
+            ReadRecords();
+        }
+
         public Boolean GetRFXML()
         {
             Console.WriteLine("Program start fetching recent file history from the system...");
@@ -309,6 +325,7 @@ namespace KIKIXmlProcessor
             return -2;
         }
 
+#endregion
 
         #region Check if the data is valid
         //filter, checking the validity of the information
@@ -337,15 +354,16 @@ namespace KIKIXmlProcessor
             DateTime mt = new DateTime();
             DateTime ct = new DateTime();
             DateTime et = new DateTime();
-            if (mTime != "N / A")
+            if ((mTime != "N / A") && (mTime != ""))
             {
                 mt = StringToTime(mTime);
             }
-            if (cTime !="N / A")
+            if ((cTime !="N / A") && (cTime != ""))
             {
                 ct = StringToTime(cTime);
             }
-            if (eTime != "N / A") {
+            if ((eTime != "N / A") && (eTime != ""))
+            {
                 et = StringToTime(eTime);
             }
             // if all three time not within the range, return invalid
@@ -372,7 +390,7 @@ namespace KIKIXmlProcessor
         //Condition: The duration of the meeting should exceed 1 minute
         public Boolean IsValidMeeting(MeetingNode m)
         { 
-            TimeSpan duration = m.computeDuration(m.GetStartTime(),m.GetEndTime());
+            TimeSpan duration = m.GetDuration();
             if (duration.CompareTo(minDuration) < 0)
             {
                 return false;
@@ -414,7 +432,13 @@ namespace KIKIXmlProcessor
             {
                 return;
             }
+            
             String meetingID = mNode.GetMeetingID();
+            if (meetingID == "")
+            {
+                Console.WriteLine("Meeting ID for Meeting " + mNode.GetMeetingTitle() + "is missing.");
+                return;     
+            }
             LinkedList<FileNode> filteredFileList = new LinkedList<FileNode>();
             DateTime startTime = mNode.GetStartTime();
             DateTime endTime = mNode.GetEndTime();
@@ -437,6 +461,7 @@ namespace KIKIXmlProcessor
 
         public LinkedList<FileNode> AssignFileIDs(LinkedList<FileNode> fList)
         {
+            int llid = lastID;
             LinkedList<FileNode> nList = fList;
             XElement filesFile = XElement.Load(ffile);
             IEnumerable<XElement> fileNodes = filesFile.Elements();
@@ -483,8 +508,8 @@ namespace KIKIXmlProcessor
                     }
                     if (node.GetFileID() == 0)
                     {
-                        node.SetFileID(lastID + 1);
-                        lastID++;
+                        node.SetFileID(llid + 1);
+                        llid++;
                     }
                 }
             }
@@ -595,6 +620,12 @@ namespace KIKIXmlProcessor
         //-------------------------------------------------------------------------------------
         #endregion
 
+        public void Write()
+        {
+            WriteMeetings(meetingList);
+            WriteFiles(fileFinalList);
+ 
+        }
         #region Meetings.xml Write and Update
         //A method store the linked list of meetings into the database
         public void WriteMeetings(LinkedList<MeetingNode> mts)
@@ -621,7 +652,7 @@ namespace KIKIXmlProcessor
                 XElement mt = new XElement("Meeting_Title", temp.GetMeetingTitle()); //meeting title element
                 XElement st = new XElement("Start_Time", temp.GetStartTimeS());
                 XElement et = new XElement("End_Time", temp.GetEndTimeS());
-                XElement pID = new XElement("Parent_ID", temp.GetParentID().ToString());
+                XElement pID = new XElement("Parent_ID", temp.GetParentID());
                 XElement atds = new XElement("Attendents", temp.GetAttendents());
                 XElement f = new XElement("Files", temp.GetFileListS());
                 String mID = temp.GetMeetingID();
@@ -701,12 +732,14 @@ namespace KIKIXmlProcessor
                                    
                 if (temp.GetFileID() <= currentLast) 
                 {
+                    Console.WriteLine(currentLast);
                     //previous node
                     var previousNode = from id in filesFile.Elements("Item")
                                        where (string)id.Attribute("ID") == Convert.ToString(temp.GetFileID())
                                        select id;
                     foreach (XElement pN in previousNode)
                     {
+
                         pN.Element("File_Name").ReplaceNodes(temp.GetFileName());
                         pN.Element("File_Path").ReplaceNodes(temp.GetFilePath());
                         pN.Element("Modified_Time").ReplaceNodes(temp.GetModifiedTimeS());
@@ -735,17 +768,45 @@ namespace KIKIXmlProcessor
             UpdateLastID(lastID);
             Console.WriteLine("Files.xml Updated...");
         }
-#endregion
+        #endregion
 
         //---------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------
 
+        private bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
 
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
 
         //------------------------------Testing Area--------------------------------------------------
         //----------------------------For Developer Only -------------------------------------------------
 
+        public void SetFileList(LinkedList<FileNode> testList)
+        {
+            fileList = testList;
+        }
         public void XmlSample()
         {
             XElement m = new XElement("Meeting");
@@ -847,21 +908,22 @@ namespace KIKIXmlProcessor
         //for test main method
         public static void Main(string[] args)
         {
-            /*
+            
             XMLProcessor x = new XMLProcessor();
-            
-            x.GetRFXML(); //date and time not implemented 
-            while (!File.Exists(x.tempPath)) ;
-            Thread.Sleep(1000); //temporary solution for process conflicts
-            
-
-            while (x.sync == 1) ;
+           
+            x.GetRFXML(); 
+            FileInfo i = new FileInfo(x.tempPath);
+            while (x.IsFileLocked(i)) { };
+            x.RemoveXMLdeclaration();
+            FileInfo i2 = new FileInfo("records.xml");
+            while (x.IsFileLocked(i2)){ };
             x.ReadRecords();
 
             foreach (FileNode node in x.fileList) { 
                 Console.WriteLine(node.GetFileName());
 
             }
+            /*
             FileNode a = new FileNode();
             a.SetFileName("HELLO");
             FileNode b = new FileNode();
@@ -892,9 +954,30 @@ namespace KIKIXmlProcessor
             Console.WriteLine(TS.Minutes);
             Console.WriteLine("Path is " + WP);
 */
-
+/*
+            File.Delete("Settings.xml");
+            File.Delete("meetings.xml");
+            File.Delete("files.xml");
             MeetingNode node = new MeetingNode();
-
+            node.SetStartTime("2017/01/01 12:00:00");
+            node.SetEndTime("2017/12/12 12:00:00");
+            node.SetMeetingID("12345");
+            node.SetMeetingTitle("Hello");
+            FileNode file1 = new FileNode();
+            FileNode file2 = new FileNode();
+            file1.SetCreatedTime("2017/03/03 12:00:00");
+            file1.SetFileName("test1");
+            file2.SetCreatedTime("2016/03/03 12:00:00");
+            file1.SetFileName("test2");
+            LinkedList<FileNode> fn = new LinkedList<FileNode>();
+            fn.AddLast(file1);
+            fn.AddLast(file2);
+            XMLProcessor processor = new XMLProcessor();
+            processor.FirstUse();
+            processor.SetFileList(fn);
+            processor.ProcessFileWithMeetingNode(node);
+            processor.Write();
+*/
         }
     }
 }

@@ -85,5 +85,31 @@ namespace KIKIXMLProcessorUnitTest
 
 
         }
+
+        public void ProcessTest()
+        {
+            File.Delete("Settings.xml");
+            File.Delete("meetings.xml");
+            File.Delete("files.xml");
+            MeetingNode node = new MeetingNode();
+            node.SetStartTime("2017/01/01 12:00:00");
+            node.SetEndTime("2017/12/12 12:00:00");
+            node.SetMeetingID("12345");
+            node.SetMeetingTitle("Hello");
+            FileNode file1 = new FileNode();
+            FileNode file2 = new FileNode();
+            file1.SetCreatedTime("2017/03/03 12:00:00");
+            file1.SetFileName("test1");
+            file2.SetCreatedTime("2016/03/03 12:00:00");
+            file1.SetFileName("test2");
+            LinkedList<FileNode> fn = new LinkedList<FileNode>();
+            fn.AddLast(file1);
+            fn.AddLast(file2);
+            XMLProcessor processor = new XMLProcessor();
+            processor.FirstUse();
+            processor.SetFileList(fn);
+            processor.ProcessFileWithMeetingNode(node);
+            processor.Write();
+        }
     }
 }
