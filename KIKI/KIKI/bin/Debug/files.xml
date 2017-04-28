@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<File>
+  <Item ID="1">
+    <File_Name>KIKI.sln</File_Name>
+    <File_Path>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI.sln</File_Path>
+    <Created_Time>2017/04/28 05:46:57</Created_Time>
+    <Modified_Time>2017/04/26 21:21:40</Modified_Time>
+    <Execute_Time>2017/04/28 06:07:44</Execute_Time>
+    <Extension></Extension>
+    <Missing>False</Missing>
+    <Meetings>2t10030suqpssfij87nku029kg</Meetings>
+  </Item>
+  <Item ID="2">
+    <File_Name>files.xml</File_Name>
+    <File_Path>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\files.xml</File_Path>
+    <Created_Time>2017/04/28 06:05:59</Created_Time>
+    <Modified_Time>2017/04/28 06:20:26</Modified_Time>
+    <Execute_Time>2017/04/28 06:20:43</Execute_Time>
+    <Extension></Extension>
+    <Missing>False</Missing>
+    <Meetings>2t10030suqpssfij87nku029kg</Meetings>
+  </Item>
+  <Item ID="3">
+    <File_Name>meetings.xml</File_Name>
+    <File_Path>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\meetings.xml</File_Path>
+    <Created_Time>2017/04/28 06:05:59</Created_Time>
+    <Modified_Time>2017/04/28 06:20:26</Modified_Time>
+    <Execute_Time>2017/04/28 06:23:45</Execute_Time>
+    <Extension></Extension>
+    <Missing>False</Missing>
+    <Meetings>2t10030suqpssfij87nku029kg</Meetings>
+  </Item>
+  <Item ID="4">
+    <File_Name>records.xml</File_Name>
+    <File_Path>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\records.xml</File_Path>
+    <Created_Time>2017/04/28 06:02:43</Created_Time>
+    <Modified_Time>2017/04/28 06:20:25</Modified_Time>
+    <Execute_Time>2017/04/28 06:23:56</Execute_Time>
+    <Extension></Extension>
+    <Missing>True</Missing>
+    <Meetings>2t10030suqpssfij87nku029kg</Meetings>
+  </Item>
+  <Item ID="5">
+    <File_Name>Settings.xml</File_Name>
+    <File_Path>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\Settings.xml</File_Path>
+    <Created_Time>2017/04/28 05:23:36</Created_Time>
+    <Modified_Time>2017/04/28 05:29:13</Modified_Time>
+    <Execute_Time>2017/04/28 05:30:41</Execute_Time>
+    <Extension></Extension>
+    <Missing>False</Missing>
+    <Meetings>2t10030suqpssfij87nku029kg</Meetings>
+  </Item>
+  <Item ID="6">
+    <File_Name>Resume.pdf</File_Name>
+    <File_Path>https://drive.google.com/file/d/0B7J96J6Sgv9iZzRLc1JkUEFjSzcxRWpSa0cxU3ZZdU5vZHVV/view?usp=drive_web</File_Path>
+    <Created_Time></Created_Time>
+    <Modified_Time>2017/04/28 02:30:00</Modified_Time>
+    <Execute_Time></Execute_Time>
+    <Extension>GoogleDrive</Extension>
+    <Missing>False</Missing>
+    <Meetings>egq1kfh9p2n18rmb61q8p0tjg8;c8enkb69k90hvp3o0noclk2k2s</Meetings>
+  </Item>
+  <Item ID="7">
+    <File_Name>IMG_9584_1.mp4</File_Name>
+    <File_Path>https://drive.google.com/file/d/0B7J96J6Sgv9iN1JrS0lsVEMtVE0/view?usp=drive_web</File_Path>
+    <Created_Time></Created_Time>
+    <Modified_Time>2017/04/15 10:00:00</Modified_Time>
+    <Execute_Time></Execute_Time>
+    <Extension>GoogleDrive</Extension>
+    <Missing>False</Missing>
+    <Meetings>3n154mrif6dvpbafp2ocej7l2g</Meetings>
+  </Item>
+  <Item ID="8">
+    <File_Name>164713anmwspppitzoxjus.jpg</File_Name>
+    <File_Path>C:\Users\eddie\Desktop\290\164713anmwspppitzoxjus.jpg</File_Path>
+    <Created_Time></Created_Time>
+    <Modified_Time></Modified_Time>
+    <Execute_Time>2017/04/24 21:27:50</Execute_Time>
+    <Extension></Extension>
+    <Missing>False</Missing>
+    <Meetings>eu94v1qlr02dbs99rvu2092bbk</Meetings>
+  </Item>
+  <Item ID="9">
+    <File_Name>565d6a290d81d.jpg</File_Name>
+    <File_Path>C:\Users\eddie\Desktop\290\565d6a290d81d.jpg</File_Path>
+    <Created_Time></Created_Time>
+    <Modified_Time></Modified_Time>
+    <Execute_Time>2017/04/24 21:02:23</Execute_Time>
+    <Extension></Extension>
+    <Missing>False</Missing>
+    <Meetings>eu94v1qlr02dbs99rvu2092bbk</Meetings>
+  </Item>
+  <Item ID="10">
+    <File_Name>Level 3.unity</File_Name>
+    <File_Path>C:\Users\eddie\Downloads\Geometrix(fully functional)\Geometrix(fully functional)\Assets\Level 3.unity</File_Path>
+    <Created_Time>2017/04/27 12:27:28</Created_Time>
+    <Modified_Time>2017/04/27 00:00:10</Modified_Time>
+    <Execute_Time>2017/04/27 12:27:38</Execute_Time>
+    <Extension></Extension>
+    <Missing>False</Missing>
+    <Meetings>h11ctm6obud43krgncs5hkpbk4_20170427T153000Z</Meetings>
+  </Item>
+</File>

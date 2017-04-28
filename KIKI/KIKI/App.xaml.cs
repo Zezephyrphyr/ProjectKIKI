@@ -28,8 +28,8 @@ namespace KIKI
         static List<string> bufferMeeting = new List<string>();
         static List<string> bufferFile = new List<string>();
         static UserCredential credential;
-        static LinkedList<FileNode> fileList = new LinkedList<FileNode>();
-        static LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
+        public static LinkedList<FileNode> fileList = new LinkedList<FileNode>();
+        public static LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
 
         public static async void revoke() { 
         await credential.RevokeTokenAsync(CancellationToken.None);
@@ -51,10 +51,11 @@ namespace KIKI
                 using (var stream =
                   new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
                 {
-                    string credPath = System.Environment.GetFolderPath(
+                
+                string credPath = System.Environment.GetFolderPath(
                       System.Environment.SpecialFolder.Personal);
                     credPath = Path.Combine(credPath, ".credentials/calendar-dotnet-quickstart.json");
-
+               
                     credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                       GoogleClientSecrets.Load(stream).Secrets,
                       Scopes,
@@ -62,8 +63,10 @@ namespace KIKI
                       CancellationToken.None
                       ).Result;
                     Console.WriteLine("Credential file saved to: " + credPath);
-                }  
+               
             }
+          
+        }
 
         public static void InitializeCalendar()
         {
@@ -77,11 +80,12 @@ namespace KIKI
             // Define parameters of request.
             EventsResource.ListRequest request = service.Events.List("primary");
             request.TimeMin = DateTime.Now;
+            request.TimeMax = DateTime.Today.AddHours(24);
             request.ShowDeleted = false;
             request.SingleEvents = true;
             request.MaxResults = 10;
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
-
+            
             // List events.
             Events events = request.Execute();
             if (events.Items != null && events.Items.Count > 0)
@@ -133,8 +137,11 @@ namespace KIKI
             LinkedList<MeetingNode> MeetingList = returnMeeting();
             foreach (MeetingNode item in MeetingList)
             {
-                
-                bufferMeeting.Add(item.GetStartTime().ToString());
+                string date = item.GetStartTime().ToString().Split(' ')[0];
+                string start = item.GetStartTime().ToString().Split(' ')[1];
+                string end = item.GetEndTime().ToString().Split(' ')[1];
+                bufferMeeting.Add(date);
+                bufferMeeting.Add(start + "-" + end);
                 bufferMeeting.Add(item.GetMeetingTitle());
                 bufferMeeting.Add(item.GetAttendents());   
                 bufferMeeting.Add(item.GetFileListS()+"");
@@ -159,12 +166,13 @@ namespace KIKI
         {
             XMLProcessor p = new XMLProcessor();
             p.Read();
-            Debug.Print("Last update time is " + p.GetLastUpdateTime().ToString());
             fetchFromGoogle(p.GetLastUpdateTime());
-            foreach (MeetingNode n in meetingList)
+            /*
+            foreach (FileNode n in fileList)
             {
-                Debug.Print("Meeting name is " + n.GetMeetingTitle());
+                Debug.Print("File name is " + n.GetFileName());
             }
+            */
             p.ProcessFileWithMeetingList(meetingList, fileList);
             p.Write();
         }
@@ -185,15 +193,13 @@ namespace KIKI
             // Define parameters of request.
             EventsResource.ListRequest request = service.Events.List("primary");
             request.TimeMin = minTime;
-            Debug.Print(minTime.ToString());
             request.TimeMax = DateTime.Now;
-            Debug.Print(DateTime.Now.ToString());
             request.ShowDeleted = false;
+            request.SingleEvents = true;
            
 
             // List events.
             Events events = request.Execute();
-            Debug.Print(events.Items.Count.ToString());
             if (events.Items != null && events.Items.Count > 0)
             {
 
@@ -240,6 +246,7 @@ namespace KIKI
                             file.SetFileName(eventItem.Attachments[i].Title);
                             file.SetFilePath(eventItem.Attachments[i].FileUrl);
                             file.AddMeetings(eventItem.Id);
+                            file.SetMissing("No");
                             fileList.AddLast(file);
                         }
                     }
