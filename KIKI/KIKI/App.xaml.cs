@@ -42,7 +42,8 @@ namespace KIKI
             InitializeCore();
             InitializeMeetingTab();
             InitializeFileTab();
-            
+      
+
         }
 
         public static void InitializeGoogle()
@@ -83,7 +84,6 @@ namespace KIKI
 
             // List events.
             Events events = request.Execute();
-            Debug.WriteLine("Upcoming events:");
             if (events.Items != null && events.Items.Count > 0)
             {
 
@@ -166,7 +166,7 @@ namespace KIKI
 
         public static void fetchFromGoogle(DateTime minTime)
         {
-
+            Debug.Print("" + minTime);
             MeetingNode meeting = new MeetingNode();
             FileNode file = new FileNode();
 
@@ -191,6 +191,7 @@ namespace KIKI
 
                 foreach (var eventItem in events.Items)
                 {
+                    meeting = new MeetingNode();
                     string attendee = "";
                     string when = eventItem.Start.DateTime.ToString();
                     if (eventItem.Attendees != null)
@@ -216,7 +217,10 @@ namespace KIKI
                     meeting.SetStartTime(when);
                     meeting.SetEndTime(eventItem.End.DateTime.ToString());
                     meeting.SetMeetingTitle(eventItem.Summary);
-                    meetingList.AddLast(meeting);
+                    if (DateTime.Compare(meeting.GetEndTime(), DateTime.Now) <= 0)
+                    {
+                        meetingList.AddLast(meeting);
+                    }
                     if (eventItem.Attachments != null) {
                         for (int i = 0; i < eventItem.Attachments.Count; i++)
                         {

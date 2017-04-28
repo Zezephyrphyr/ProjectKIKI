@@ -30,6 +30,6 @@ D:\GIT\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe.config
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.exe
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Debug\KIKIXmlProcessor.pdb
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.exe
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.pdb
+C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Debug\KIKIXmlProcessor.csprojResolveAssemblyReference.cache
