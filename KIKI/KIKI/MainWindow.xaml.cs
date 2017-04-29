@@ -29,10 +29,10 @@ namespace KIKI
 
         private bool login = true;
         private System.Timers.Timer timer;
-        private XMLProcessor p;
+
         public MainWindow()
         {
-            p = new XMLProcessor();
+            XMLProcessor p = new XMLProcessor();
             InitializeComponent();
           
             App.Initialize();
@@ -53,24 +53,35 @@ namespace KIKI
 
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+
+            App.meetingList = new LinkedList<MeetingNode>();
+            App.fileList = new LinkedList<FileNode>();
             App.UpdateGoogleList();
+            App.UpdateMeetingList();
+            App.UpdateFileList();
             App.InitializeCalendar();
+            XMLProcessor p = new XMLProcessor();
             App.fetchFromGoogle(p.GetLastUpdateTime());
+            
             if (App.meetingList.Count > 0){
-                App.InitializeCore();
+                App.UpdateCore();
+                App.InitializeMeetingTab();
+                App.InitializeFileTab();
             }
+          
             this.Dispatcher.Invoke(() =>
             {
                 initializeGoogleInfo();
                 initializeFileInfo();
                 initializeMeetingInfo();
             });
+          
             
         }
 
         private void initializeGoogleInfo()
         {
-           
+
             List<string> eventData = App.getGoogleBuffer();
             ObservableCollection<todayEvent> items = new ObservableCollection<todayEvent>();
             
@@ -80,8 +91,10 @@ namespace KIKI
                 mlistView.ItemsSource = items;
             }
         }
+
         private void initializeMeetingInfo()
         {
+
             string buffer = "";
             List<string> meetingData = App.getMeetingBuffer();
             ObservableCollection<previousMeeting> items = new ObservableCollection<previousMeeting>();
@@ -92,6 +105,8 @@ namespace KIKI
                     buffer = meetingData[0];
                     items.Add(new previousMeeting() { Date = meetingData[i] });
                     mlistView4.ItemsSource = items;
+                    items.Add(new previousMeeting() { Time = meetingData[i + 1], Name = meetingData[i + 2], Attendee = meetingData[i + 3], Docs = meetingData[i + 4] });
+                    mlistView4.ItemsSource = items;
                 }
 
                 else if (i != 0)
@@ -101,6 +116,7 @@ namespace KIKI
                     
                         items.Add(new previousMeeting() { Time = meetingData[i + 1], Name = meetingData[i + 2], Attendee = meetingData[i + 3], Docs = meetingData[i + 4] });
                         mlistView4.ItemsSource = items;
+
                     }
                     else {
                         buffer = meetingData[i];
@@ -114,6 +130,7 @@ namespace KIKI
         }
         private void initializeFileInfo()
         {
+
             XMLProcessor processor = new XMLProcessor();
             XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
             List<string> FileData = App.getFileBuffer();
@@ -145,7 +162,7 @@ namespace KIKI
         }
         private void initializeTimer()
         {
-            int wait = 200 * 1000;
+            int wait = 10 * 1000;
             timer = new System.Timers.Timer(wait);
             timer.Elapsed += timer_Elapsed;
             timer.AutoReset = true;

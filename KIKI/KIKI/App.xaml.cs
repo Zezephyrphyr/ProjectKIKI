@@ -25,14 +25,20 @@ namespace KIKI
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "Google Calendar API .NET Quickstart";
         static List<string> bufferGoogle = new List<string>();
-        static List<string> bufferMeeting = new List<string>();
+        public static List<string> bufferMeeting = new List<string>();
         static List<string> bufferFile = new List<string>();
         static UserCredential credential;
         public static LinkedList<FileNode> fileList = new LinkedList<FileNode>();
         public static LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
-
-        public static async void revoke() { 
-        await credential.RevokeTokenAsync(CancellationToken.None);
+        static int id;
+        public static async void revoke() {
+            try
+            {
+                await credential.RevokeTokenAsync(CancellationToken.None);
+            }catch(Exception e)
+            {
+                MessageBox.Show("Network connection lost");
+            }
         }
 
         public static void Initialize()
@@ -51,7 +57,6 @@ namespace KIKI
                 using (var stream =
                   new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
                 {
-                
                 string credPath = System.Environment.GetFolderPath(
                       System.Environment.SpecialFolder.Personal);
                     credPath = Path.Combine(credPath, ".credentials/calendar-dotnet-quickstart.json");
@@ -83,7 +88,6 @@ namespace KIKI
             request.TimeMax = DateTime.Today.AddHours(24);
             request.ShowDeleted = false;
             request.SingleEvents = true;
-            request.MaxResults = 10;
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
 
             // List events.\
@@ -107,12 +111,12 @@ namespace KIKI
                             }
                             if (eventItem.Attendees.Count < 2)
                             {
-                                attendee = "Unknown";
+                                attendee = "N/A";
                             }
                         }
                         else
                         {
-                            attendee = "Unknown";
+                            attendee = "N/A";
                         }
 
                         if (String.IsNullOrEmpty(when))
@@ -143,6 +147,7 @@ namespace KIKI
         public static void InitializeMeetingTab()
         {
             LinkedList<MeetingNode> MeetingList = returnMeeting();
+            Debug.Print("InitializeMeetingTab");
             foreach (MeetingNode item in MeetingList)
             {
                 string date = item.GetStartTime().ToString().Split(' ')[0];
@@ -150,6 +155,7 @@ namespace KIKI
                 string end = item.GetEndTime().ToString().Split(' ')[1];
                 bufferMeeting.Add(date);
                 bufferMeeting.Add(start + "-" + end);
+                Debug.Print(item.GetMeetingTitle());
                 bufferMeeting.Add(item.GetMeetingTitle());
                 bufferMeeting.Add(item.GetAttendents());   
                 bufferMeeting.Add(item.GetFileListS()+"");
@@ -185,6 +191,19 @@ namespace KIKI
             p.Write();
         }
 
+        public static void UpdateCore()
+        {
+            XMLProcessor p = new XMLProcessor();
+            p.Read();
+            Debug.Print("MeetingList Passed In:");
+            foreach (MeetingNode n in meetingList)
+            {
+                Debug.Print(n.GetMeetingID());
+            }
+            p.ProcessFileWithMeetingList(meetingList, fileList);
+            p.Write();
+        }
+
         public static void fetchFromGoogle(DateTime minTime)
         {
             Debug.Print("" + minTime);
@@ -204,61 +223,68 @@ namespace KIKI
             request.TimeMax = DateTime.Now;
             request.ShowDeleted = false;
             request.SingleEvents = true;
-           
+
 
             // List events.
-            Events events = request.Execute();
-            if (events.Items != null && events.Items.Count > 0)
+            try
             {
-
-                foreach (var eventItem in events.Items)
+                Events events = request.Execute();
+                if (events.Items != null && events.Items.Count > 0)
                 {
-                    meeting = new MeetingNode();
-                    string attendee = "";
-                    string when = eventItem.Start.DateTime.ToString();
-                    if (eventItem.Attendees != null)
-                    {
-                        EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
-                        eventItem.Attendees.CopyTo(attendeeData, 0);
-                        for (int i = 0; i < eventItem.Attendees.Count; i++)
-                        {
-                            attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
-                        }
-                        if (eventItem.Attendees.Count < 2)
-                        {
-                            attendee = "Unknown";
-                        }
-                    }
-                    else
-                    {
-                        attendee = "Unknown";
-                    }
-                    meeting.SetAttendents(attendee);
-                    meeting.SetMeetingID(eventItem.Id);
-                    meeting.SetParentID(eventItem.ICalUID.ToString());
-                    meeting.SetStartTime(when);
-                    meeting.SetEndTime(eventItem.End.DateTime.ToString());
-                    meeting.SetMeetingTitle(eventItem.Summary);
-                    if (DateTime.Compare(meeting.GetEndTime(), DateTime.Now) <= 0)
-                    {
-                        meetingList.AddLast(meeting);
-                    }
-                    if (eventItem.Attachments != null) {
 
-                        for (int i = 0; i < eventItem.Attachments.Count; i++)
+                    foreach (var eventItem in events.Items)
+                    {
+                        meeting = new MeetingNode();
+                        string attendee = "";
+                        string when = eventItem.Start.DateTime.ToString();
+                        if (eventItem.Attendees != null)
                         {
-                            file = new FileNode();
-                            file.SetModifiedTime(eventItem.Start.DateTime.ToString());
-                            file.SetFileID(" ");
-                            file.SetExtension("GoogleDrive");
-                            file.SetFileName(eventItem.Attachments[i].Title);
-                            file.SetFilePath(eventItem.Attachments[i].FileUrl);
-                            file.AddMeetings(eventItem.Id);
-                            file.SetMissing("No");
-                            fileList.AddLast(file);
+                            EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
+                            eventItem.Attendees.CopyTo(attendeeData, 0);
+                            for (int i = 0; i < eventItem.Attendees.Count; i++)
+                            {
+                                attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
+                            }
+                            if (eventItem.Attendees.Count < 2)
+                            {
+                                attendee = "N/A";
+                            }
+                        }
+                        else
+                        {
+                            attendee = "N/A";
+                        }
+                        meeting.SetAttendents(attendee);
+                        meeting.SetMeetingID(eventItem.Id);
+                        meeting.SetParentID(eventItem.ICalUID.ToString());
+                        meeting.SetStartTime(when);
+                        meeting.SetEndTime(eventItem.End.DateTime.ToString());
+                        meeting.SetMeetingTitle(eventItem.Summary);
+                        if (DateTime.Compare(meeting.GetEndTime(), DateTime.Now) <= 0)
+                        {
+                            meetingList.AddLast(meeting);
+                        }
+                        if (eventItem.Attachments != null)
+                        {
+
+                            for (int i = 0; i < eventItem.Attachments.Count; i++)
+                            {
+                                file = new FileNode();
+                                file.SetModifiedTime(eventItem.Start.DateTime.ToString());
+                                file.SetFileID(" ");
+                                file.SetExtension("GoogleDrive");
+                                file.SetFileName(eventItem.Attachments[i].Title);
+                                file.SetFilePath(eventItem.Attachments[i].FileUrl);
+                                file.AddMeetings(eventItem.Id);
+                                file.SetMissing("No");
+                                fileList.AddLast(file);
+                            }
                         }
                     }
                 }
+            }catch(Exception e)
+            {
+                MessageBox.Show("Network connection lost");
             }
         }
 
@@ -293,17 +319,34 @@ namespace KIKI
             credential = null;
         }
 
+        public static void UpdateMeetingList()
+        {
+            bufferMeeting= new List<string>();
+        }
+
+        public static void UpdateFileList()
+        {
+            bufferFile = new List<string>();
+        }
+
         public static void UpdateGoogleList()
         {
             bufferGoogle = new List<string>();
         }
+
         public static LinkedList<MeetingNode> returnMeeting()
         {
             LinkedList<MeetingNode> k = new LinkedList<MeetingNode>();
             XMLProcessor processor = new XMLProcessor();
             XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
             k = searcher.FindMeetingsByMeetingTitleKeywords("");
+            Debug.Print("get meetingList from the core");
+            foreach (MeetingNode i in k)
+            {
+                Debug.Print(""+i.GetMeetingTitle()+":"+i.ToString());
+            }
             return k;
+
         }
 
         public static LinkedList<FileNode> returnFile()
