@@ -105,11 +105,27 @@ namespace KIKI
                             EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
                             string[] attendeeString = new string[eventItem.Attendees.Count];
                             eventItem.Attendees.CopyTo(attendeeData, 0);
+                            List<String> attendeelist = new List<String>();
+
                             for (int i = 0; i < eventItem.Attendees.Count; i++)
                             {
-                                attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
+                                if ((attendeeData[i].DisplayName != null) && (attendeeData[i].DisplayName.Replace(" ","") != ""))
+                                {
+                                    attendeelist.Add(attendeeData[i].DisplayName);
+                                }
                             }
-                            if (eventItem.Attendees.Count < 2)
+                            if (attendeelist.Count >= 2)
+                            {
+                                for(int i = 0; i< attendeelist.Count;i++)
+                                {
+                                    attendee = attendee + attendeelist[i];
+                                    if (i!=attendeelist.Count -1)
+                                    {
+                                        attendee = attendee + ";";
+                                    }
+                                }
+                            }
+                            else
                             {
                                 attendee = "N/A";
                             }
@@ -118,6 +134,7 @@ namespace KIKI
                         {
                             attendee = "N/A";
                         }
+
 
                         if (String.IsNullOrEmpty(when))
                         {
@@ -174,19 +191,23 @@ namespace KIKI
                 bufferFile.Add(item.GetMeetingListS());
                 Debug.Print(item.GetMeetingListS());
             }
-        }
-
+       }
+        
         public static void InitializeCore()
         {
             XMLProcessor p = new XMLProcessor();
             p.Read();
             fetchFromGoogle(p.GetLastUpdateTime());
-            /*
+            Debug.Print("Initialize Core");
             foreach (FileNode n in fileList)
             {
                 Debug.Print("File name is " + n.GetFileName());
             }
-            */
+            foreach (MeetingNode n in meetingList)
+            {
+                Debug.Print("Meeting name is " + n.GetMeetingTitle());
+            }
+
             p.ProcessFileWithMeetingList(meetingList, fileList);
             p.Write();
         }
@@ -241,11 +262,26 @@ namespace KIKI
                         {
                             EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
                             eventItem.Attendees.CopyTo(attendeeData, 0);
+                            List<String> attendeelist = new List<String>();
                             for (int i = 0; i < eventItem.Attendees.Count; i++)
                             {
-                                attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
+                                if ((attendeeData[i].DisplayName != null) && (attendeeData[i].DisplayName != ""))
+                                {
+                                    attendeelist.Add(attendeeData[i].DisplayName);
+                                }
                             }
-                            if (eventItem.Attendees.Count < 2)
+                            if (attendeelist.Count >= 2)
+                            {
+                                for (int i = 0; i < attendeelist.Count; i++)
+                                {
+                                    attendee = attendee + attendeelist[i];
+                                    if (i != attendeelist.Count - 1)
+                                    {
+                                        attendee = attendee + ";";
+                                    }
+                                }
+                            }
+                            else
                             {
                                 attendee = "N/A";
                             }
@@ -254,6 +290,7 @@ namespace KIKI
                         {
                             attendee = "N/A";
                         }
+
                         meeting.SetAttendents(attendee);
                         meeting.SetMeetingID(eventItem.Id);
                         meeting.SetParentID(eventItem.ICalUID.ToString());
