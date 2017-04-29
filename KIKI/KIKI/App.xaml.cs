@@ -5,18 +5,12 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
-using Google.Apis.Util.Store;
 using System.IO;
 using System.Threading;
-using System.Diagnostics;
 using KIKIXmlProcessor;
 
 namespace KIKI
 {
-    /// <summary>
-    /// App.xaml 的交互逻辑
-    /// </summary>
-    /// //////////////////////////////////////
     public partial class App : Application
     {
 
@@ -30,7 +24,6 @@ namespace KIKI
         static UserCredential credential;
         public static LinkedList<FileNode> fileList = new LinkedList<FileNode>();
         public static LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
-        static int id;
         public static async void revoke() {
             try
             {
@@ -130,10 +123,6 @@ namespace KIKI
 
                     }
                 }
-                else
-                {
-                    Debug.WriteLine("No upcoming events found.");
-                }
             }
             catch(Exception e)
             {
@@ -147,7 +136,6 @@ namespace KIKI
         public static void InitializeMeetingTab()
         {
             LinkedList<MeetingNode> MeetingList = returnMeeting();
-            Debug.Print("InitializeMeetingTab");
             foreach (MeetingNode item in MeetingList)
             {
                 string date = item.GetStartTime().ToString().Split(' ')[0];
@@ -155,7 +143,6 @@ namespace KIKI
                 string end = item.GetEndTime().ToString().Split(' ')[1];
                 bufferMeeting.Add(date);
                 bufferMeeting.Add(start + "-" + end);
-                Debug.Print(item.GetMeetingTitle());
                 bufferMeeting.Add(item.GetMeetingTitle());
                 bufferMeeting.Add(item.GetAttendents());   
                 bufferMeeting.Add(item.GetFileListS()+"");
@@ -172,7 +159,6 @@ namespace KIKI
                 bufferFile.Add(item.GetFileName());
                 bufferFile.Add(item.GetFilePath());
                 bufferFile.Add(item.GetMeetingListS());
-                Debug.Print(item.GetMeetingListS());
             }
         }
 
@@ -181,12 +167,6 @@ namespace KIKI
             XMLProcessor p = new XMLProcessor();
             p.Read();
             fetchFromGoogle(p.GetLastUpdateTime());
-            /*
-            foreach (FileNode n in fileList)
-            {
-                Debug.Print("File name is " + n.GetFileName());
-            }
-            */
             p.ProcessFileWithMeetingList(meetingList, fileList);
             p.Write();
         }
@@ -195,18 +175,12 @@ namespace KIKI
         {
             XMLProcessor p = new XMLProcessor();
             p.Read();
-            Debug.Print("MeetingList Passed In:");
-            foreach (MeetingNode n in meetingList)
-            {
-                Debug.Print(n.GetMeetingID());
-            }
             p.ProcessFileWithMeetingList(meetingList, fileList);
             p.Write();
         }
 
         public static void fetchFromGoogle(DateTime minTime)
         {
-            Debug.Print("" + minTime);
             MeetingNode meeting = new MeetingNode();
             FileNode file = new FileNode();
 
@@ -340,11 +314,6 @@ namespace KIKI
             XMLProcessor processor = new XMLProcessor();
             XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
             k = searcher.FindMeetingsByMeetingTitleKeywords("");
-            Debug.Print("get meetingList from the core");
-            foreach (MeetingNode i in k)
-            {
-                Debug.Print(""+i.GetMeetingTitle()+":"+i.ToString());
-            }
             return k;
 
         }

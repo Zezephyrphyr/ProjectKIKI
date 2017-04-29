@@ -103,7 +103,7 @@ namespace KIKIXmlProcessor
             {
                 fileID = Convert.ToInt32(FID);
             }
-            catch{}
+            catch { }
         }
 
         public void SetFilePath(String fPath)

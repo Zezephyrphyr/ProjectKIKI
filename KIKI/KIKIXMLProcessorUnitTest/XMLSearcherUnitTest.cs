@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KIKIXmlProcessor;
 
 namespace KIKIXMLProcessorUnitTest
@@ -8,6 +7,8 @@ namespace KIKIXMLProcessorUnitTest
     public class XMLSearcherUnitTest
     {
         [TestMethod]
+        //The test only test the constructor of the searcher
+        //The rest are tested through simulation of the user interface
         public void TestConstructor()
         {
             XMLSearcher search = new XMLSearcher("");
@@ -21,3 +22,4 @@ namespace KIKIXMLProcessorUnitTest
 
     }
 }
+

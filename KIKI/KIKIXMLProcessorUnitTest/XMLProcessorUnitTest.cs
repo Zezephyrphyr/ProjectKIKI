@@ -7,6 +7,8 @@ using System.IO;
 namespace KIKIXMLProcessorUnitTest
 {
     [TestClass]
+    //This class show some basic sample of codes during the testing of XMLProcessor through command lines
+    //Due to the read and access of xml files, limited unit tests are implemented for this class
     public class XMLProcessorUnitTest
     {
         XMLProcessor test = new XMLProcessor();
@@ -35,14 +37,6 @@ namespace KIKIXMLProcessorUnitTest
             list2.AddLast(n2);
             test.WriteMeetings(list2);
             Assert.IsTrue(!test.FirstUse());
-            /*
-            File.Delete("meetings.xml");
-            Assert.IsTrue(test.FirstUse());
-            test.WriteMeetings(list2);
-            Assert.IsTrue(!test.FirstUse());
-            */
-
-
         }
 
         [TestMethod]
@@ -79,14 +73,9 @@ namespace KIKIXMLProcessorUnitTest
             nP.WriteFiles(fn);
         }
 
-        [TestMethod]
-        public void IsValidMeetingTest()
-        {
-
-
-        }
-
-        public void ProcessTest()
+        //These method are not designed to be unit method
+        //Put the code in main function in XMLProcessor Class for testing
+        public void ProcessFileWithMeetingNodeTest()
         {
             File.Delete("Settings.xml");
             File.Delete("meetings.xml");
@@ -110,6 +99,64 @@ namespace KIKIXMLProcessorUnitTest
             processor.SetFileList(fn);
             processor.ProcessFileWithMeetingNode(node);
             processor.Write();
+        }
+
+        public void ProcessFilesWithMeetingListTest()
+        {
+            LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
+            LinkedList<FileNode> attachmentList = new LinkedList<FileNode>();
+            MeetingNode m1 = new MeetingNode();
+            m1.SetMeetingID("12345");
+            m1.SetMeetingTitle("ABC");
+            m1.SetStartTime("2017/04/03 13:13:15");
+            m1.SetEndTime("2017/04/04 13:13:15");
+            MeetingNode m2 = new MeetingNode();
+            m2.SetMeetingID("23456");
+            m2.SetMeetingTitle("BCD");
+            m2.SetStartTime("2017/04/07 13:13:15");
+            m2.SetEndTime("2017/04/08 13:13:15");
+            MeetingNode m3 = new MeetingNode();
+            m3.SetMeetingID("34567");
+            m3.SetMeetingTitle("CDE");
+            m3.SetStartTime("2017/04/08 13:13:15");
+            m3.SetEndTime("2017/04/09 13:13:15");
+            meetingList.AddLast(m1);
+            meetingList.AddLast(m2);
+            meetingList.AddLast(m3);
+
+            FileNode f1 = new FileNode();
+            f1.SetFileName("f1a");
+            f1.AddMeetings("12345");
+            FileNode f2 = new FileNode();
+            f2.SetFileName("f2a");
+            f2.AddMeetings("34567");
+            FileNode f3 = new FileNode();
+            f3.SetFileName("f3a");
+            f3.AddMeetings("34567");
+            attachmentList.AddLast(f1);
+            attachmentList.AddLast(f2);
+            attachmentList.AddLast(f3);
+
+            XMLProcessor x = new XMLProcessor();
+            x.ProcessFileWithMeetingList(meetingList, attachmentList);
+            x.Write();
+        }
+
+        public void UpdateSettingsTest()
+        {
+            XMLProcessor test = new XMLProcessor();
+            test.WriteSettings();
+            test.GetInfoFromSettings();
+            int LID = test.GetLastUpdateId();
+            TimeSpan TS = test.GetMinimumDuration();
+            DateTime DT = test.GetLastUpdateTime();
+            String WP = test.GetWorkingPath();
+            test.UpdateSettingsPath("resources/");
+            TimeSpan TS2 = new TimeSpan(3, 4, 2);
+            test.UpdateSettingsDuration(TS2);
+            test.UpdateLastID(342);
+            DateTime DT2 = new DateTime(2017, 3, 3, 3, 3, 3);
+            test.UpdateSettingsTime(DT2);
         }
     }
 }

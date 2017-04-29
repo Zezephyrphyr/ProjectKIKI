@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace KIKIXmlProcessor
 {
+    //This class provides search methods for fetching data
     public class XMLSearcher
     {
         private String mfile = "meetings.xml";
         private String ffile = "files.xml";
 
+        //Set the working path of the files in constructor
         public XMLSearcher(String WorkingPath)
         {
             mfile = WorkingPath + mfile;
@@ -21,8 +21,8 @@ namespace KIKIXmlProcessor
         //-----------------------------------------Search Algorithm ------------------------------------------------
         //------------------Read information from XML and return linked list of desired data ----------------------------
 
-        //find corresponding meeting nodes with a string of meeting IDs
-        //previous condition: no repetitive meeting ids in the string
+        //Ffind corresponding meeting nodes with a string of meeting IDs
+        //Previous condition: no repetitive meeting ids in the string
         public LinkedList<MeetingNode> FindMeetingsByMeetingIDs(String meetingIDs)
         {
             if (meetingIDs == "")
@@ -83,6 +83,7 @@ namespace KIKIXmlProcessor
             return FindMeetingsByMeetingIDs(meetingIDs);
         }
 
+        //Search Meetings of a file by the file ID
         public LinkedList<MeetingNode> FindMeetingsByFileID(String fileID)
         {
             XElement fileList = XElement.Load(ffile);
@@ -99,6 +100,7 @@ namespace KIKIXmlProcessor
             return FindMeetingsByMeetingIDs(meetingIDs);
         }
 
+        //Search Files by a string of fileIDs
         public LinkedList<FileNode> FindFilesByFileIDs(String fileIDs)
         {
             if (fileIDs == "")
@@ -134,7 +136,7 @@ namespace KIKIXmlProcessor
                     list.Add(currentNode);
                 }
             }
-            
+
             //the count of the list indicate whether the list is empty
             list.Sort((x, y) => y.GetModifiedTime().CompareTo(x.GetModifiedTime()));
             LinkedList<FileNode> n = new LinkedList<FileNode>();
@@ -145,6 +147,7 @@ namespace KIKIXmlProcessor
             return n;
         }
 
+        //Search Files of a meeting by the meeting ID
         public LinkedList<FileNode> FindFilesByMeetingID(String meetingID)
         {
             XElement meetingList = XElement.Load(mfile);
@@ -161,11 +164,12 @@ namespace KIKIXmlProcessor
             return FindFilesByFileIDs(fileIDs);
         }
 
+        //Search Meetings by the meeting parent ID
         public LinkedList<MeetingNode> FindMeetingsByMeetingPID(String meetingPID)
         {
             XElement meetings = XElement.Load(mfile);
             IEnumerable<XElement> meetingNodes = meetings.Elements();
-            LinkedList<MeetingNode> list = new LinkedList<MeetingNode>();
+            List<MeetingNode> list = new List<MeetingNode>();
             foreach (var meeting in meetingNodes)
             {
                 if ((meeting.Element("Parent_ID").Value == meetingPID) || (meeting.Attribute("ID").Value == meetingPID))
@@ -177,12 +181,19 @@ namespace KIKIXmlProcessor
                     currentNode.SetEndTime(meeting.Element("End_Time").Value);
                     currentNode.SetAttendents(meeting.Element("Attendents").Value);
                     currentNode.SetFiles(meeting.Element("Files").Value);
-                    list.AddLast(currentNode);
+                    list.Add(currentNode);
                 }
             }
-            return list;
+            list.Sort((x, y) => y.GetStartTime().CompareTo(x.GetStartTime()));
+            LinkedList<MeetingNode> n = new LinkedList<MeetingNode>();
+            foreach (MeetingNode item in list)
+            {
+                n.AddLast(item);
+            }
+            return n;
         }
 
+        //Search Files by the meeting parent ID
         public LinkedList<FileNode> FindFilesByMeetingPID(String meetingPID)
         {
             XElement meetings = XElement.Load(mfile);
@@ -211,6 +222,7 @@ namespace KIKIXmlProcessor
             return FindFilesByFileIDs(pFileIDs);
         }
 
+        //Search Meetings by keyword
         public LinkedList<MeetingNode> FindMeetingsByMeetingTitleKeywords(String keyword)
         {
             XElement meetings = XElement.Load(mfile);
@@ -239,10 +251,10 @@ namespace KIKIXmlProcessor
             return n;
         }
 
-        //keyword should not be empty string
+        //Search Files by keyword
         public LinkedList<FileNode> FindFilesByFileNameKeywords(String keyword)
         {
-            XElement fileList = XElement.Load(ffile);  
+            XElement fileList = XElement.Load(ffile);
             List<FileNode> list = new List<FileNode>();
             IEnumerable<XElement> fileNodes = fileList.Elements();
             foreach (var file in fileNodes)

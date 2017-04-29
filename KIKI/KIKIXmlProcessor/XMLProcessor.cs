@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -9,6 +8,7 @@ using System.Xml.Linq;
 
 namespace KIKIXmlProcessor
 {
+    //The class reads and writes xml with the information from the google calendar and recent files view
     public class XMLProcessor
     {
         private String mfile = "meetings.xml";
@@ -26,6 +26,7 @@ namespace KIKIXmlProcessor
         private int trackID = 0;
         private TimeSpan minDuration = new TimeSpan(0, 1, 0);
 
+        //Constructor of XMLProcessor, get basic settings information
         public XMLProcessor()
         {
             if (!File.Exists(sfile))
@@ -46,6 +47,7 @@ namespace KIKIXmlProcessor
         #region Basic settings read, update and get
         // ---------------------------Read Basic Settings -------------------------------------
 
+        //Read settings information from the Settings.xml
         public void GetInfoFromSettings()
         {
             XElement settingsFile = XElement.Load(sfile);
@@ -56,7 +58,7 @@ namespace KIKIXmlProcessor
             }
             else
             {
-                DateTime time = DateTime.Now - new TimeSpan(30,0,0,0);
+                DateTime time = DateTime.Now - new TimeSpan(30, 0, 0, 0);
                 lastUpdate = time;
             }
             lastID = Convert.ToInt32(settingsFile.Element("Last_File_ID").Value);
@@ -71,27 +73,31 @@ namespace KIKIXmlProcessor
             UpdateFilePath();
         }
 
+        //Get the minimum duration of a meeting should have
         public TimeSpan GetMinimumDuration()
         {
             return minDuration;
         }
 
+        //Get the working path of the files set by the user
         public String GetWorkingPath()
         {
             return workingPath;
         }
 
+        //Get the last update time 
         public int GetLastUpdateId()
         {
             return lastID;
         }
 
+        //Get the datetime Type of Last Update Time
         public DateTime GetLastUpdateTime()
         {
             return lastUpdate;
         }
 
-
+        //Update the path in this processor with the information read
         public void UpdateFilePath()
         {
             mfile = workingPath + "meetings.xml";
@@ -101,6 +107,7 @@ namespace KIKIXmlProcessor
         }
 
 
+        //Check if the file is in first use, if so, initialize basic files
         public Boolean FirstUse()
         {
             if (!((File.Exists(mfile)) || (File.Exists(ffile))))
@@ -118,7 +125,7 @@ namespace KIKIXmlProcessor
 
         #region Read file list data from recent files view
         // ------------Read Recent File Records From the System----------------------------------
-        // Post condition: A linked list of roughly sorted file data
+        // Post condition: A linked list of roughly filtered file data
         public void Read()
         {
             GetRFXML();
@@ -130,6 +137,7 @@ namespace KIKIXmlProcessor
             ReadRecords();
         }
 
+        //Call Recent Files View and Generate temporary data
         public Boolean GetRFXML()
         {
             Console.WriteLine("Program start fetching recent file history from the system...");
@@ -147,6 +155,7 @@ namespace KIKIXmlProcessor
             }
             catch
             {
+                Environment.Exit(-1);
                 return false;
 
             }
@@ -154,6 +163,7 @@ namespace KIKIXmlProcessor
             return true;
         }
 
+        //Read Records and process with the temporary data
         public void ReadRecords()
         {
             Console.WriteLine("Program start reading recent file history...");
@@ -192,7 +202,6 @@ namespace KIKIXmlProcessor
                             {
                                 filter = 1;
                             }
-                            //Console.WriteLine("<{0}>", reader.Name);
                             break;
                         case XmlNodeType.Text:
                             if (tag == 1) { filePath = reader.Value; } // full name of the file indicate the path of the file
@@ -203,7 +212,6 @@ namespace KIKIXmlProcessor
                             if (tag == 4) { eTime = reader.Value; } //execute Time
                             if (tag == 5) { missing = reader.Value; } //missing?
                             if (tag == 6) { stored_in = reader.Value; } //stored_in
-                            //Console.WriteLine(reader.Value);
                             break;
                         case XmlNodeType.EndElement:
                             if ((filter == 0) && (reader.Name == "item"))
@@ -218,12 +226,10 @@ namespace KIKIXmlProcessor
                                     tempNode.SetFilePath(filePath);
                                     tempNode.SetMissing(missing);
                                     LinkedListNode<FileNode> node = new LinkedListNode<FileNode>(tempNode);
-                                    // Console.WriteLine(tempNode.GetFilename());
                                     fileList.AddLast(node);
                                 }
 
                             }
-                            // Console.WriteLine("</{0}>", reader.Name);
                             break;
                         default:
                             break;
@@ -239,6 +245,7 @@ namespace KIKIXmlProcessor
             Console.WriteLine("Reading Finished...");
         }
 
+        //Remove the unrecognization declaration line in the xml generated by the recent files view
         public void RemoveXMLdeclaration()
         {
             Console.WriteLine("Program start formatting raw recent file data...");
@@ -279,23 +286,18 @@ namespace KIKIXmlProcessor
 
         #endregion
 
-        #region Check if the data is valid
-        //filter, checking the validity of the information
-
-
-
-
-        #endregion
         //---------------------------------------------------------------------------------------------
 
-        //-------------------------------File and Meeting Process ---------------------------------
-        //Previous Condition: List of File information from recent file viewer, list of file information from google attachments, and meeting list from google calendar
-        //Post Condition: List of New Files with sorted ID, List of Old Files with previous IDs, List of meetings. All filelist and meetinglist in nodes updated
 
+        //-------------------------------File and Meeting Process ---------------------------------
+        //Previous Condition: List of File information from recent file viewer, 
+        //list of file information from google attachments, and meeting list from google calendar
+        //Post Condition: List of Files with sorted ID or previous IDs and List of meetings. All filelist and meetinglist in nodes updated
+        #region Core Program
         public void ProcessFileWithMeetingNode(MeetingNode mNode)
         {
             //check if the meeting node is valid or not first
-            if (!Tools.IsValidMeeting(mNode,minDuration))
+            if (!Tools.IsValidMeeting(mNode, minDuration))
             {
                 return;
             }
@@ -333,6 +335,9 @@ namespace KIKIXmlProcessor
             meetingList.AddLast(mNode);
         }
 
+        //Assign IDs to files
+        //If the file previously occured in the system, the method will fetch previous Ids
+        //If the file is new, the method will assign the latest id to it
         public LinkedList<FileNode> AssignFileIDs(LinkedList<FileNode> fList)
         {
             int llid = trackID;
@@ -342,14 +347,12 @@ namespace KIKIXmlProcessor
                 WriteNewFilesFile();
                 FileInfo i2 = new FileInfo(ffile);
                 while (Tools.IsFileLocked(i2)) { };
-                Debug.Print("Files Done");
             }
             if (!File.Exists(mfile))
             {
                 WriteNewMeetingsFile(new LinkedList<MeetingNode>());
                 FileInfo i3 = new FileInfo(mfile);
                 while (Tools.IsFileLocked(i3)) { };
-                Debug.Print("Meetings Done");
             }
             XElement filesFile = XElement.Load(ffile);
             IEnumerable<XElement> fileNodes = filesFile.Elements();
@@ -405,48 +408,33 @@ namespace KIKIXmlProcessor
             return nList;
         }
 
-        /*
-        public Boolean IsRename(FileNode oldFile, FileNode newFile)
-        {
-            if (oldFile.GetCreatedTime() != newFile.GetCreatedTime())
-            {
-                return false;
-            }
-            //if the old file is not missing, the file is not renamed
-            if (!oldFile.GetMissing())
-            {
-                return false;
-            }
-            return true;
-        }*/
-
+        //The method takes a meeting list and an attachment file list, 
+        //process the list with the local file list read from the recent files view
+        //The method stores the process filelist and meeting filelist
         public void ProcessFileWithMeetingList(LinkedList<MeetingNode> mList, LinkedList<FileNode> attachmentList)
         {
-            Debug.Print("Meeting Count is:" + mList.Count.ToString());
             foreach (MeetingNode m in mList)
             {
-                Debug.Print("Meeting Title is :" +m.GetMeetingTitle());
             }
             AttachmentList = attachmentList;
             lastUpdate = DateTime.Now;
             foreach (MeetingNode meeting in mList)
             {
-                ProcessFileWithMeetingNode(meeting);             
+                ProcessFileWithMeetingNode(meeting);
             }
         }
-
+        #endregion
         //----------------------------------------------------------------------------------------------------------------------
 
 
         //--------------------Write/Update Data To the XML files--------------------------
         //Previous Condition: The file list and meeting list are processed
-        //Previous Condition: File list: New list(new files) assigned with sorted id/ Old list(new file access for previously accessed files)
+        //Previous Condition: File list, the files with new ids are in sorted increasing order
 
-        //test if the user has previously used the software and generate the data
-        //return true if neither of mfile and ffile is generated
 
         #region Settings.xml Write and Update
 
+        //Initialize a settings file
         public void WriteSettings()
         {
             XElement s = new XElement("Settings",
@@ -467,6 +455,9 @@ namespace KIKIXmlProcessor
         }
 
         //----------------------------------Update Settings File------------------------------
+        //Update the last_update_time in the settings file
+        //The field indicates the last meeting the program processed
+        //Used for next update
         public void UpdateSettingsTime(DateTime time)
         {
             String year = time.Year.ToString("0000");
@@ -483,16 +474,17 @@ namespace KIKIXmlProcessor
             settingsFile.Save(sfile);
         }
 
-        //WAITING TO BE RESOLVED
+        //Currently this method is not used
+        //Intend to be used for let user change file path for data storage
         public void UpdateSettingsPath(String WP)
         {
             workingPath = WP;
-            //UpdateFilePath();
             XElement settingsFile = XElement.Load("Settings.xml");
             settingsFile.Element("Working_Path").ReplaceNodes(WP);
             settingsFile.Save(sfile);
         }
 
+        //Get the last file ID in the database
         public void UpdateLastID(int lastID)
         {
 
@@ -501,6 +493,7 @@ namespace KIKIXmlProcessor
             settingsFile.Save(sfile);
         }
 
+        //Update the minimum duration for "Meeting"
         public void UpdateSettingsDuration(TimeSpan duration)
         {
 
@@ -516,6 +509,7 @@ namespace KIKIXmlProcessor
         //-------------------------------------------------------------------------------------
         #endregion
 
+        //Write the Update into the Database
         public void Write()
         {
             FileInfo i = new FileInfo(mfile);
@@ -524,11 +518,7 @@ namespace KIKIXmlProcessor
 
             while (Tools.IsFileLocked(i)) { };
             WriteMeetings(meetingList);
-            foreach (FileNode n in fileFinalList)
-            {
-                Console.WriteLine(n.GetFileName());
-                Console.WriteLine(n.GetFileID().ToString());
-            }
+
             while (Tools.IsFileLocked(i2)) { };
             WriteFiles(fileFinalList);
 
@@ -555,7 +545,6 @@ namespace KIKIXmlProcessor
 
         //Write a new xml file with name specified in mfile with input list of meeting nodes
         //preassumption: all the attributes are stored in the meeting nodes, and empty string implies null value
-        //FOR TEST: PRINT SAVED AFTER THE METHOD DONE
         public void WriteNewMeetingsFile(LinkedList<MeetingNode> mts)
         {
             XElement m = new XElement("Meeting");
@@ -616,8 +605,7 @@ namespace KIKIXmlProcessor
             UpdateFiles(fts);
         }
 
-        //Write a new xml file with name specified in ffile with input list of file nodes
-        //preassumption: all the information are stored in filelist and the id of filenodes are sorted from smallest to largest
+        //Initialize a files file with the name specified in xml
         public void WriteNewFilesFile()
         {
             XElement f = new XElement("File");
@@ -633,7 +621,7 @@ namespace KIKIXmlProcessor
         }
 
         //Update the current xml file with name specified in ffile with input list of new file nodes and list of file nodes already existed
-        //preassumption: all the attributes are stored in the file nodes, the new file node list has increasing file id
+        //Preassumption: all the attributes are stored in the file nodes, the new file node list has increasing file id
         public void UpdateFiles(LinkedList<FileNode> fts)
         {
             XElement filesFile = XElement.Load(ffile);
@@ -644,7 +632,6 @@ namespace KIKIXmlProcessor
 
                 if (temp.GetFileID() <= currentLast)
                 {
-                    Console.WriteLine(currentLast);
                     //previous node
                     var previousNode = from id in filesFile.Elements("Item")
                                        where (string)id.Attribute("ID") == Convert.ToString(temp.GetFileID())
@@ -695,218 +682,20 @@ namespace KIKIXmlProcessor
         //---------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------
 
- 
+
         //------------------------------Testing Area--------------------------------------------------
         //----------------------------For Developer Only -------------------------------------------------
 
+        //For Convenient Testing Only
         public void SetFileList(LinkedList<FileNode> testList)
         {
             fileList = testList;
         }
-        public void XmlSample()
-        {
-            XElement m = new XElement("Meeting");
-            XElement mt = new XElement("Meeting_Title", "test");
 
-            XElement st = new XElement("StartTime", "2017/01/01 01:01:01");
-            XElement et = new XElement("EndTime", "2017/01/01 01:01:01");
-            XElement pID = new XElement("ParentID", "345");
-            XElement atds = new XElement("Attendents", "Stupid Eddie");
-            XElement f = new XElement("Files", "1;2;3;4;5");
-            XElement mID = new XElement("Item", mt, st, et, pID, atds, f, new XAttribute("ID", "4567"));
-            m.Add(mID);
-            XDocument xDoc = new XDocument(
-                        new XDeclaration("1.0", "UTF-16", null), m);
-            StringWriter sw = new StringWriter();
-            XmlWriter xWrite = XmlWriter.Create(sw);
-            xDoc.Save(xWrite);
-            xWrite.Close();
-
-            // Save to Disk
-            xDoc.Save(mfile);
-            Console.WriteLine("Saved");
-
-            /*
-            //modify meeting file
-            XElement xEle = XElement.Load(mfile);
-            xEle.Add(new XElement("Item",
-                new XElement("EmpId", 5),
-                new XElement("Phone", "423-555-4224"), new XAttribute("ID", "1234")));
-            xEle.Save(mfile);
-            */
-
-
-            //search meeting by ID           
-            XElement xelement1 = XElement.Load(mfile);
-            var try1 = from id in xelement1.Elements("Item")
-                       where (string)id.Attribute("ID") == "3456"
-                       select id;
-            Console.WriteLine("Details:");
-            foreach (XElement xEle1 in try1)
-            {
-                Console.WriteLine(xEle1);
-            }
-
-
-            // add file id
-            XElement xelement = XElement.Load(mfile);
-            foreach (XElement xEle1 in try1)
-            {
-                String s = xEle1.Element("Files").Value;
-                s = s + ";13";
-                xEle1.Element("Files").ReplaceNodes(s);
-                Console.Write(xEle1);
-            }
-
-            XElement meetingFile = XElement.Load(mfile);
-            var node = meetingFile.Descendants("Item").Last();
-            Console.Write("test");
-            Console.Write(node.Attribute("ID").Value);
-
-            Console.Write("test2");
-            XElement meetings = XElement.Load(mfile);
-            IEnumerable<XElement> meetingNodes = meetings.Elements();
-            // Read the entire XML
-            foreach (var meeting in meetingNodes)
-            {
-                //String currentID = meeting.Attribute("ID").Value;
-
-                Console.WriteLine(meeting.Element("Duration").Value);
-            }
-
-            XElement s1 = new XElement("Settings", new XElement("Working_Path", ""), new XElement("Last_Update", "Uninitialized"));
-            XDocument xDoc2 = new XDocument(
-            new XDeclaration("1.0", "UTF-16", null), s1);
-            StringWriter sw2 = new StringWriter();
-            XmlWriter xWrite2 = XmlWriter.Create(sw2);
-            xDoc2.Save(xWrite2);
-            xWrite2.Close();
-
-            // Save to Disk
-            xDoc2.Save("Settings.xml");
-            Console.WriteLine("SettingsSaved");
-
-            XElement settingsFile = XElement.Load("Settings.xml");
-            Console.WriteLine(settingsFile.Element("Working_Path").Value);
-            Console.WriteLine(settingsFile.Element("Last_Update").Value);
-            /*
-                XElement xelement = XElement.Load("Employees.xml");
-                var name = from nm in xelement.Elements("Employee")
-                           where (string)nm.Element("Sex") == "Female"
-                           select nm;
-                Console.WriteLine("Details of Female Employees:");
-                foreach (XElement xEle1 in name)
-                    Console.WriteLine(xEle1);
-                //Console.Write(xEle);
-                */
-        }
-
-        //for test main method
+        //For Convenient Testing Only
         public static void Main(string[] args)
         {
-
-            /*
-            XMLProcessor x = new XMLProcessor();
-            x.Read();
-            foreach (FileNode node in x.fileList)
-            {
-                Console.WriteLine(node.GetFileName());
-            }
-            */
-            // Uri.IsWellFormedOriginalString();
-
-            LinkedList<MeetingNode> meetingList = new LinkedList<MeetingNode>();
-            LinkedList<FileNode> attachmentList = new LinkedList<FileNode>();
-            MeetingNode m1 = new MeetingNode();
-            m1.SetMeetingID("12345");
-            m1.SetMeetingTitle("ABC");
-            m1.SetStartTime("2017/04/03 13:13:15");
-            m1.SetEndTime("2017/04/04 13:13:15");
-            MeetingNode m2 = new MeetingNode();
-            m2.SetMeetingID("23456");
-            m2.SetMeetingTitle("BCD");
-            m2.SetStartTime("2017/04/07 13:13:15");
-            m2.SetEndTime("2017/04/08 13:13:15");
-            MeetingNode m3 = new MeetingNode();
-            m3.SetMeetingID("34567");
-            m3.SetMeetingTitle("CDE");
-            m3.SetStartTime("2017/04/08 13:13:15");
-            m3.SetEndTime("2017/04/09 13:13:15");
-            meetingList.AddLast(m1);
-            meetingList.AddLast(m2);
-            meetingList.AddLast(m3);
-
-            FileNode f1 = new FileNode();
-            f1.SetFileName("f1a");
-            f1.AddMeetings("12345");
-            FileNode f2 = new FileNode();
-            f2.SetFileName("f2a");
-            f2.AddMeetings("34567");
-            FileNode f3 = new FileNode();
-            f3.SetFileName("f3a");
-            f3.AddMeetings("34567");
-            attachmentList.AddLast(f1);
-            attachmentList.AddLast(f2);
-            attachmentList.AddLast(f3);
-
-            XMLProcessor x = new XMLProcessor();
-            x.ProcessFileWithMeetingList(meetingList, attachmentList);
-            x.Write();
         }
     }
 }
-/*
-FileNode a = new FileNode();
-a.SetFileName("HELLO");
-FileNode b = new FileNode();
-b.SetFileName("WORLD");
-LinkedList<FileNode> k = new LinkedList<FileNode>();
-k.AddLast(a);
-k.AddLast(b);
-foreach (FileNode item in k)
-{
-    Console.WriteLine(item.GetFileName());
-}
-//x.XmlSample();*/
-/*
-XMLProcessor test = new XMLProcessor();
-test.WriteSettings();
-test.GetInfoFromSettings();
-int LID = test.GetLastUpdateId();
-TimeSpan TS = test.GetMinimumDuration();
-DateTime DT = test.GetLastUpdateTime();
-String WP = test.GetWorkingPath();
-test.UpdateSettingsPath("resources/");
-TimeSpan TS2 = new TimeSpan(3, 4, 2);
-test.UpdateSettingsDuration(TS2);
-test.UpdateLastID(342);
-DateTime DT2 = new DateTime(2017, 3, 3, 3, 3, 3);
-test.UpdateSettingsTime(DT2);
-Console.WriteLine(LID);
-Console.WriteLine(TS.Minutes);
-Console.WriteLine("Path is " + WP);
-*/
-/*
-            File.Delete("Settings.xml");
-            File.Delete("meetings.xml");
-            File.Delete("files.xml");
-            MeetingNode node = new MeetingNode();
-            node.SetStartTime("2017/01/01 12:00:00");
-            node.SetEndTime("2017/12/12 12:00:00");
-            node.SetMeetingID("12345");
-            node.SetMeetingTitle("Hello");
-            FileNode file1 = new FileNode();
-            FileNode file2 = new FileNode();
-            file1.SetCreatedTime("2017/03/03 12:00:00");
-            file1.SetFileName("test1");
-            file2.SetCreatedTime("2016/03/03 12:00:00");
-            file1.SetFileName("test2");
-            LinkedList<FileNode> fn = new LinkedList<FileNode>();
-            fn.AddLast(file1);
-            fn.AddLast(file2);
-            XMLProcessor processor = new XMLProcessor();
-            processor.FirstUse();
-            processor.SetFileList(fn);
-            processor.ProcessFileWithMeetingNode(node);
-            processor.Write();
-*/
+

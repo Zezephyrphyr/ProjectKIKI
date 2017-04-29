@@ -3,8 +3,10 @@ using System.IO;
 
 namespace KIKIXmlProcessor
 {
+    //This class provides some tool methods that can be implemented across the classes
     public static class Tools
     {
+        //Check if the file is in use by some other program
         public static bool IsFileLocked(FileInfo file)
         {
             FileStream stream = null;
@@ -31,6 +33,7 @@ namespace KIKIXmlProcessor
             return false;
         }
 
+        //Check if either of the created/modified/execute time is within the time range
         public static int IsValidTimeRange(DateTime ct, DateTime et, DateTime mt, DateTime sTime, DateTime edTime)
         {
             // if all three time not within the range, return invalid
@@ -52,8 +55,7 @@ namespace KIKIXmlProcessor
             }
         }
 
-
-        //test if the event is a meeting by exam its duration
+        //Check if the event is a meeting(Does the duration exceeds the minimum request?)
         public static Boolean IsValidMeeting(MeetingNode m, TimeSpan minDuration)
         {
             TimeSpan duration = m.GetDuration();
@@ -64,6 +66,7 @@ namespace KIKIXmlProcessor
             return true;
         }
 
+        //Check if the file information is valid, (the name, path, extention should not be null, should not be stored in registry)
         public static Boolean IsValid(String fName, String fPath, String ext, String stored_in)
         {
             if (fName == "")
@@ -121,6 +124,7 @@ namespace KIKIXmlProcessor
 
         }
 
+        //Convert String to DateTime
         public static DateTime StringToTime(String s)
         {
             if (s == "N / A")
@@ -150,6 +154,7 @@ namespace KIKIXmlProcessor
             }
         }
 
+        //Convert DateTime to String
         public static String TimeToString(DateTime dt)
         {
             if (dt == DateTime.MinValue)
@@ -167,6 +172,7 @@ namespace KIKIXmlProcessor
             return dtString;
         }
 
+        //Compute the duration between two DateTime
         public static TimeSpan ComputeDuration(DateTime sTime, DateTime eTime)
         {
             TimeSpan duration = eTime - sTime;

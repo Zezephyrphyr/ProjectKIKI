@@ -15,7 +15,6 @@ namespace KIKIXMLProcessorUnitTest
         String executeTime = "2017/04/01 05:00:00";
         String extension = ".txt";
         String filePath = "D:/EECS395";
-        String MeetingID = "01";
 
         [TestMethod]
         public void GetandSetFileNameTest()
