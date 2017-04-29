@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KIKI"
         mc:Ignorable="d"
-        Title="clickFileShowMeeting" Width ="auto" Height="auto" HorizontalAlignment="Left" SizeToContent="WidthAndHeight">
+        Title="File used in these meeting..." Width ="auto" Height="auto" HorizontalAlignment="Left" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid HorizontalAlignment="Left">
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.9">
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.8">
                 <GradientStop Color="#FF6CEE8A" Offset="0"/>
                 <GradientStop Color="#FF168CD4" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBlock Margin="10,10,10,0">
+        <TextBlock Margin="10,10,10,0" FontWeight="Bold">
                  <Hyperlink x:Name="FileLink" RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding URL}">
-                    <TextBlock x:Name="FileName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto" Background="{x:Null}" Foreground="Black" FontSize="14" FontFamily="Microsoft YaHei UI Light" FontWeight="Bold"/>
+                    <TextBlock x:Name="FileName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto" Foreground="Black" FontSize="14" FontWeight="Bold"/>
                  </Hyperlink>
 
         </TextBlock>
@@ -28,9 +28,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <TextBox Width="auto" Text="{Binding Time}" BorderBrush="{x:Null}" FontSize="14" FontFamily="Microsoft YaHei UI Light" Foreground="White" Background="{x:Null}"></TextBox>
-                        <TextBox Width="auto" Text="{Binding Name}" BorderBrush="{x:Null}" FontSize="14" FontFamily="Microsoft YaHei UI Light" Foreground="White" Background="{x:Null}"></TextBox>
-                        <TextBox Width="auto" Text="{Binding Attendee}" BorderBrush="{x:Null}" FontSize="14" FontFamily="Microsoft YaHei UI Light" Foreground="White" Background="{x:Null}"></TextBox>
+                        <TextBox Width="150" Text="{Binding Time}" BorderBrush="{x:Null}" FontSize="14" FontFamily="Microsoft YaHei UI Light" Foreground="White" Background="{x:Null}"></TextBox>
+                        <TextBox Width="200" Text="{Binding Name}" BorderBrush="{x:Null}" FontSize="14" FontFamily="Microsoft YaHei UI Light" Foreground="White" Background="{x:Null}" TextAlignment="Center"></TextBox>
+                        <TextBox Width="180" Text="{Binding Attendee}" BorderBrush="{x:Null}" FontSize="14" FontFamily="Microsoft YaHei UI Light" Foreground="White" Background="{x:Null}" TextAlignment="Center"></TextBox>
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

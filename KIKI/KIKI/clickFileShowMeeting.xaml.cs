@@ -55,20 +55,16 @@ namespace KIKI
         }
 
         private void Hyperlink_RequestNavigate(object sender,
-                             System.Windows.Navigation.RequestNavigateEventArgs e)
+                                      System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-
-            Debug.Print(whetherThrows.ToString());
-            if (whetherThrows)
-            {
-                MessageBox.Show("The file cannot be found.");
-            }
-            else
+            try
             {
                 Process.Start(e.Uri.AbsoluteUri);
             }
-            
-         
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("The file cannot be found.");
+            }
         }
     }
 

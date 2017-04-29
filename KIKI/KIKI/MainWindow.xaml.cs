@@ -37,7 +37,7 @@ namespace KIKI
           
             App.Initialize();
             System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
-            ni.Icon = new System.Drawing.Icon(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/kiki.ico");
+            ni.Icon = new System.Drawing.Icon(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/icon.ico");
             ni.Visible = true;
             ni.DoubleClick +=
                 delegate (object sender, EventArgs args)
@@ -186,15 +186,18 @@ namespace KIKI
                 mlistView.ItemsSource = items2;
                 mlistView4.ItemsSource = null;
                 login = false;
+                timer.Stop();
                 loginButton.Content = "Log In";
             }
             else
             {
                 App.Initialize();
                 initializeGoogleInfo();
+                initializeTimer();
                 login = true;
                 loginButton.Content = "Log Out";
-
+                initializeMeetingInfo();
+                initializeFileInfo();
             }   
         }
 
@@ -209,8 +212,16 @@ namespace KIKI
             {
                 string str = sender.ToString();
                 str = str.Substring(str.LastIndexOf(' ') + 1);
-                clickShowFiles newWindow = new clickShowFiles(str);
-                newWindow.Show();
+                if (str != "System.Windows.Controls.Button")
+                {
+                    clickShowFiles newWindow = new clickShowFiles(str);
+                    newWindow.Show();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("No file modified in this meeting.");
+                }
+
             }
          
         }

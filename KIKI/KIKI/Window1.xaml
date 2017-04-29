@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KIKI"
         mc:Ignorable="d"
-        Title="Window1" Height="auto" Width="480">
+        Title="Search" Height="auto" Width="480" ResizeMode="NoResize">
 
     <Window.Resources>
         <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
@@ -76,7 +76,7 @@
                 <GradientStop Color="#FF128ADF" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="371" RenderTransformOrigin="0.164,0.289" BorderBrush="{x:Null}">
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="Enter keyword here" VerticalAlignment="Top" Width="371" RenderTransformOrigin="0.164,0.289" BorderBrush="{x:Null}">
             <TextBox.Background>
                 <SolidColorBrush Color="White" Opacity="0.4"/>
             </TextBox.Background>
@@ -89,10 +89,7 @@
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="auto" Margin="0,38,0,0" VerticalAlignment="Top" Width="480" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem Header="Files" Style="{DynamicResource TabItemStyle1}">
                 <Grid VerticalAlignment="Top">
-                    <ListView x:Name="RecentFileList" HorizontalAlignment="Left" Width="474" Background="{x:Null}" SelectionChanged="listView_SelectionChanged_1" BorderThickness="0" Height="auto" VerticalAlignment="Bottom" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Cursor="Arrow" IsHitTestVisible="True">
-                        <ListView.BorderBrush>
-                            <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
-                        </ListView.BorderBrush>
+                   
 
                         <WrapPanel Height="auto" Width="475" RenderTransformOrigin="0.5,0.5" Focusable="True">
                             <WrapPanel.RenderTransform>
@@ -104,7 +101,7 @@
                                 </TransformGroup>
                             </WrapPanel.RenderTransform>
 
-                            <ListView x:Name="RecentFile" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2" FontSize="20" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="{x:Null}" IsHitTestVisible="True" Focusable="True">
+                            <ListView x:Name="RecentFile" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Top" Width="480" Grid.ColumnSpan="2" FontSize="20" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="{x:Null}" IsHitTestVisible="True" Focusable="True" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                                    
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -155,14 +152,18 @@
 
                         </WrapPanel>
 
-                    </ListView>
+               
                 </Grid>
             </TabItem>
             <TabItem Header="Meetings" Style="{DynamicResource TabItemStyle2}">
                 <Grid>
-                    <ListView x:Name="mlistView5" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Top" Width="480" Grid.ColumnSpan="2" FontSize="20" SelectionChanged="listView_SelectionChanged" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
-                        <WrapPanel Width="auto" ScrollViewer.CanContentScroll="True">
-                            <TextBlock Text="15:00 pm" Height="25" Width="65" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" >
+         
+                 
+                    <ListView x:Name="mlistView5" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="20" SelectionChanged="listView_SelectionChanged" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Width="auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding Time}" Height="25" Width="120" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" >
                                 <TextBlock.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -172,7 +173,7 @@
                                     </TransformGroup>
                                 </TextBlock.RenderTransform>
                             </TextBlock>
-                            <TextBlock Text="Project B Meeting" Height="25" Width="155" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
+                            <TextBlock Text="{Binding Name}" Height="25" Width="170" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
                                 <TextBlock.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -182,7 +183,7 @@
                                     </TransformGroup>
                                 </TextBlock.RenderTransform>
                             </TextBlock>
-                            <TextBlock Text="Emma, Tony" Height="25" Width="93" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                            <TextBlock Text="{Binding Attendee}" Height="25" Width="130" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
                                 <TextBlock.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -192,62 +193,28 @@
                                     </TransformGroup>
                                 </TextBlock.RenderTransform>
                             </TextBlock>
-                            <!--
-                                            <ListView Background="{x:Null}" BorderBrush="{x:Null}">
-                                                <ListView.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <WrapPanel Width="Auto" Height="auto">
-                                                               -->
-                            <Button Click ="fileClick" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFC3E52E" FontSize="12" FontFamily="Microsoft YaHei UI Light" Margin="0,3,0,0" Width="Auto" Height="Auto">Project A plan.doc</Button>
-                            <!-- </WrapPanel>
-                                                        </DataTemplate>
-                                                    </ListView.ItemTemplate>
-                                            </ListView-->
-
+                            <Button Content ="{Binding Docs}" Click ="fileClick" Height ="auto" Width="auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" Margin="-60,3,0,0" BorderBrush="{x:Null}" BorderThickness="0">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Resources/View File-48.png" TileMode="None" Stretch="Uniform"/>
+                                </Button.Background>
+                                <Button.Foreground>
+                                    <ImageBrush ImageSource="Resources/View File-48.png">
+                                        <ImageBrush.RelativeTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                <RotateTransform CenterY="0.5" CenterX="0.5" Angle="-2"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </ImageBrush.RelativeTransform>
+                                    </ImageBrush>
+                                </Button.Foreground>
+                            </Button>
                         </WrapPanel>
-                        <WrapPanel Width= "auto" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Margin="0" >
-                            <TextBlock Text="10:00 am" Height="25" Width="65" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="10,0,0,0" >
-                                <TextBlock.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="5"/>
-                                    </TransformGroup>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                            <TextBlock Text="Project A StartUp" Height="25" Width="155" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
-                                <TextBlock.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="5"/>
-                                    </TransformGroup>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                            <TextBlock Text="Sam, Eddie" Height="25" Width="93" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
-                                <TextBlock.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="5"/>
-                                    </TransformGroup>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                            <TextBlock Text="Project A Plan.doc" Height="25" Width="auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Foreground="#FFF0F12A">
-                                <TextBlock.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="5"/>
-                                    </TransformGroup>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                        </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
+               
                 </Grid>
             </TabItem>
         </TabControl>

@@ -3,57 +3,17 @@
 <filename></filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/1/5 19:35:32</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only></file_only>
-</item>
-<item>
-<filename></filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/22 1:59:28</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only></file_only>
-</item>
-<item>
-<filename></filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/28 1:45:47</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only></file_only>
-</item>
-<item>
-<filename></filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/27 20:43:01</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only></file_only>
-</item>
-<item>
-<filename></filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/28 1:45:47</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only></file_only>
-</item>
-<item>
-<filename></filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
 <execute_time>2017/2/14 13:17:00</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only></file_only>
+</item>
+<item>
+<filename></filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>2017/4/28 1:45:47</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -83,6 +43,26 @@
 <filename></filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
+<execute_time>2017/4/27 20:43:01</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only></file_only>
+</item>
+<item>
+<filename></filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>2017/4/28 1:45:47</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only></file_only>
+</item>
+<item>
+<filename></filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
 <execute_time>2017/4/19 10:40:32</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
@@ -94,6 +74,26 @@
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
 <execute_time>2017/1/9 23:41:31</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only></file_only>
+</item>
+<item>
+<filename></filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>2017/1/5 19:35:32</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only></file_only>
+</item>
+<item>
+<filename></filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>2017/4/22 1:59:28</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -423,9 +423,9 @@
 <filename>C:\Users\eddie\Desktop\5369.mp3</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/4/20 11:48:48</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>mp3</extension>
 <file_only>5369.mp3</file_only>
 </item>
@@ -433,9 +433,9 @@
 <filename>C:\Users\eddie\Desktop\5369.mp3</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/20 11:48:48</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>mp3</extension>
 <file_only>5369.mp3</file_only>
 </item>
@@ -681,21 +681,21 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\fail.mp3</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/26 16:28:38</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension>mp3</extension>
-<file_only>fail.mp3</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\fail.mp3</filename>
 <modified_time>2017/4/26 16:28:38</modified_time>
 <created_time>2017/4/26 16:28:38</created_time>
 <execute_time>N / A</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Registry</stored_in>
+<extension>mp3</extension>
+<file_only>fail.mp3</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\fail.mp3</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>2017/4/26 16:28:38</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
 <extension>mp3</extension>
 <file_only>fail.mp3</file_only>
 </item>
@@ -773,9 +773,9 @@
 <filename>C:\Users\eddie\Desktop\flight.pdf</filename>
 <modified_time>2017/4/18 20:23:18</modified_time>
 <created_time>2017/4/18 20:23:16</created_time>
-<execute_time>2017/4/22 2:07:05</execute_time>
+<execute_time>2017/4/18 20:23:16</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>pdf</extension>
 <file_only>flight.pdf</file_only>
 </item>
@@ -783,9 +783,9 @@
 <filename>C:\Users\eddie\Desktop\flight.pdf</filename>
 <modified_time>2017/4/18 20:23:18</modified_time>
 <created_time>2017/4/18 20:23:16</created_time>
-<execute_time>2017/4/18 20:23:16</execute_time>
+<execute_time>2017/4/22 2:07:05</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>pdf</extension>
 <file_only>flight.pdf</file_only>
 </item>
@@ -811,31 +811,31 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\levelPass.png</filename>
+<modified_time>2017/4/26 16:39:18</modified_time>
+<created_time>2017/4/26 16:39:18</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
+<extension>png</extension>
+<file_only>levelPass.png</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\levelPass.png</filename>
+<modified_time>2017/4/26 16:39:18</modified_time>
+<created_time>2017/4/26 16:39:18</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
+<extension>png</extension>
+<file_only>levelPass.png</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\levelPass.png</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
 <execute_time>2017/4/26 16:39:18</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
-<extension>png</extension>
-<file_only>levelPass.png</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\levelPass.png</filename>
-<modified_time>2017/4/26 16:39:18</modified_time>
-<created_time>2017/4/26 16:39:18</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
-<extension>png</extension>
-<file_only>levelPass.png</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\levelPass.png</filename>
-<modified_time>2017/4/26 16:39:18</modified_time>
-<created_time>2017/4/26 16:39:18</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
 <extension>png</extension>
 <file_only>levelPass.png</file_only>
 </item>
@@ -871,16 +871,6 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\LOGO.png</filename>
-<modified_time>2017/4/24 22:21:22</modified_time>
-<created_time>2017/4/24 22:21:22</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
-<extension>png</extension>
-<file_only>LOGO.png</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\LOGO.png</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
 <execute_time>2017/4/24 22:21:22</execute_time>
@@ -890,14 +880,14 @@
 <file_only>LOGO.png</file_only>
 </item>
 <item>
-<filename>C:\Users\eddie\Desktop\Logo3[1399].png</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/23 22:15:25</execute_time>
+<filename>C:\Users\eddie\Desktop\LOGO.png</filename>
+<modified_time>2017/4/24 22:21:22</modified_time>
+<created_time>2017/4/24 22:21:22</created_time>
+<execute_time>N / A</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>png</extension>
-<file_only>Logo3[1399].png</file_only>
+<file_only>LOGO.png</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\Logo3[1399].png</filename>
@@ -910,14 +900,24 @@
 <file_only>Logo3[1399].png</file_only>
 </item>
 <item>
-<filename>C:\Users\eddie\Desktop\machine.mp3</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
+<filename>C:\Users\eddie\Desktop\Logo3[1399].png</filename>
+<modified_time>2017/4/23 22:15:25</modified_time>
+<created_time>2017/4/23 22:15:25</created_time>
+<execute_time>2017/4/28 23:25:57</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension>png</extension>
+<file_only>Logo3[1399].png</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\Logo3[1399].png</filename>
+<modified_time>2017/4/23 22:15:25</modified_time>
+<created_time>2017/4/23 22:15:25</created_time>
+<execute_time>2017/4/28 23:25:57</execute_time>
+<missing_file>No</missing_file>
 <stored_in>Registry</stored_in>
-<extension>mp3</extension>
-<file_only>machine.mp3</file_only>
+<extension>png</extension>
+<file_only>Logo3[1399].png</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\machine.mp3</filename>
@@ -926,6 +926,16 @@
 <execute_time>2017/4/20 11:59:21</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
+<extension>mp3</extension>
+<file_only>machine.mp3</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\machine.mp3</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
 <extension>mp3</extension>
 <file_only>machine.mp3</file_only>
 </item>
@@ -953,6 +963,26 @@
 <filename>C:\Users\eddie\Desktop\MeetingNode.cs</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
+<extension>cs</extension>
+<file_only>MeetingNode.cs</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\MeetingNode.cs</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
+<extension>cs</extension>
+<file_only>MeetingNode.cs</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\MeetingNode.cs</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
 <execute_time>2017/4/27 21:41:42</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
@@ -960,26 +990,6 @@
 <file_only>MeetingNode.cs</file_only>
 </item>
 <item>
-<filename>C:\Users\eddie\Desktop\MeetingNode.cs</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>cs</extension>
-<file_only>MeetingNode.cs</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\MeetingNode.cs</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>cs</extension>
-<file_only>MeetingNode.cs</file_only>
-</item>
-<item>
 <filename>C:\Users\eddie\Desktop\meetings.xml</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
@@ -998,16 +1008,6 @@
 <stored_in>Registry</stored_in>
 <extension>xml</extension>
 <file_only>meetings.xml</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\pa.mp3</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>mp3</extension>
-<file_only>pa.mp3</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\pa.mp3</filename>
@@ -1018,6 +1018,26 @@
 <stored_in>Recent Folder</stored_in>
 <extension>mp3</extension>
 <file_only>pa.mp3</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\pa.mp3</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
+<extension>mp3</extension>
+<file_only>pa.mp3</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\Picture1.png</filename>
+<modified_time>2017/4/24 23:47:42</modified_time>
+<created_time>2017/4/24 23:47:41</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
+<extension>png</extension>
+<file_only>Picture1.png</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\Picture1.png</filename>
@@ -1036,16 +1056,6 @@
 <execute_time>2017/4/24 23:47:41</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
-<extension>png</extension>
-<file_only>Picture1.png</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\Picture1.png</filename>
-<modified_time>2017/4/24 23:47:42</modified_time>
-<created_time>2017/4/24 23:47:41</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
 <extension>png</extension>
 <file_only>Picture1.png</file_only>
 </item>
@@ -1143,9 +1153,9 @@
 <filename>C:\Users\eddie\Desktop\Project 2 Description.docx</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/22 18:31:35</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>docx</extension>
 <file_only>Project 2 Description.docx</file_only>
 </item>
@@ -1153,9 +1163,9 @@
 <filename>C:\Users\eddie\Desktop\Project 2 Description.docx</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/4/22 18:31:35</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>docx</extension>
 <file_only>Project 2 Description.docx</file_only>
 </item>
@@ -1201,21 +1211,21 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\project2.zip</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/22 18:36:20</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>zip</extension>
-<file_only>project2.zip</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\project2.zip</filename>
 <modified_time>2017/4/22 18:34:45</modified_time>
 <created_time>2017/4/22 18:34:44</created_time>
 <execute_time>2017/4/22 18:36:20</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
+<extension>zip</extension>
+<file_only>project2.zip</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\project2.zip</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>2017/4/22 18:36:20</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
 <extension>zip</extension>
 <file_only>project2.zip</file_only>
 </item>
@@ -1271,31 +1281,31 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\randomness.docx</filename>
-<modified_time>2017/4/27 5:22:51</modified_time>
-<created_time>2017/4/27 5:22:51</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
-<extension>docx</extension>
-<file_only>randomness.docx</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\randomness.docx</filename>
-<modified_time>2017/4/27 5:22:51</modified_time>
-<created_time>2017/4/27 5:22:51</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
-<extension>docx</extension>
-<file_only>randomness.docx</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\randomness.docx</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
 <execute_time>2017/4/27 5:22:51</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
+<extension>docx</extension>
+<file_only>randomness.docx</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\randomness.docx</filename>
+<modified_time>2017/4/27 5:22:51</modified_time>
+<created_time>2017/4/27 5:22:51</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
+<extension>docx</extension>
+<file_only>randomness.docx</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\randomness.docx</filename>
+<modified_time>2017/4/27 5:22:51</modified_time>
+<created_time>2017/4/27 5:22:51</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
 <extension>docx</extension>
 <file_only>randomness.docx</file_only>
 </item>
@@ -1313,7 +1323,7 @@
 <filename>C:\Users\eddie\Desktop\Settings.xml</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/27 20:33:48</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Registry</stored_in>
 <extension>xml</extension>
@@ -1323,7 +1333,7 @@
 <filename>C:\Users\eddie\Desktop\Settings.xml</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/4/27 20:33:48</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Registry</stored_in>
 <extension>xml</extension>
@@ -1351,11 +1361,11 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\succeed.mp3</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
+<modified_time>2017/4/26 16:32:29</modified_time>
+<created_time>2017/4/26 16:32:29</created_time>
 <execute_time>2017/4/26 16:32:29</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>mp3</extension>
 <file_only>succeed.mp3</file_only>
 </item>
@@ -1371,13 +1381,33 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\succeed.mp3</filename>
-<modified_time>2017/4/26 16:32:29</modified_time>
-<created_time>2017/4/26 16:32:29</created_time>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
 <execute_time>2017/4/26 16:32:29</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>mp3</extension>
 <file_only>succeed.mp3</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\success.mp3</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
+<extension>mp3</extension>
+<file_only>success.mp3</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\success.mp3</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
+<extension>mp3</extension>
+<file_only>success.mp3</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\success.mp3</filename>
@@ -1386,26 +1416,6 @@
 <execute_time>2017/4/26 16:30:49</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
-<extension>mp3</extension>
-<file_only>success.mp3</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\success.mp3</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>mp3</extension>
-<file_only>success.mp3</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\success.mp3</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
 <extension>mp3</extension>
 <file_only>success.mp3</file_only>
 </item>
@@ -1505,29 +1515,39 @@
 <created_time>N / A</created_time>
 <execute_time>2017/4/28 19:32:56</execute_time>
 <missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
+<extension>cs</extension>
+<file_only>XMLProcessor.cs</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\XMLProcessor.cs</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
+<extension>cs</extension>
+<file_only>XMLProcessor.cs</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Desktop\XMLProcessor.cs</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>2017/4/28 19:32:56</execute_time>
+<missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension>cs</extension>
 <file_only>XMLProcessor.cs</file_only>
 </item>
 <item>
-<filename>C:\Users\eddie\Desktop\XMLProcessor.cs</filename>
+<filename>C:\Users\eddie\Desktop\XMLSearcher.cs</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/4/28 19:32:56</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Registry</stored_in>
 <extension>cs</extension>
-<file_only>XMLProcessor.cs</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\XMLProcessor.cs</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/28 19:32:56</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>cs</extension>
-<file_only>XMLProcessor.cs</file_only>
+<file_only>XMLSearcher.cs</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\XMLSearcher.cs</filename>
@@ -1550,16 +1570,6 @@
 <file_only>XMLSearcher.cs</file_only>
 </item>
 <item>
-<filename>C:\Users\eddie\Desktop\XMLSearcher.cs</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>cs</extension>
-<file_only>XMLSearcher.cs</file_only>
-</item>
-<item>
 <filename>C:\Users\eddie\Desktop\zxcvzxcv.txt</filename>
 <modified_time>2017/4/28 20:50:21</modified_time>
 <created_time>2017/4/28 20:50:21</created_time>
@@ -1573,9 +1583,9 @@
 <filename>C:\Users\eddie\Desktop\呼.mp3</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/20 11:21:05</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>mp3</extension>
 <file_only>呼.mp3</file_only>
 </item>
@@ -1583,9 +1593,9 @@
 <filename>C:\Users\eddie\Desktop\呼.mp3</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/4/20 11:21:05</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>mp3</extension>
 <file_only>呼.mp3</file_only>
 </item>
@@ -1613,31 +1623,11 @@
 <filename>C:\Users\eddie\Desktop\无标题.jpg</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/4/19 0:52:15</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension>jpg</extension>
-<file_only>无标题.jpg</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\无标题.jpg</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
 <execute_time>N / A</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Registry</stored_in>
 <extension>jpg</extension>
 <file_only>无标题.jpg</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Desktop\无标题1.jpg</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/19 1:08:27</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension>jpg</extension>
-<file_only>无标题1.jpg</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Desktop\无标题1.jpg</filename>
@@ -1671,16 +1661,6 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Documents\395 PJ</filename>
-<modified_time>2017/4/27 5:13:24</modified_time>
-<created_time>2017/4/9 18:23:41</created_time>
-<execute_time>2017/4/27 5:13:24</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only>395 PJ</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Documents\395 PJ</filename>
 <modified_time>2017/4/28 0:35:47</modified_time>
 <created_time>2017/4/9 18:23:41</created_time>
 <execute_time>2017/4/28 0:35:48</execute_time>
@@ -1691,29 +1671,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Documents\395 PJ</filename>
-<modified_time>2017/4/25 21:11:41</modified_time>
+<modified_time>2017/4/27 3:47:05</modified_time>
 <created_time>2017/4/9 18:23:41</created_time>
-<execute_time>2017/4/25 21:11:41</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only>395 PJ</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Documents\395 PJ</filename>
-<modified_time>2017/4/28 18:14:23</modified_time>
-<created_time>2017/4/9 18:23:41</created_time>
-<execute_time>2017/4/28 18:14:23</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
-<extension></extension>
-<file_only>395 PJ</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Documents\395 PJ</filename>
-<modified_time>2017/4/28 18:14:23</modified_time>
-<created_time>2017/4/9 18:23:41</created_time>
-<execute_time>2017/4/28 18:14:23</execute_time>
+<execute_time>2017/4/27 3:47:05</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -1731,9 +1691,39 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Documents\395 PJ</filename>
-<modified_time>2017/4/27 3:47:05</modified_time>
+<modified_time>2017/4/28 22:10:57</modified_time>
 <created_time>2017/4/9 18:23:41</created_time>
-<execute_time>2017/4/27 3:47:05</execute_time>
+<execute_time>2017/4/28 22:46:42</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only>395 PJ</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Documents\395 PJ</filename>
+<modified_time>2017/4/27 5:13:24</modified_time>
+<created_time>2017/4/9 18:23:41</created_time>
+<execute_time>2017/4/27 5:13:24</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only>395 PJ</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Documents\395 PJ</filename>
+<modified_time>2017/4/28 18:14:23</modified_time>
+<created_time>2017/4/9 18:23:41</created_time>
+<execute_time>2017/4/28 18:14:23</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only>395 PJ</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Documents\395 PJ</filename>
+<modified_time>2017/4/25 21:11:41</modified_time>
+<created_time>2017/4/9 18:23:41</created_time>
+<execute_time>2017/4/25 21:11:41</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -1860,6 +1850,26 @@
 <file_only>4-28 morning</file_only>
 </item>
 <item>
+<filename>C:\Users\eddie\Documents\395 PJ\final</filename>
+<modified_time>2017/4/28 22:46:42</modified_time>
+<created_time>2017/4/28 22:10:56</created_time>
+<execute_time>2017/4/28 22:46:42</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only>final</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Documents\395 PJ\final\3</filename>
+<modified_time>2017/4/28 22:46:41</modified_time>
+<created_time>2017/4/28 22:46:41</created_time>
+<execute_time>2017/4/28 22:46:42</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension></extension>
+<file_only>3</file_only>
+</item>
+<item>
 <filename>C:\Users\eddie\Documents\395 PJ\KIKI4-25GAI</filename>
 <modified_time>2017/4/25 21:11:34</modified_time>
 <created_time>2017/4/25 21:11:34</created_time>
@@ -1881,9 +1891,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Documents\Unity Projects</filename>
-<modified_time>2017/2/23 15:44:37</modified_time>
+<modified_time>2017/2/27 19:21:37</modified_time>
 <created_time>2017/2/2 16:42:33</created_time>
-<execute_time>2017/2/23 15:44:37</execute_time>
+<execute_time>2017/2/27 19:21:37</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -1891,9 +1901,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Documents\Unity Projects</filename>
-<modified_time>2017/2/27 19:21:37</modified_time>
+<modified_time>2017/2/23 15:44:37</modified_time>
 <created_time>2017/2/2 16:42:33</created_time>
-<execute_time>2017/2/27 19:21:37</execute_time>
+<execute_time>2017/2/23 15:44:37</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -2351,9 +2361,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Downloads</filename>
-<modified_time>2017/4/28 16:03:47</modified_time>
+<modified_time>2017/3/8 18:12:37</modified_time>
 <created_time>2017/1/5 15:04:05</created_time>
-<execute_time>2017/4/28 16:04:12</execute_time>
+<execute_time>2017/3/8 18:12:38</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -2361,9 +2371,9 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Downloads</filename>
-<modified_time>2017/3/8 18:12:37</modified_time>
+<modified_time>2017/4/28 23:26:18</modified_time>
 <created_time>2017/1/5 15:04:05</created_time>
-<execute_time>2017/3/8 18:12:38</execute_time>
+<execute_time>2017/4/28 23:27:25</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -2450,14 +2460,14 @@
 <file_only>1177672.png</file_only>
 </item>
 <item>
-<filename>C:\Users\eddie\Downloads\easyicon_net_20170419010641772\1177672.png</filename>
-<modified_time>2014/10/25 23:45:05</modified_time>
+<filename>C:\Users\eddie\Downloads\easyicon_net_20170419010641772\1177701.png</filename>
+<modified_time>2014/10/25 23:45:18</modified_time>
 <created_time>2017/4/19 1:06:59</created_time>
-<execute_time>2017/4/19 1:10:13</execute_time>
+<execute_time>2017/4/19 1:11:20</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension>png</extension>
-<file_only>1177672.png</file_only>
+<file_only>1177701.png</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Downloads\easyicon_net_20170419010641772\1177701.png</filename>
@@ -2466,16 +2476,6 @@
 <execute_time>N / A</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Registry</stored_in>
-<extension>png</extension>
-<file_only>1177701.png</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Downloads\easyicon_net_20170419010641772\1177701.png</filename>
-<modified_time>2014/10/25 23:45:18</modified_time>
-<created_time>2017/4/19 1:06:59</created_time>
-<execute_time>2017/4/19 1:11:20</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
 <extension>png</extension>
 <file_only>1177701.png</file_only>
 </item>
@@ -2533,7 +2533,7 @@
 <filename>C:\Users\eddie\Downloads\Game Presentation.pptx</filename>
 <modified_time>2017/4/27 15:40:32</modified_time>
 <created_time>2017/4/27 15:39:48</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/27 15:40:47</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Registry</stored_in>
 <extension>pptx</extension>
@@ -2553,7 +2553,7 @@
 <filename>C:\Users\eddie\Downloads\Game Presentation.pptx</filename>
 <modified_time>2017/4/27 15:40:32</modified_time>
 <created_time>2017/4/27 15:39:48</created_time>
-<execute_time>2017/4/27 15:40:47</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Registry</stored_in>
 <extension>pptx</extension>
@@ -2621,21 +2621,21 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Downloads\Geometrix(arts music added)\Geometrix\Assets\Start.unity</filename>
-<modified_time>2017/4/24 22:06:54</modified_time>
-<created_time>2017/4/24 22:06:54</created_time>
-<execute_time>2017/4/24 22:02:08</execute_time>
-<missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
-<extension>unity</extension>
-<file_only>Start.unity</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Downloads\Geometrix(arts music added)\Geometrix\Assets\Start.unity</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
 <execute_time>2017/4/24 22:02:08</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
+<extension>unity</extension>
+<file_only>Start.unity</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Downloads\Geometrix(arts music added)\Geometrix\Assets\Start.unity</filename>
+<modified_time>2017/4/24 22:06:54</modified_time>
+<created_time>2017/4/24 22:06:54</created_time>
+<execute_time>2017/4/24 22:02:08</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
 <extension>unity</extension>
 <file_only>Start.unity</file_only>
 </item>
@@ -2733,9 +2733,9 @@
 <filename>C:\Users\eddie\Downloads\Geometrix(trigger added)\Geometrix\Assets\Physics Material\2014062312.jpg</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/20 13:38:32</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>jpg</extension>
 <file_only>2014062312.jpg</file_only>
 </item>
@@ -2743,9 +2743,9 @@
 <filename>C:\Users\eddie\Downloads\Geometrix(trigger added)\Geometrix\Assets\Physics Material\2014062312.jpg</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
-<execute_time>2017/4/20 13:38:32</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>Yes</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>jpg</extension>
 <file_only>2014062312.jpg</file_only>
 </item>
@@ -2818,6 +2818,36 @@
 <stored_in>Recent Folder</stored_in>
 <extension>nb</extension>
 <file_only>homework1 (1).nb</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Downloads\icon.ico</filename>
+<modified_time>2017/4/28 23:26:14</modified_time>
+<created_time>2017/4/28 23:26:14</created_time>
+<execute_time>2017/4/28 23:27:25</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
+<extension>ico</extension>
+<file_only>icon.ico</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Downloads\icon.ico</filename>
+<modified_time>2017/4/28 23:26:14</modified_time>
+<created_time>2017/4/28 23:26:14</created_time>
+<execute_time>2017/4/28 23:27:25</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Recent Folder</stored_in>
+<extension>ico</extension>
+<file_only>icon.ico</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Downloads\icon.ico</filename>
+<modified_time>2017/4/28 23:26:14</modified_time>
+<created_time>2017/4/28 23:26:14</created_time>
+<execute_time>2017/4/28 23:27:25</execute_time>
+<missing_file>No</missing_file>
+<stored_in>Registry</stored_in>
+<extension>ico</extension>
+<file_only>icon.ico</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Downloads\IMG_0188 (1).MOV</filename>
@@ -2991,21 +3021,21 @@
 </item>
 <item>
 <filename>C:\Users\eddie\Downloads\Poster_1_.svg</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>svg</extension>
-<file_only>Poster_1_.svg</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Downloads\Poster_1_.svg</filename>
 <modified_time>2017/4/19 10:35:04</modified_time>
 <created_time>2017/4/19 10:35:02</created_time>
 <execute_time>2017/4/19 10:37:06</execute_time>
 <missing_file>Yes</missing_file>
 <stored_in>Recent Folder</stored_in>
+<extension>svg</extension>
+<file_only>Poster_1_.svg</file_only>
+</item>
+<item>
+<filename>C:\Users\eddie\Downloads\Poster_1_.svg</filename>
+<modified_time>N / A</modified_time>
+<created_time>N / A</created_time>
+<execute_time>N / A</execute_time>
+<missing_file>Yes</missing_file>
+<stored_in>Registry</stored_in>
 <extension>svg</extension>
 <file_only>Poster_1_.svg</file_only>
 </item>
@@ -3063,7 +3093,7 @@
 <filename>C:\Users\eddie\Downloads\randomness (1).docx</filename>
 <modified_time>2017/4/27 15:53:35</modified_time>
 <created_time>2017/4/27 15:53:35</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/27 15:54:56</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Registry</stored_in>
 <extension>docx</extension>
@@ -3083,7 +3113,7 @@
 <filename>C:\Users\eddie\Downloads\randomness (1).docx</filename>
 <modified_time>2017/4/27 15:53:35</modified_time>
 <created_time>2017/4/27 15:53:35</created_time>
-<execute_time>2017/4/27 15:54:56</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Registry</stored_in>
 <extension>docx</extension>
@@ -3105,7 +3135,7 @@
 <created_time>2017/4/28 16:03:47</created_time>
 <execute_time>2017/4/28 16:04:12</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>png</extension>
 <file_only>View File-48.png</file_only>
 </item>
@@ -3113,9 +3143,9 @@
 <filename>C:\Users\eddie\Downloads\View File-48.png</filename>
 <modified_time>2017/4/28 16:03:47</modified_time>
 <created_time>2017/4/28 16:03:47</created_time>
-<execute_time>2017/4/28 16:04:12</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>png</extension>
 <file_only>View File-48.png</file_only>
 </item>
@@ -3158,16 +3188,6 @@
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
 <file_only>Resources</file_only>
-</item>
-<item>
-<filename>C:\Users\eddie\Source\Repos\4-23\ProjectKIKI\KIKI\KIKI\Resources\kiki.ico</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>2017/4/25 21:54:35</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>ico</extension>
-<file_only>kiki.ico</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Source\Repos\4-23\ProjectKIKI\KIKI\KIKI\Resources\kiki.ico</filename>
@@ -3220,16 +3240,6 @@
 <file_only>MeetingNode.cs</file_only>
 </item>
 <item>
-<filename>C:\Users\eddie\Source\Repos\4-23\ProjectKIKI\KIKI\KIKIXmlProcessor\MeetingNode.cs</filename>
-<modified_time>N / A</modified_time>
-<created_time>N / A</created_time>
-<execute_time>N / A</execute_time>
-<missing_file>Yes</missing_file>
-<stored_in>Registry</stored_in>
-<extension>cs</extension>
-<file_only>MeetingNode.cs</file_only>
-</item>
-<item>
 <filename>C:\Users\eddie\Source\Repos\4-23\ProjectKIKI\KIKI\KIKIXmlProcessor\XMLProcessor.cs</filename>
 <modified_time>N / A</modified_time>
 <created_time>N / A</created_time>
@@ -3263,7 +3273,7 @@
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI</filename>
 <modified_time>2017/4/28 5:46:59</modified_time>
 <created_time>2017/4/28 5:46:57</created_time>
-<execute_time>2017/4/28 18:22:08</execute_time>
+<execute_time>2017/4/28 22:47:14</execute_time>
 <missing_file>No</missing_file>
 <stored_in>Recent Folder</stored_in>
 <extension></extension>
@@ -3283,19 +3293,19 @@
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI.sln</filename>
 <modified_time>2017/4/26 21:21:40</modified_time>
 <created_time>2017/4/28 5:46:57</created_time>
-<execute_time>N / A</execute_time>
+<execute_time>2017/4/28 22:47:14</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Registry</stored_in>
+<stored_in>Recent Folder</stored_in>
 <extension>sln</extension>
 <file_only>KIKI.sln</file_only>
 </item>
 <item>
 <filename>C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI.sln</filename>
-<modified_time>2017/4/26 21:21:40</modified_time>
+<modified_time>2017/4/28 22:51:31</modified_time>
 <created_time>2017/4/28 5:46:57</created_time>
-<execute_time>2017/4/28 18:22:08</execute_time>
+<execute_time>N / A</execute_time>
 <missing_file>No</missing_file>
-<stored_in>Recent Folder</stored_in>
+<stored_in>Registry</stored_in>
 <extension>sln</extension>
 <file_only>KIKI.sln</file_only>
 </item>

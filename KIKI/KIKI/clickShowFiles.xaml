@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KIKI"
         mc:Ignorable="d"
-        Title="clickShowFiles" Height="300" Width="300">
+        Title="File used in the meeting" Height="300" Width="300" ResizeMode="NoResize">
     <Grid>
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.8">
                 <GradientStop Color="#FFC39620" Offset="0"/>
                 <GradientStop Color="#FFFF5921" Offset="1"/>
             </LinearGradientBrush>

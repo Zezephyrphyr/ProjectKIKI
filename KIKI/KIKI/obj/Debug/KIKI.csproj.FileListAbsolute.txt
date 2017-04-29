@@ -125,8 +125,6 @@ C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\KIKIXmlProcessor.exe
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\KIKIXmlProcessor.pdb
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\obj\Debug\clickFileShowMeeting.g.cs
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\obj\Debug\clickFileShowMeeting.baml
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\obj\Debug\clickMeetingShowFile.g.cs
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\obj\Debug\clickMeetingShowFile.baml
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\obj\Debug\Window1.g.cs
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\obj\Debug\Window1.baml
 C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\obj\Debug\clickShowFiles.g.cs
