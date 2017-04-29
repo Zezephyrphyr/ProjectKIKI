@@ -1,14 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net;
 using System.IO;
+using System.Windows.Media;
+using Hardcodet.Wpf.TaskbarNotification;
+using System.Reflection;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
+using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
 using System.Collections.ObjectModel;
 using KIKIXmlProcessor;
 using System.Timers;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace KIKI
 {
+    /// <summary>
+    /// MainWindow.xaml 的交互逻辑
+    /// </summary>
     public partial class MainWindow : Window
     {
 

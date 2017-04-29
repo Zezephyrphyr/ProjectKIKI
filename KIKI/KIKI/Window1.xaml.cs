@@ -69,7 +69,9 @@ namespace KIKI
 
         private void MeetingClick(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
+            clickShowFiles newWindow = new clickShowFiles(button.Tag.ToString());
+            newWindow.Show();
         }
 
         private void listView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

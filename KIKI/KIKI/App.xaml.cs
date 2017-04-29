@@ -5,12 +5,18 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
+using Google.Apis.Util.Store;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 using KIKIXmlProcessor;
 
 namespace KIKI
 {
+    /// <summary>
+    /// App.xaml 的交互逻辑
+    /// </summary>
+    /// //////////////////////////////////////
     public partial class App : Application
     {
 
@@ -47,23 +53,22 @@ namespace KIKI
 
         public static void InitializeGoogle()
             {
-                using (var stream =
-                  new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
-                {
+            using (var stream =
+              new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            {
                 string credPath = System.Environment.GetFolderPath(
-                      System.Environment.SpecialFolder.Personal);
-                    credPath = Path.Combine(credPath, ".credentials/calendar-dotnet-quickstart.json");
-               
-                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                      GoogleClientSecrets.Load(stream).Secrets,
-                      Scopes,
-                      "user",
-                      CancellationToken.None
-                      ).Result;
-                    Console.WriteLine("Credential file saved to: " + credPath);
-               
+                  System.Environment.SpecialFolder.Personal);
+                credPath = Path.Combine(credPath, ".credentials/calendar-dotnet-quickstart.json");
+
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                  GoogleClientSecrets.Load(stream).Secrets,
+                  Scopes,
+                  "user",
+                  CancellationToken.None,
+                  new FileDataStore(credPath, true)).Result;
+                Console.WriteLine("Credential file saved to: " + credPath);
             }
-          
+
         }
 
         public static void InitializeCalendar()
@@ -98,11 +103,27 @@ namespace KIKI
                             EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
                             string[] attendeeString = new string[eventItem.Attendees.Count];
                             eventItem.Attendees.CopyTo(attendeeData, 0);
+                            List<String> attendeelist = new List<String>();
+
                             for (int i = 0; i < eventItem.Attendees.Count; i++)
                             {
-                                attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
+                                if ((attendeeData[i].DisplayName != null) && (attendeeData[i].DisplayName.Replace(" ","") != ""))
+                                {
+                                    attendeelist.Add(attendeeData[i].DisplayName);
+                                }
                             }
-                            if (eventItem.Attendees.Count < 2)
+                            if (attendeelist.Count >= 2)
+                            {
+                                for(int i = 0; i< attendeelist.Count;i++)
+                                {
+                                    attendee = attendee + attendeelist[i];
+                                    if (i!=attendeelist.Count -1)
+                                    {
+                                        attendee = attendee + ";";
+                                    }
+                                }
+                            }
+                            else
                             {
                                 attendee = "N/A";
                             }
@@ -111,6 +132,7 @@ namespace KIKI
                         {
                             attendee = "N/A";
                         }
+
 
                         if (String.IsNullOrEmpty(when))
                         {
@@ -122,6 +144,9 @@ namespace KIKI
                         bufferGoogle.Add(attendee);
 
                     }
+                }
+                else
+                {
                 }
             }
             catch(Exception e)
@@ -160,8 +185,8 @@ namespace KIKI
                 bufferFile.Add(item.GetFilePath());
                 bufferFile.Add(item.GetMeetingListS());
             }
-        }
-
+       }
+        
         public static void InitializeCore()
         {
             XMLProcessor p = new XMLProcessor();
@@ -215,11 +240,26 @@ namespace KIKI
                         {
                             EventAttendee[] attendeeData = new EventAttendee[eventItem.Attendees.Count];
                             eventItem.Attendees.CopyTo(attendeeData, 0);
+                            List<String> attendeelist = new List<String>();
                             for (int i = 0; i < eventItem.Attendees.Count; i++)
                             {
-                                attendee = attendee + attendeeData[i].DisplayName.ToString() + ", ";
+                                if ((attendeeData[i].DisplayName != null) && (attendeeData[i].DisplayName != ""))
+                                {
+                                    attendeelist.Add(attendeeData[i].DisplayName);
+                                }
                             }
-                            if (eventItem.Attendees.Count < 2)
+                            if (attendeelist.Count >= 2)
+                            {
+                                for (int i = 0; i < attendeelist.Count; i++)
+                                {
+                                    attendee = attendee + attendeelist[i];
+                                    if (i != attendeelist.Count - 1)
+                                    {
+                                        attendee = attendee + ";";
+                                    }
+                                }
+                            }
+                            else
                             {
                                 attendee = "N/A";
                             }
@@ -228,6 +268,7 @@ namespace KIKI
                         {
                             attendee = "N/A";
                         }
+
                         meeting.SetAttendents(attendee);
                         meeting.SetMeetingID(eventItem.Id);
                         meeting.SetParentID(eventItem.ICalUID.ToString());
