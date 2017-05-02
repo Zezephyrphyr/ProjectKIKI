@@ -81,4 +81,3 @@ D:\GIT\KIKI\KIKI\KIKI\obj\Debug\KIKI.pdb
 D:\GIT\KIKI\KIKI\KIKI\bin\Debug\KIKIXmlProcessor.exe
 D:\GIT\KIKI\KIKI\KIKI\bin\Debug\KIKIXmlProcessor.pdb
 D:\GIT\KIKI\KIKI\KIKI\bin\Debug\KIKIXmlProcessor.exe.config
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKI\bin\Debug\KIKI.exe.config

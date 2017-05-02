@@ -185,6 +185,7 @@ namespace KIKI
                 ObservableCollection<todayEvent> items2 = new ObservableCollection<todayEvent>();
                 mlistView.ItemsSource = items2;
                 mlistView4.ItemsSource = null;
+                RecentFile.ItemsSource = null;
                 login = false;
                 timer.Stop();
                 loginButton.Content = "Log In";
