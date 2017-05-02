@@ -1,5 +1,0 @@
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Release\KIKIXmlProcessor.exe.config
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Release\KIKIXmlProcessor.exe
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\bin\Release\KIKIXmlProcessor.pdb
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Release\KIKIXmlProcessor.exe
-C:\Users\eddie\Source\Repos\ProjectKIKI\KIKI\KIKIXmlProcessor\obj\Release\KIKIXmlProcessor.pdb

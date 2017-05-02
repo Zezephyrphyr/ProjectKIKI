@@ -19,20 +19,21 @@
                 <GradientStop Color="#FF168CD4" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBlock Margin="10,0,10.2,0.4" FontWeight="Bold" Height="44" VerticalAlignment="Bottom">
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="Black" Opacity="0.8"/>
-            </TextBlock.Foreground>
+        <TextBlock Margin="10,8,0,0" FontWeight="Bold" Height="27" VerticalAlignment="Top">
                  <Hyperlink x:Name="FileLink" RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="{Binding URL}">
                      <Hyperlink.Foreground>
                          <SolidColorBrush Color="Black" Opacity="0.8"/>
                      </Hyperlink.Foreground>
-                    <TextBlock x:Name="FileName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto" Foreground="#FFFFFED1" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock x:Name="FileName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="auto" FontSize="14" FontWeight="Bold">
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="Black" Opacity="0.8"/>
+                    </TextBlock.Foreground>
+                    </TextBlock>
                  </Hyperlink>
 
         </TextBlock>
 
-        <ListView x:Name="MeetingList" HorizontalAlignment="Left" Height="auto" Margin="0,27,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="20" SelectionChanged="listView_SelectionChanged" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+        <ListView x:Name="MeetingList" HorizontalAlignment="Left" Height="auto" Margin="0,27,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="20" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.BorderBrush>
                 <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
             </ListView.BorderBrush>

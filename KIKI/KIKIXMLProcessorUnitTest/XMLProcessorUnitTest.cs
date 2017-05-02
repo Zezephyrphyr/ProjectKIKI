@@ -11,7 +11,7 @@ namespace KIKIXMLProcessorUnitTest
     //Due to the read and access of xml files, limited unit tests are implemented for this class
     public class XMLProcessorUnitTest
     {
-        XMLProcessor test = new XMLProcessor();
+        XMLProcessor test = new XMLProcessor("123");
 
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace KIKIXMLProcessorUnitTest
             fn.AddLast(n1);
             fn.AddLast(n2);
             fn.AddLast(n3);
-            XMLProcessor nP = new XMLProcessor();
+            XMLProcessor nP = new XMLProcessor("123");
             nP.WriteFiles(fn);
         }
 
@@ -94,7 +94,7 @@ namespace KIKIXMLProcessorUnitTest
             LinkedList<FileNode> fn = new LinkedList<FileNode>();
             fn.AddLast(file1);
             fn.AddLast(file2);
-            XMLProcessor processor = new XMLProcessor();
+            XMLProcessor processor = new XMLProcessor("123");
             processor.FirstUse();
             processor.SetFileList(fn);
             processor.ProcessFileWithMeetingNode(node);
@@ -137,14 +137,14 @@ namespace KIKIXMLProcessorUnitTest
             attachmentList.AddLast(f2);
             attachmentList.AddLast(f3);
 
-            XMLProcessor x = new XMLProcessor();
+            XMLProcessor x = new XMLProcessor("123");
             x.ProcessFileWithMeetingList(meetingList, attachmentList);
             x.Write();
         }
 
         public void UpdateSettingsTest()
         {
-            XMLProcessor test = new XMLProcessor();
+            XMLProcessor test = new XMLProcessor("123");
             test.WriteSettings();
             test.GetInfoFromSettings();
             int LID = test.GetLastUpdateId();

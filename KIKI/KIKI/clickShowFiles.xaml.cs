@@ -19,43 +19,37 @@ namespace KIKI
     /// <summary>
     /// Interaction logic for clickShowFiles.xaml
     /// </summary>
-   
+
     public partial class clickShowFiles : Window
     {
         private string[] id;
+
+        // Constructor
         public clickShowFiles(string IDList)
         {
             InitializeComponent();
-            XMLProcessor processor = new XMLProcessor();
-            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
+            XMLProcessor processor = new XMLProcessor(App.id);
+            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath(), App.id);
             char[] delimiterChars = { ';' };
             id = IDList.Split(delimiterChars);
             foreach (string s in id)
             {
-                Debug.Print("" + s);
                 if (searcher.FindFilesByFileIDs(s).Count != 0)
                 {
                     Files.Items.Add(searcher.FindFilesByFileIDs(s).Last().GetFileName());
                 }
-                
             }
-
-            
         }
 
         private void Files_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (System.Windows.Forms.SystemInformation.MouseButtonsSwapped) // Or use SystemInformation.MouseButtonsSwapped
-            {
-             
-            }
+            if (System.Windows.Forms.SystemInformation.MouseButtonsSwapped)
+            { }
             else
             {
                 clickFileShowMeeting newWindow = new clickFileShowMeeting(id[Files.SelectedIndex]);
                 newWindow.Show();
-
             }
-
         }
     }
 

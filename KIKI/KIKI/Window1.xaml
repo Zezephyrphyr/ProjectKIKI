@@ -141,7 +141,7 @@
                                         </TextBlock>
                                         <Button  Name ="haha" Tag="{Binding Files}" Content="{Binding Title}" Click ="MeetingClick" Height="25" Width="155" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="12" FontFamily="Microsoft YaHei UI Light"/>
 
-                                        <TextBlock Text="{Binding Attendee}" Height="25" Width="Auto" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock Text="{Binding Attendee}" Height="25" Width="150" FontSize="12" FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" LineHeight="6" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
                                             <TextBlock.RenderTransform>
                                                 <TransformGroup>
                                                     <ScaleTransform/>
@@ -166,7 +166,7 @@
                 <Grid>
 
 
-                    <ListView x:Name="mlistView5" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="20" SelectionChanged="listView_SelectionChanged" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
+                    <ListView x:Name="mlistView5" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="20" Background="{x:Null}" Foreground="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel Width="auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left">

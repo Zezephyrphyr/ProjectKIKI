@@ -178,5 +178,10 @@ namespace KIKIXmlProcessor
             TimeSpan duration = eTime - sTime;
             return duration;
         }
+
+        public static string convertEmailtoID(string email)
+        {
+            return email.Split('@')[0].Replace('.', '_');
+        }
     }
 }

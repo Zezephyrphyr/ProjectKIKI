@@ -7,13 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace KIKI
 {
@@ -25,16 +19,17 @@ namespace KIKI
         private XMLProcessor processor;
         private XMLSearcher searcher;
 
-
+        // Window for searching
         public Window1()
         {
             InitializeComponent();
         }
 
+        // handle search button events
         private void Search(object sender, RoutedEventArgs e)
         {
-            processor = new XMLProcessor();
-            searcher = new XMLSearcher(processor.GetWorkingPath());
+            processor = new XMLProcessor(App.id);
+            searcher = new XMLSearcher(processor.GetWorkingPath(), App.id);
             string keyword = textBox.Text;
 
             if (tabControl.SelectedIndex == 0)
@@ -67,23 +62,22 @@ namespace KIKI
 
         }
 
+        // handle events for clicking meeting
         private void MeetingClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
-            clickShowFiles newWindow = new clickShowFiles(button.Tag.ToString());
-            newWindow.Show();
+            if (button.Tag.ToString() != "")
+            {
+                clickShowFiles newWindow = new clickShowFiles(button.Tag.ToString());
+                newWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("No file modified in this meeting.");
+            }
         }
 
-        private void listView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void listView_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-
+        // handle events for clicking hyperlink
         private void Hyperlink_RequestNavigate(object sender,
                                  System.Windows.Navigation.RequestNavigateEventArgs e)
         {
@@ -91,23 +85,22 @@ namespace KIKI
             {
                 Process.Start(e.Uri.AbsoluteUri);
             }
-            catch (Exception ex)
+            catch
             {
-                System.Windows.MessageBox.Show("The file cannot be found.");
+                MessageBox.Show("The file may be removed or moved to another path.");
             }
         }
 
-
+        // initialize file tab after searching
         private void initializeFileInfo(LinkedList<FileNode> fileList)
         {
             Debug.Print(fileList.Count + "");
-            processor = new XMLProcessor();
-            searcher = new XMLSearcher(processor.GetWorkingPath());
+            processor = new XMLProcessor(App.id);
+            searcher = new XMLSearcher(processor.GetWorkingPath(), App.id);
             LinkedList<MeetingNode> MeetingData = new LinkedList<MeetingNode>();
             ObservableCollection<recentFile> items = new ObservableCollection<recentFile>();
             foreach (FileNode item in fileList)
             {
-
                 items.Add(new recentFile() { Name = item.GetFileName(), URL = item.GetFilePath(), Meetings = item.GetMeetingListS() });
                 RecentFile.ItemsSource = items;
                 MeetingData = searcher.FindMeetingsByMeetingIDs(item.GetMeetingListS());
@@ -132,10 +125,11 @@ namespace KIKI
 
         }
 
+        // initialize meeting tab after searching
         private void initializeMeetingInfo(LinkedList<MeetingNode> meetingList)
         {
-            processor = new XMLProcessor();
-            searcher = new XMLSearcher(processor.GetWorkingPath());
+            processor = new XMLProcessor(App.id);
+            searcher = new XMLSearcher(processor.GetWorkingPath(), App.id);
             ObservableCollection<previousMeeting> items = new ObservableCollection<previousMeeting>();
             foreach (MeetingNode item in meetingList)
             {
@@ -144,13 +138,12 @@ namespace KIKI
             }
         }
 
+        // initialize event for clicking file title
         public void fileClick(object sender, EventArgs e)
         {
 
             if (SystemParameters.SwapButtons) // Or use SystemInformation.MouseButtonsSwapped
-            {
-                // openfile
-            }
+            { }
             else
             {
                 string str = sender.ToString();
@@ -162,11 +155,9 @@ namespace KIKI
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("No file modified in this meeting.");
+                    MessageBox.Show("No file modified in this meeting.");
                 }
-
             }
-
         }
     }
 

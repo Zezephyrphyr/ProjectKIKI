@@ -17,17 +17,17 @@ using System.Diagnostics;
 
 namespace KIKI
 {
-    /// <summary>
-    /// Interaction logic for clickFileShowMeeting.xaml
-    /// </summary>
+
     public partial class clickFileShowMeeting : Window
     {
         private bool whetherThrows = false;
+
+        // Constructor
         public clickFileShowMeeting(string fileID)
         {
                         InitializeComponent();
-            XMLProcessor processor = new XMLProcessor();
-            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
+            XMLProcessor processor = new XMLProcessor(App.id);
+            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath(),App.id);
 
 
             LinkedList<MeetingNode> meetingList = searcher.FindMeetingsByFileID(fileID);
@@ -36,22 +36,16 @@ namespace KIKI
             {
                 FileLink.NavigateUri = new System.Uri(searcher.FindFilesByFileIDs(fileID).Last().GetFilePath());
             }
-            catch(System.UriFormatException ex)
+            catch
             {
                 whetherThrows = true;
             }
             ObservableCollection<clickFile> items = new ObservableCollection<clickFile>();
             foreach (MeetingNode meeting in meetingList)
             {
-                //Debug.Print(meeting.GetMeetingID()+""+ meeting.GetStartTimeS());
                 items.Add(new clickFile() { Time = meeting.GetStartTimeS(), Name = meeting.GetMeetingTitle(), Attendee = meeting.GetAttendents()});
                 MeetingList.ItemsSource = items;
             }
-        }
-
-        private void listView_SelectionChanged(Object sender, EventArgs e)
-        {
-
         }
 
         private void Hyperlink_RequestNavigate(object sender,
@@ -61,9 +55,9 @@ namespace KIKI
             {
                 Process.Start(e.Uri.AbsoluteUri);
             }
-            catch (Exception ex)
+            catch
             {
-                System.Windows.MessageBox.Show("The file cannot be found.");
+                MessageBox.Show("The file may be removed or moved to another path.");
             }
         }
     }

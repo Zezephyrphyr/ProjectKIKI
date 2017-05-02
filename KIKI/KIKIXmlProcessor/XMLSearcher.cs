@@ -10,12 +10,13 @@ namespace KIKIXmlProcessor
     {
         private String mfile = "meetings.xml";
         private String ffile = "files.xml";
-
+        private String user = "";
         //Set the working path of the files in constructor
-        public XMLSearcher(String WorkingPath)
+        public XMLSearcher(String WorkingPath, String userID)
         {
-            mfile = WorkingPath + mfile;
-            ffile = WorkingPath + ffile;
+            user = userID;
+            mfile = "meetings" + user + ".xml";
+            ffile = "files" + user + ".xml";
         }
 
         //-----------------------------------------Search Algorithm ------------------------------------------------

@@ -25,10 +25,15 @@ namespace KIKIXmlProcessor
         private int lastID = 0;
         private int trackID = 0;
         private TimeSpan minDuration = new TimeSpan(0, 1, 0);
+        private String user = "";
 
         //Constructor of XMLProcessor, get basic settings information
-        public XMLProcessor()
+        public XMLProcessor(String userID)
         {
+            user = userID;
+            mfile = "meetings" + user + ".xml";
+            ffile = "files" + user + ".xml";
+            sfile = "Settings" + user + ".xml";
             if (!File.Exists(sfile))
             {
                 WriteSettings();
@@ -100,8 +105,8 @@ namespace KIKIXmlProcessor
         //Update the path in this processor with the information read
         public void UpdateFilePath()
         {
-            mfile = workingPath + "meetings.xml";
-            ffile = workingPath + "files.xml";
+            mfile = workingPath + mfile;
+            ffile = workingPath + ffile;
             tempPath = workingPath + "temp.xml";
             RSFile = workingPath + "records.xml";
         }
@@ -450,7 +455,7 @@ namespace KIKIXmlProcessor
             xWrite.Close();
 
             // Save to Disk
-            xDoc.Save("Settings.xml");
+            xDoc.Save(sfile);
             Console.WriteLine("New Settings.xml Created...");
         }
 
@@ -479,7 +484,7 @@ namespace KIKIXmlProcessor
         public void UpdateSettingsPath(String WP)
         {
             workingPath = WP;
-            XElement settingsFile = XElement.Load("Settings.xml");
+            XElement settingsFile = XElement.Load(sfile);
             settingsFile.Element("Working_Path").ReplaceNodes(WP);
             settingsFile.Save(sfile);
         }
@@ -488,7 +493,7 @@ namespace KIKIXmlProcessor
         public void UpdateLastID(int lastID)
         {
 
-            XElement settingsFile = XElement.Load("Settings.xml");
+            XElement settingsFile = XElement.Load(sfile);
             settingsFile.Element("Last_File_ID").ReplaceNodes(lastID.ToString());
             settingsFile.Save(sfile);
         }
@@ -498,7 +503,7 @@ namespace KIKIXmlProcessor
         {
 
             minDuration = duration;
-            XElement settingsFile = XElement.Load("Settings.xml");
+            XElement settingsFile = XElement.Load(sfile);
             String s = duration.Hours.ToString() + ";" +
                 duration.Minutes.ToString() + ";" +
                 duration.Seconds.ToString();

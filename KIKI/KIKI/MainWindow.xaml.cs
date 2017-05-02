@@ -1,34 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net;
 using System.IO;
+using System.Windows.Media;
+using Hardcodet.Wpf.TaskbarNotification;
+using System.Reflection;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
+using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
 using System.Collections.ObjectModel;
 using KIKIXmlProcessor;
 using System.Timers;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace KIKI
 {
+    /// <summary>
+    /// MainWindow.xaml 的交互逻辑
+    /// </summary>
     public partial class MainWindow : Window
     {
 
         private bool login = true;
         private System.Timers.Timer timer;
 
+        // initialize mainwindow and internal logic, set timer.
         public MainWindow()
         {
-            XMLProcessor p = new XMLProcessor();
+            XMLProcessor p = new XMLProcessor(App.id);
             InitializeComponent();
-          
             App.Initialize();
-            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
+            NotifyIcon ni = new NotifyIcon();
             ni.Icon = new System.Drawing.Icon(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/icon.ico");
             ni.Visible = true;
             ni.DoubleClick +=
                 delegate (object sender, EventArgs args)
                 {
                     this.Show();
-                    this.WindowState = System.Windows.WindowState.Normal;
+                    this.WindowState = WindowState.Normal;
                 };
             initializeGoogleInfo();
             initializeMeetingInfo();
@@ -36,16 +51,17 @@ namespace KIKI
             initializeTimer();
     }
 
+        // set logic for periodically refresh
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
 
+            XMLProcessor p = new XMLProcessor(App.id);
             App.meetingList = new LinkedList<MeetingNode>();
             App.fileList = new LinkedList<FileNode>();
             App.UpdateGoogleList();
             App.UpdateMeetingList();
             App.UpdateFileList();
             App.InitializeCalendar();
-            XMLProcessor p = new XMLProcessor();
             App.fetchFromGoogle(p.GetLastUpdateTime());
             
             if (App.meetingList.Count > 0){
@@ -54,6 +70,7 @@ namespace KIKI
                 App.InitializeFileTab();
             }
           
+            // Update UI thread seperately
             this.Dispatcher.Invoke(() =>
             {
                 initializeGoogleInfo();
@@ -64,9 +81,9 @@ namespace KIKI
             
         }
 
+        // Initialize Today's event module
         private void initializeGoogleInfo()
         {
-
             List<string> eventData = App.getGoogleBuffer();
             ObservableCollection<todayEvent> items = new ObservableCollection<todayEvent>();
             
@@ -77,9 +94,9 @@ namespace KIKI
             }
         }
 
+        // Initialize Meeting tab
         private void initializeMeetingInfo()
         {
-
             string buffer = "";
             List<string> meetingData = App.getMeetingBuffer();
             ObservableCollection<previousMeeting> items = new ObservableCollection<previousMeeting>();
@@ -102,8 +119,7 @@ namespace KIKI
                         items.Add(new previousMeeting() { Time = meetingData[i + 1], Name = meetingData[i + 2], Attendee = meetingData[i + 3], Docs = meetingData[i + 4] });
                         mlistView4.ItemsSource = items;
 
-                    }
-                    else {
+                    } else {
                         buffer = meetingData[i];
                         items.Add(new previousMeeting() { Date = meetingData[i] });
                         mlistView4.ItemsSource = items;
@@ -113,11 +129,12 @@ namespace KIKI
                 }
             }
         }
+
+        // Initialize File tab
         private void initializeFileInfo()
         {
-
-            XMLProcessor processor = new XMLProcessor();
-            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath());
+            XMLProcessor processor = new XMLProcessor(App.id);
+            XMLSearcher searcher = new XMLSearcher(processor.GetWorkingPath(),App.id);
             List<string> FileData = App.getFileBuffer();
             LinkedList<MeetingNode> MeetingData = new LinkedList<MeetingNode>();
             ObservableCollection<recentFile> items = new ObservableCollection<recentFile>();
@@ -125,7 +142,6 @@ namespace KIKI
             {
                 items.Add(new recentFile() { Name = FileData[i], URL = FileData[i+1], Meetings = FileData[i+2]});
                 RecentFile.ItemsSource = items;
-            
                 MeetingData = searcher.FindMeetingsByMeetingIDs(FileData[i + 2]);
                 
                 if (MeetingData.Count != 0)
@@ -134,17 +150,15 @@ namespace KIKI
                     {
                         items.Add(new recentFile() { Time = item.GetStartTimeS(), Title = item.GetMeetingTitle(), Attendee = item.GetAttendents(), Files = item.GetFileListS()});
                         RecentFile.ItemsSource = items;
-
                     }
-                }else
-                {
+                } else {
                     items.Add(new recentFile() { Time = "No Records", Title = "  ", Attendee = "    " });
                     RecentFile.ItemsSource = items;
-                }
-                
-
+                } 
             }
         }
+
+        // Initialize timer everytime refreshing
         private void initializeTimer()
         {
             int wait = 10 * 1000;
@@ -154,13 +168,14 @@ namespace KIKI
             timer.Start();
         }
 
-
+        // Initialize search window
         public void searchClick(object sender, RoutedEventArgs e)
         {
             Window1 newWindow = new Window1();
             newWindow.Show();
         }
 
+        // Initialize login button
         public void loginClick(object sender, RoutedEventArgs e)
         {
             if (login == true)
@@ -177,22 +192,21 @@ namespace KIKI
             else
             {
                 App.Initialize();
-                initializeGoogleInfo();
                 initializeTimer();
                 login = true;
                 loginButton.Content = "Log Out";
+                initializeGoogleInfo();
+                
                 initializeMeetingInfo();
                 initializeFileInfo();
             }   
         }
 
+        // Initialize file title click event
         public void fileClick(object sender, EventArgs e)
         {
-            
             if (SystemParameters.SwapButtons) // Or use SystemInformation.MouseButtonsSwapped
-            {
-                // openfile
-            }
+            {}
             else
             {
                 string str = sender.ToString();
@@ -210,54 +224,43 @@ namespace KIKI
             }
          
         }
-        
+
+        // Initialize meeting title click event
         private void MeetingClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
-            clickShowFiles newWindow = new clickShowFiles(button.Tag.ToString());
-            newWindow.Show();
+            if (button.Tag.ToString() != "")
+            {
+                clickShowFiles newWindow = new clickShowFiles(button.Tag.ToString());
+                newWindow.Show();
+            }else
+            {
+                System.Windows.MessageBox.Show("No file modified in this meeting.");
+            }
         }
 
-        private void listView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-          
-        }
-
-        private void listView_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-      
-        }
-
-        private void textBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
-
-        private void tabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-
+        // Initialize Hyperlink to open the file
         private void Hyperlink_RequestNavigate(object sender,
                                      System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             try
             {
                 Process.Start(e.Uri.AbsoluteUri);
-            }catch(Exception ex) {
-                System.Windows.MessageBox.Show("The file cannot be found.");
+            }catch{
+                System.Windows.MessageBox.Show("The file may be removed or moved to another path.");
             }
         }
 
+        // System tray minimization
         protected override void OnStateChanged(EventArgs e)
         {
             if (WindowState == WindowState.Minimized)
                 this.Hide();
             base.OnStateChanged(e);
-        }
-       
+        }  
     }
 
+    // class for different data bindings
     public class todayEvent
     {
         public string Time { get; set; }
@@ -284,7 +287,6 @@ namespace KIKI
         public string Attendee { get; set; }
         public string Meetings { get; set; }
         public string Files { get; set; }
-
     }
     
     public class searchFile
